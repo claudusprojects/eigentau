@@ -16,7 +16,7 @@
 <div class="h-screen flex flex-col">
   <!-- NAV -->
   <header class="shrink-0 border-b border-line">
-    <div class="max-w-[1100px] mx-auto px-10 flex items-center justify-between h-16">
+    <div class="mx-auto px-10 flex items-center justify-between h-16">
       <div class="flex items-center gap-10">
         <a href="https://eigentau.ai" class="flex items-center gap-3 group">
           <svg viewBox="0 0 88 88" width="26" height="26" fill="none">
@@ -54,7 +54,7 @@
   </header>
 
   <main class="flex-1 overflow-y-auto">
-    <div class="max-w-[1100px] mx-auto px-10 py-14">
+    <div class="mx-auto px-12 py-14" style="max-width:min(100%, 1400px)">
       {@render children()}
     </div>
   </main>

@@ -30,10 +30,10 @@
   </div>
 
   <!-- Radar + Stats side by side -->
-  <div class="grid grid-cols-2 gap-20 items-center mb-24 up up1">
+  <div class="grid grid-cols-[1fr_1fr] gap-16 items-center mb-24 up up1">
     <!-- Radar -->
     <div class="flex justify-center">
-      <svg viewBox="0 0 360 360" class="w-full max-w-[360px]">
+      <svg viewBox="0 0 360 360" class="w-full max-w-[480px]">
         {#each [.25,.5,.75,1] as r}
           <polygon points={Array.from({length:10},(_,i)=>pt(i,R*r).join(',')).join(' ')}
             fill="none" stroke="var(--color-line)" stroke-width="{r===1?1:.5}" opacity="{r===1?.5:.2}"/>
