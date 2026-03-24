@@ -6,392 +6,417 @@
 <title>Eigentau — The Fundamental Direction of Intelligence</title>
 <meta name="description" content="Decentralized AGI orchestration on Bittensor. Route complex tasks across 129+ specialized subnets.">
 <meta property="og:title" content="Eigentau — Decentralized AGI Orchestration">
-<meta property="og:description" content="The fundamental direction of intelligence. Route, synthesize, and learn across Bittensor's subnet ecosystem.">
+<meta property="og:description" content="The fundamental direction of intelligence.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eigentau.ai">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#050508;--bg2:#0B0B10;--bg3:#101018;--bg4:#16161F;
-  --border:#1E1E2A;--border2:#2A2A3A;
-  --text:#EEEEF0;--text2:#9999AA;--text3:#666678;
-  --accent:#00DBBC;--accent2:rgba(0,219,188,.12);--accent3:rgba(0,219,188,.06);
-  --sans:'Outfit',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
-  --max:1180px;--r:14px;
+--bg:#050508;--bg2:#0A0A10;--bg3:#0F0F18;--bg4:#14141E;
+--bdr:#1A1A28;--bdr2:#252538;
+--t1:#EEEEF0;--t2:#9999AA;--t3:#666678;
+--ac:#00DBBC;--ac2:rgba(0,219,188,.12);--ac3:rgba(0,219,188,.06);--acg:rgba(0,219,188,.25);
+--sans:'Outfit',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+--mw:1180px;--r:14px;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--text2);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--bg);color:var(--t2);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-.mw{max-width:var(--max);margin:0 auto;padding:0 28px}
 
-/* ── NAV ── */
-header{padding:20px 0;position:relative;z-index:10}
-.nav{display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--text);letter-spacing:-.02em}
-.logo svg{width:26px;height:26px}
-.nav-r{display:flex;align-items:center;gap:28px}
-.nav-r a{font-size:13px;font-weight:500;color:var(--text3);transition:color .2s}
-.nav-r a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:#000;padding:8px 20px;border-radius:8px;font-weight:600;font-size:12px;letter-spacing:.03em;transition:opacity .2s}
-.nav-cta:hover{opacity:.85}
+/* grain overlay */
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;opacity:.03;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.mw{max-width:var(--mw);margin:0 auto;padding:0 28px}
+
+/* ── GLASS NAV ── */
+.gnav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:all .4s}
+.gnav.scrolled{background:rgba(5,5,8,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(26,26,40,.6);padding:12px 0}
+.gnav-in{max-width:var(--mw);margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.glogo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--t1);letter-spacing:-.02em}
+.glogo svg{width:26px;height:26px}
+.gnav-r{display:flex;align-items:center;gap:28px}
+.gnav-r a{font-size:13px;font-weight:500;color:var(--t3);transition:color .2s}
+.gnav-r a:hover{color:var(--t1)}
+.gcta{background:var(--ac)!important;color:#000!important;padding:8px 20px;border-radius:8px;font-weight:600!important;font-size:12px!important;letter-spacing:.03em;transition:transform .15s,box-shadow .15s!important}
+.gcta:hover{transform:translateY(-1px);box-shadow:0 4px 20px var(--acg);opacity:1!important}
 
 /* ── HERO ── */
-.hero{text-align:center;padding:100px 0 80px;position:relative}
-.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,219,188,.06) 0%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;background:var(--accent2);padding:6px 16px;border-radius:20px;border:1px solid rgba(0,219,188,.15)}
-.hero-badge span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-.hero h1{font-size:clamp(42px,5.5vw,72px);font-weight:800;color:var(--text);line-height:1.08;letter-spacing:-.04em;margin-bottom:24px}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#00FFD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:17px;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.8}
-.hero-btns{display:flex;gap:12px;justify-content:center}
-.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;transition:transform .15s,box-shadow .15s}
-.btn-p:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,219,188,.2)}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-canvas{position:absolute;inset:0;z-index:0}
+/* gradient mesh behind canvas */
+.hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(0,219,188,.07) 0%,rgba(0,219,188,.02) 40%,transparent 70%);z-index:1;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,var(--bg),transparent);z-index:2;pointer-events:none}
+.hero-content{position:relative;z-index:3;max-width:700px;padding:0 28px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:.08em;text-transform:uppercase;margin-bottom:32px;background:rgba(0,219,188,.08);padding:6px 16px;border-radius:20px;border:1px solid rgba(0,219,188,.18);opacity:0;animation:fadeIn .8s .3s forwards}
+.hero-badge span{width:6px;height:6px;background:var(--ac);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(48px,6vw,82px);font-weight:900;color:var(--t1);line-height:1.04;letter-spacing:-.045em;margin-bottom:24px;opacity:0;animation:fadeIn .8s .5s forwards}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#00DBBC 0%,#00FFE0 50%,#00DBBC 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+@keyframes shimmer{to{background-position:200% center}}
+.hero-sub{font-size:17px;color:var(--t2);max-width:500px;margin:0 auto 40px;line-height:1.8;opacity:0;animation:fadeIn .8s .7s forwards}
+.hero-btns{display:flex;gap:12px;justify-content:center;opacity:0;animation:fadeIn .8s .9s forwards}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--ac);color:#000;padding:14px 32px;border-radius:10px;font-weight:700;font-size:14px;transition:transform .15s,box-shadow .15s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--acg)}
 .btn-p svg{width:14px;height:14px}
-.btn-s{display:inline-flex;align-items:center;gap:8px;color:var(--text);padding:12px 28px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--border2);transition:border-color .2s}
-.btn-s:hover{border-color:var(--text3)}
+.btn-s{display:inline-flex;align-items:center;color:var(--t1);padding:14px 32px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--bdr2);transition:border-color .2s,background .2s}
+.btn-s:hover{border-color:var(--t3);background:rgba(255,255,255,.03)}
 
 /* ── MARQUEE ── */
-.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;overflow:hidden;white-space:nowrap}
-.marquee{display:inline-flex;gap:48px;animation:scroll 30s linear infinite}
-.marquee span{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;opacity:.5}
-@keyframes scroll{to{transform:translateX(-50%)}}
+.mqw{border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:18px 0;overflow:hidden;position:relative}
+.mqw::before,.mqw::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.mqw::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.mqw::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.mq{display:inline-flex;gap:48px;animation:mqscroll 35s linear infinite;white-space:nowrap}
+.mq span{font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.04em;text-transform:uppercase;opacity:.45}
+@keyframes mqscroll{to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+.sec{padding:120px 0;position:relative}
+.sec-spot{position:absolute;width:600px;height:400px;border-radius:50%;pointer-events:none;opacity:.04;filter:blur(80px)}
+.sec-label{font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.sec-h{font-size:clamp(30px,3.5vw,44px);font-weight:800;color:var(--t1);letter-spacing:-.035em;line-height:1.12;margin-bottom:14px}
+.sec-p{font-size:16px;color:var(--t2);max-width:480px;margin-bottom:52px;line-height:1.8}
 
 /* ── BENTO ── */
-.bento-section{padding:100px 0}
-.sec-label{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
-.sec-h{font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--text);letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}
-.sec-p{font-size:16px;color:var(--text2);max-width:480px;margin-bottom:48px;line-height:1.8}
-.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:2px}
-.bento-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:32px;transition:border-color .25s}
-.bento-card:hover{border-color:var(--border2)}
-.bento-card.wide{grid-column:span 2}
-.bento-card.tall{grid-row:span 2}
-.bc-icon{width:40px;height:40px;border-radius:10px;background:var(--accent2);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.bc-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.5}
-.bc-h{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
-.bc-p{font-size:13px;color:var(--text2);line-height:1.7}
-.bc-num{font-family:var(--mono);font-size:36px;font-weight:600;color:var(--accent);margin-bottom:4px}
-.bc-num-label{font-size:12px;color:var(--text3);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:auto;gap:2px}
+.bc{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:32px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.bc:hover{border-color:rgba(0,219,188,.25);box-shadow:0 0 40px rgba(0,219,188,.06),inset 0 0 40px rgba(0,219,188,.02)}
+.bc.w{grid-column:span 2}
+.bc-i{width:42px;height:42px;border-radius:10px;background:var(--ac2);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.bc-i svg{width:20px;height:20px;stroke:var(--ac);fill:none;stroke-width:1.5}
+.bc-t{font-size:16px;font-weight:700;color:var(--t1);margin-bottom:8px;letter-spacing:-.01em}
+.bc-d{font-size:13px;color:var(--t2);line-height:1.75}
+.bc-n{font-family:var(--mono);font-size:42px;font-weight:700;color:var(--ac);margin-bottom:4px;letter-spacing:-.03em}
+.bc-nl{font-size:11px;color:var(--t3);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
 
-/* ── ARCHITECTURE ── */
-.arch{padding:100px 0;border-top:1px solid var(--border)}
-.arch-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:48px 32px;margin-bottom:20px;overflow-x:auto}
-.arch-diagram svg{width:100%;height:auto;display:block;min-width:700px}
-.arch-caption{font-family:var(--mono);font-size:12px;color:var(--text3);text-align:center;line-height:1.6}
+/* ── ARCH ── */
+.arch-sec{border-top:1px solid var(--bdr)}
+.arch-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:48px 32px;margin-bottom:16px;overflow-x:auto;position:relative}
+.arch-box::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:200px;background:radial-gradient(ellipse,rgba(0,219,188,.04),transparent);pointer-events:none}
+.arch-box svg{width:100%;height:auto;display:block;min-width:700px;position:relative;z-index:1}
+.arch-cap{font-family:var(--mono);font-size:12px;color:var(--t3);text-align:center;line-height:1.6}
 
 /* ── TABLE ── */
-.table-section{padding:100px 0;border-top:1px solid var(--border)}
-.cog-table{width:100%;border-collapse:collapse;margin-bottom:16px}
-.cog-table th{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:500}
-.cog-table td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px}
-.cog-table tr:hover td{background:var(--bg3)}
-.cog-name{color:var(--text);font-weight:600}
-.cog-subs{font-family:var(--mono);font-size:11px;color:var(--text3)}
-.cog-bar{width:80px;height:4px;background:var(--border);border-radius:2px;display:inline-block;vertical-align:middle;overflow:hidden}
-.cog-bar-fill{height:100%;background:var(--accent);border-radius:2px}
-.cog-score{font-family:var(--mono);font-size:12px;color:var(--text2);width:50px;text-align:right}
-.cog-count{font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right}
+.tsec{border-top:1px solid var(--bdr)}
+.ctbl{width:100%;border-collapse:collapse;margin-bottom:16px}
+.ctbl th{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:12px 16px;border-bottom:1px solid var(--bdr);font-weight:500}
+.ctbl td{padding:16px;border-bottom:1px solid rgba(26,26,40,.5);font-size:13px;transition:background .2s}
+.ctbl tr:hover td{background:rgba(15,15,24,.8)}
+.cn{color:var(--t1);font-weight:600}
+.cs{font-family:var(--mono);font-size:11px;color:var(--t3)}
+.cb{width:90px;height:4px;background:var(--bdr);border-radius:2px;display:inline-block;vertical-align:middle;overflow:hidden}
+.cbf{height:100%;background:var(--ac);border-radius:2px;transition:width 1s ease-out}
+.cv{font-family:var(--mono);font-size:12px;color:var(--t2);text-align:right}
+.cc{font-family:var(--mono);font-size:11px;color:var(--t3);text-align:right}
 
-/* ── LEARNING ── */
-.learn{padding:100px 0;border-top:1px solid var(--border)}
-.learn-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:start;max-width:800px;margin:0 auto}
-.learn-col{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px}
-.learn-col-h{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
-.learn-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
-.learn-row:last-child{border-bottom:none}
-.learn-sig{font-size:12px;color:var(--text2)}
-.learn-val{font-family:var(--mono);font-size:12px;color:var(--text)}
-.learn-arrow{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:30px}
-.learn-arrow svg{width:32px;height:32px;stroke:var(--accent);stroke-width:1.5;fill:none}
-.learn-arrow span{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.1em}
+/* ── LEARN ── */
+.lsec{border-top:1px solid var(--bdr)}
+.lcomp{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:start;max-width:820px;margin:0 auto}
+.lcol{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r);padding:28px;transition:border-color .3s,box-shadow .3s}
+.lcol:hover{border-color:rgba(0,219,188,.2);box-shadow:0 0 30px rgba(0,219,188,.04)}
+.lcol-h{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+.lr{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(26,26,40,.5)}
+.lr:last-child{border-bottom:none}
+.lrs{font-size:13px;color:var(--t2)}
+.lrv{font-family:var(--mono);font-size:13px;color:var(--t1);font-weight:500}
+.lrv.up{color:var(--ac)}
+.lrv.dn{color:var(--t3)}
+.larr{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:40px}
+.larr svg{width:36px;height:36px;stroke:var(--ac);stroke-width:1.5;fill:none;filter:drop-shadow(0 0 8px rgba(0,219,188,.3))}
+.larr span{font-family:var(--mono);font-size:10px;color:var(--ac);letter-spacing:.1em}
 
 /* ── TOKEN ── */
-.token{padding:48px 0;border-top:1px solid var(--border);background:var(--bg2)}
-.token-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
-.token-left{display:flex;align-items:center;gap:20px}
-.token-sym{font-size:32px;font-weight:800;color:var(--text);letter-spacing:-.02em}
-.token-desc{font-size:13px;color:var(--text2);max-width:320px}
-.token-pills{display:flex;gap:8px}
-.token-pill{font-family:var(--mono);font-size:11px;color:var(--text3);padding:6px 14px;border:1px solid var(--border);border-radius:20px}
-.token-soon{font-family:var(--mono);font-size:11px;color:var(--accent);display:flex;align-items:center;gap:6px}
-.token-soon span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+.tok{padding:48px 0;border-top:1px solid var(--bdr);background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.tok-in{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.tok-l{display:flex;align-items:center;gap:20px}
+.tok-s{font-size:36px;font-weight:900;color:var(--t1);letter-spacing:-.03em}
+.tok-d{font-size:13px;color:var(--t2);max-width:300px;line-height:1.7}
+.tok-ps{display:flex;gap:8px}
+.tok-p{font-family:var(--mono);font-size:11px;color:var(--t3);padding:6px 16px;border:1px solid var(--bdr);border-radius:20px;transition:border-color .2s}
+.tok-p:hover{border-color:var(--bdr2)}
+.tok-soon{font-family:var(--mono);font-size:11px;color:var(--ac);display:flex;align-items:center;gap:6px}
+.tok-soon span{width:6px;height:6px;background:var(--ac);border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 8px var(--acg)}
 
 /* ── FOOTER ── */
-footer{padding:28px 0;border-top:1px solid var(--border)}
-.foot{display:flex;align-items:center;justify-content:space-between}
-.foot-l{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text3)}
-.foot-l svg{width:18px;height:18px}
-.foot-r{display:flex;gap:24px}
-.foot-r a{font-size:12px;color:var(--text3);transition:color .2s}
-.foot-r a:hover{color:var(--text)}
+footer{padding:28px 0;border-top:1px solid var(--bdr)}
+.ft{display:flex;align-items:center;justify-content:space-between}
+.ft-l{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--t3)}
+.ft-l svg{width:18px;height:18px}
+.ft-r{display:flex;gap:24px}
+.ft-r a{font-size:12px;color:var(--t3);transition:color .2s}
+.ft-r a:hover{color:var(--t1)}
 
-/* ── ANIMATIONS ── */
+/* ── ANIM ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes flowDash{to{stroke-dashoffset:-20}}
-.flow-line{stroke-dasharray:8 12;animation:flowDash 1.5s linear infinite}
-.reveal{opacity:0;transition:opacity .6s ease}
-.reveal.vis{opacity:1}
+.fl{stroke-dasharray:8 12;animation:flowDash 1.5s linear infinite}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.rv.vi{opacity:1;transform:none}
 
 /* ── RESPONSIVE ── */
-@media(max-width:900px){.bento{grid-template-columns:1fr 1fr}.bento-card.wide{grid-column:span 1}}
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr}.bc.w{grid-column:span 1}}
 @media(max-width:640px){
-  .bento{grid-template-columns:1fr}.bento-card.wide,.bento-card.tall{grid-column:span 1;grid-row:span 1}
-  .nav-r a:not(.nav-cta){display:none}.hero{padding:60px 0 50px}
-  .learn-compare{grid-template-columns:1fr;gap:16px}.learn-arrow{flex-direction:row;padding:0}
-  .learn-arrow svg{transform:rotate(90deg)}
-  .token-inner{flex-direction:column;align-items:flex-start}
-  .cog-table{display:block;overflow-x:auto}
+.bento{grid-template-columns:1fr}.bc.w{grid-column:span 1}
+.gnav-r a:not(.gcta){display:none}.hero h1{font-size:40px}
+.lcomp{grid-template-columns:1fr;gap:16px}.larr{flex-direction:row;padding:0}.larr svg{transform:rotate(90deg)}
+.tok-in{flex-direction:column;align-items:flex-start}
+.ctbl{display:block;overflow-x:auto}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header>
-  <div class="mw">
-    <div class="nav">
-      <a href="/" class="logo">
-        <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
-        Eigentau
-      </a>
-      <div class="nav-r">
-        <a href="#system">System</a>
-        <a href="#faculties">Faculties</a>
-        <a href="docs.html">Docs</a>
-        <a href="https://x.com/eigentau" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://app.eigentau.ai" class="nav-cta">Launch App</a>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- GLASS NAV -->
+<nav class="gnav" id="gnav">
+<div class="gnav-in">
+<a href="/" class="glogo">
+<svg viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
+Eigentau
+</a>
+<div class="gnav-r">
+<a href="#system">System</a>
+<a href="#faculties">Faculties</a>
+<a href="docs.html">Docs</a>
+<a href="https://x.com/eigentau" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+<a href="https://app.eigentau.ai" class="gcta">Launch App</a>
+</div>
+</div>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="mw">
-    <div class="hero-badge"><span></span> Decentralized AGI Orchestration</div>
-    <h1>The fundamental direction<br>of <em>intelligence</em></h1>
-    <p>Eigentau orchestrates Bittensor's 129+ specialized subnets into unified general intelligence. Every query routed. Every result learned.</p>
-    <div class="hero-btns">
-      <a href="https://app.eigentau.ai" class="btn-p">Launch App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="docs.html" class="btn-s">Documentation</a>
-    </div>
-  </div>
+<canvas class="hero-canvas" id="hc"></canvas>
+<div class="hero-content">
+<div class="hero-badge"><span></span> Decentralized AGI Orchestration</div>
+<h1>The fundamental direction of <em>intelligence</em></h1>
+<p class="hero-sub">Eigentau orchestrates Bittensor's 129+ specialized subnets into unified general intelligence. Every query routed. Every result learned.</p>
+<div class="hero-btns">
+<a href="https://app.eigentau.ai" class="btn-p">Launch App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+<a href="docs.html" class="btn-s">Documentation</a>
+</div>
+</div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee">
-    <span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
-    <span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
-  </div>
+<div class="mqw">
+<div class="mq">
+<span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
+<span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
+</div>
 </div>
 
-<!-- BENTO FEATURES -->
-<section class="bento-section" id="system">
-  <div class="mw">
-    <div class="sec-label reveal">The System</div>
-    <div class="sec-h reveal">AGI through orchestration,<br>not monolithic models</div>
-    <p class="sec-p reveal">Each query is decomposed, routed to optimal subnets, synthesized, and scored. The routing engine learns from every interaction.</p>
-    <div class="bento">
-      <div class="bento-card wide reveal">
-        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L14 3.27a2 2 0 0 0-2 0L6 6.27A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3a2 2 0 0 0 2 0l6-3A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div>
-        <div class="bc-h">Task Decomposition</div>
-        <div class="bc-p">Complex queries broken into atomic sub-tasks by AI. Each sub-task is mapped to a cognitive faculty and matched to the best-performing subnet combination.</div>
-      </div>
-      <div class="bento-card reveal">
-        <div class="bc-num" data-target="129">0</div>
-        <div class="bc-num-label">Subnets Mapped</div>
-      </div>
-      <div class="bento-card reveal">
-        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg></div>
-        <div class="bc-h">Intelligent Routing</div>
-        <div class="bc-p">Learned weights determine which subnets handle each sub-task. Routes adapt based on performance data.</div>
-      </div>
-      <div class="bento-card reveal">
-        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><circle cx="12" cy="12" r="4"/></svg></div>
-        <div class="bc-h">Multi-Subnet Synthesis</div>
-        <div class="bc-p">Results from parallel subnet queries are merged, conflicts resolved, and a coherent unified answer assembled.</div>
-      </div>
-      <div class="bento-card wide reveal">
-        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="bc-h">Self-Learning Routing Engine</div>
-        <div class="bc-p">Every routed query is scored. Signal-to-performance correlations computed. Weights adjusted via EMA blending (80% current, 20% new signal). The system improves with every query — no human tuning required.</div>
-      </div>
-      <div class="bento-card reveal">
-        <div class="bc-num" data-target="10">0</div>
-        <div class="bc-num-label">Cognitive Faculties</div>
-      </div>
-    </div>
-  </div>
+<!-- BENTO -->
+<section class="sec" id="system">
+<div class="sec-spot" style="background:radial-gradient(circle,rgba(0,219,188,.08),transparent);top:10%;right:-200px"></div>
+<div class="mw">
+<div class="sec-label rv">The System</div>
+<div class="sec-h rv">AGI through orchestration,<br>not monolithic models</div>
+<p class="sec-p rv">Each query is decomposed, routed to optimal subnets, synthesized, and scored. The routing engine learns from every interaction.</p>
+<div class="bento">
+<div class="bc w rv"><div class="bc-i"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L14 3.27a2 2 0 0 0-2 0L6 6.27A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3a2 2 0 0 0 2 0l6-3A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div><div class="bc-t">Task Decomposition</div><div class="bc-d">Complex queries broken into atomic sub-tasks by AI. Each sub-task is mapped to a cognitive faculty and matched to the best-performing subnet combination.</div></div>
+<div class="bc rv"><div class="bc-n" data-target="129">0</div><div class="bc-nl">Subnets Mapped</div></div>
+<div class="bc rv"><div class="bc-i"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg></div><div class="bc-t">Intelligent Routing</div><div class="bc-d">Learned weights determine which subnets handle each sub-task. Routes adapt based on performance data.</div></div>
+<div class="bc rv"><div class="bc-i"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><circle cx="12" cy="12" r="4"/></svg></div><div class="bc-t">Multi-Subnet Synthesis</div><div class="bc-d">Results from parallel subnet queries are merged, conflicts resolved, and a coherent unified answer assembled.</div></div>
+<div class="bc w rv"><div class="bc-i"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="bc-t">Self-Learning Routing Engine</div><div class="bc-d">Every routed query is scored. Signal-to-performance correlations computed. Weights adjusted via EMA blending (80% current, 20% new signal). The system improves with every query — no human tuning required.</div></div>
+<div class="bc rv"><div class="bc-n" data-target="10">0</div><div class="bc-nl">Cognitive Faculties</div></div>
+</div>
+</div>
 </section>
 
-<!-- ARCHITECTURE DIAGRAM -->
-<section class="arch" id="architecture">
-  <div class="mw">
-    <div class="sec-label reveal">Architecture</div>
-    <div class="sec-h reveal">Mixture of Subnets</div>
-    <p class="sec-p reveal">A learned gating network routes each task to the optimal combination of Bittensor's specialized subnets.</p>
-    <div class="arch-diagram reveal">
-      <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="30" y="110" width="100" height="50" rx="8" stroke="#2A2A3A" stroke-width="1"/>
-        <text x="80" y="132" fill="#9999AA" font-family="Outfit,sans-serif" font-size="10" font-weight="600" text-anchor="middle">USER QUERY</text>
-        <text x="80" y="148" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">complex task</text>
-        <line x1="130" y1="135" x2="210" y2="135" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <rect x="210" y="95" width="150" height="80" rx="10" stroke="#00DBBC" stroke-width="1.5" fill="rgba(0,219,188,.04)"/>
-        <text x="285" y="125" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">EIGENTAU ROUTER</text>
-        <text x="285" y="142" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Decompose + Route</text>
-        <text x="285" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Claude AI + Weights</text>
-        <line x1="360" y1="110" x2="470" y2="50" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="360" y1="125" x2="470" y2="100" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="360" y1="135" x2="470" y2="140" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="360" y1="145" x2="470" y2="180" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="360" y1="160" x2="470" y2="225" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <rect x="470" y="30" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="46" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN1 INFERENCE</text><text x="530" y="58" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Reasoning</text>
-        <rect x="470" y="78" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="94" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN13 SCRAPING</text><text x="530" y="106" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Perception</text>
-        <rect x="470" y="126" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="142" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN8 PREDICTION</text><text x="530" y="154" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Executive</text>
-        <rect x="470" y="174" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="190" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN19 REALTIME</text><text x="530" y="202" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Attention</text>
-        <rect x="470" y="222" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="238" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN33 ANNOTATE</text><text x="530" y="250" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Metacognition</text>
-        <line x1="590" y1="50" x2="690" y2="115" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="590" y1="100" x2="690" y2="125" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="590" y1="140" x2="690" y2="135" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="590" y1="180" x2="690" y2="145" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <line x1="590" y1="225" x2="690" y2="155" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
-        <rect x="690" y="100" width="120" height="70" rx="10" stroke="#00DBBC" stroke-width="1" fill="rgba(0,219,188,.03)"/>
-        <text x="750" y="128" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">SYNTHESIZE</text>
-        <text x="750" y="144" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Merge + Resolve</text>
-        <text x="750" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">+ Learn</text>
-        <line x1="810" y1="135" x2="870" y2="135" stroke="#00DBBC" stroke-width="1.5" class="flow-line"/>
-        <polygon points="870,130 880,135 870,140" fill="#00DBBC"/>
-      </svg>
-    </div>
-    <p class="arch-caption reveal">Fig. 1 — Eigentau routes each task to multiple subnets in parallel, then synthesizes results. Routing weights are adjusted via exponential moving average after each query.</p>
-  </div>
+<!-- ARCHITECTURE -->
+<section class="sec arch-sec" id="architecture">
+<div class="sec-spot" style="background:radial-gradient(circle,rgba(0,219,188,.06),transparent);top:40%;left:-250px"></div>
+<div class="mw">
+<div class="sec-label rv">Architecture</div>
+<div class="sec-h rv">Mixture of Subnets</div>
+<p class="sec-p rv">A learned gating network routes each task to the optimal combination of Bittensor's specialized subnets.</p>
+<div class="arch-box rv">
+<svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="30" y="110" width="100" height="50" rx="8" stroke="#252538" stroke-width="1"/><text x="80" y="132" fill="#9999AA" font-family="Outfit,sans-serif" font-size="10" font-weight="600" text-anchor="middle">USER QUERY</text><text x="80" y="148" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">complex task</text>
+<line x1="130" y1="135" x2="210" y2="135" stroke="#252538" stroke-width="1" class="fl"/>
+<rect x="210" y="95" width="150" height="80" rx="10" stroke="#00DBBC" stroke-width="1.5" fill="rgba(0,219,188,.04)"/><text x="285" y="125" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">EIGENTAU ROUTER</text><text x="285" y="142" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Decompose + Route</text><text x="285" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Claude AI + Weights</text>
+<line x1="360" y1="110" x2="470" y2="50" stroke="#252538" stroke-width="1" class="fl"/><line x1="360" y1="125" x2="470" y2="100" stroke="#252538" stroke-width="1" class="fl"/><line x1="360" y1="135" x2="470" y2="140" stroke="#252538" stroke-width="1" class="fl"/><line x1="360" y1="145" x2="470" y2="180" stroke="#252538" stroke-width="1" class="fl"/><line x1="360" y1="160" x2="470" y2="225" stroke="#252538" stroke-width="1" class="fl"/>
+<rect x="470" y="30" width="120" height="36" rx="6" stroke="#252538" stroke-width="1"/><text x="530" y="46" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN1 INFERENCE</text><text x="530" y="58" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Reasoning</text>
+<rect x="470" y="78" width="120" height="36" rx="6" stroke="#252538" stroke-width="1"/><text x="530" y="94" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN13 SCRAPING</text><text x="530" y="106" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Perception</text>
+<rect x="470" y="126" width="120" height="36" rx="6" stroke="#252538" stroke-width="1"/><text x="530" y="142" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN8 PREDICTION</text><text x="530" y="154" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Executive</text>
+<rect x="470" y="174" width="120" height="36" rx="6" stroke="#252538" stroke-width="1"/><text x="530" y="190" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN19 REALTIME</text><text x="530" y="202" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Attention</text>
+<rect x="470" y="222" width="120" height="36" rx="6" stroke="#252538" stroke-width="1"/><text x="530" y="238" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN33 ANNOTATE</text><text x="530" y="250" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Metacognition</text>
+<line x1="590" y1="50" x2="690" y2="115" stroke="#252538" stroke-width="1" class="fl"/><line x1="590" y1="100" x2="690" y2="125" stroke="#252538" stroke-width="1" class="fl"/><line x1="590" y1="140" x2="690" y2="135" stroke="#252538" stroke-width="1" class="fl"/><line x1="590" y1="180" x2="690" y2="145" stroke="#252538" stroke-width="1" class="fl"/><line x1="590" y1="225" x2="690" y2="155" stroke="#252538" stroke-width="1" class="fl"/>
+<rect x="690" y="100" width="120" height="70" rx="10" stroke="#00DBBC" stroke-width="1" fill="rgba(0,219,188,.03)"/><text x="750" y="128" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">SYNTHESIZE</text><text x="750" y="144" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Merge + Resolve</text><text x="750" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">+ Learn</text>
+<line x1="810" y1="135" x2="870" y2="135" stroke="#00DBBC" stroke-width="1.5" class="fl"/><polygon points="870,130 880,135 870,140" fill="#00DBBC"/>
+</svg>
+</div>
+<p class="arch-cap rv">Fig. 1 — Eigentau routes each task to multiple subnets in parallel, then synthesizes results. Routing weights are adjusted via exponential moving average after each query.</p>
+</div>
 </section>
 
-<!-- COGNITIVE TABLE -->
-<section class="table-section" id="faculties">
-  <div class="mw">
-    <div class="sec-label reveal">Cognitive Map</div>
-    <div class="sec-h reveal">10 faculties of intelligence</div>
-    <p class="sec-p reveal">Inspired by DeepMind's 2026 AGI framework. Each Bittensor subnet maps to one or more cognitive faculties.</p>
-    <table class="cog-table reveal">
-      <thead>
-        <tr><th>Faculty</th><th>Subnet Types</th><th>Coverage</th><th style="text-align:right">Score</th><th style="text-align:right">Subnets</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="cog-name">Perception</td><td class="cog-subs">Image, Vision, Scraping</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:78%"></span></span></td><td class="cog-score">78%</td><td class="cog-count">14</td></tr>
-        <tr><td class="cog-name">Generation</td><td class="cog-subs">Text, Image, Audio</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:92%"></span></span></td><td class="cog-score">92%</td><td class="cog-count">22</td></tr>
-        <tr><td class="cog-name">Attention</td><td class="cog-subs">Real-time, Low-latency</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:65%"></span></span></td><td class="cog-score">65%</td><td class="cog-count">8</td></tr>
-        <tr><td class="cog-name">Learning</td><td class="cog-subs">Training, Fine-tuning</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:58%"></span></span></td><td class="cog-score">58%</td><td class="cog-count">6</td></tr>
-        <tr><td class="cog-name">Memory</td><td class="cog-subs">Storage, Data Curation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:71%"></span></span></td><td class="cog-score">71%</td><td class="cog-count">11</td></tr>
-        <tr><td class="cog-name">Reasoning</td><td class="cog-subs">LLM Inference</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:88%"></span></span></td><td class="cog-score">88%</td><td class="cog-count">18</td></tr>
-        <tr><td class="cog-name">Metacognition</td><td class="cog-subs">Annotation, Evaluation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:45%"></span></span></td><td class="cog-score">45%</td><td class="cog-count">4</td></tr>
-        <tr><td class="cog-name">Executive Fn</td><td class="cog-subs">Compute, Orchestration</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:62%"></span></span></td><td class="cog-score">62%</td><td class="cog-count">9</td></tr>
-        <tr><td class="cog-name">Problem Solving</td><td class="cog-subs">Multi-step Agents</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:53%"></span></span></td><td class="cog-score">53%</td><td class="cog-count">5</td></tr>
-        <tr><td class="cog-name">Social Cognition</td><td class="cog-subs">Dialogue, Conversation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:40%"></span></span></td><td class="cog-score">40%</td><td class="cog-count">3</td></tr>
-      </tbody>
-    </table>
-    <p class="arch-caption reveal">Table 1 — Mapping Bittensor's 129 subnets to DeepMind's 10 cognitive faculties. Scores represent weighted subnet coverage per faculty.</p>
-  </div>
+<!-- TABLE -->
+<section class="sec tsec" id="faculties">
+<div class="mw">
+<div class="sec-label rv">Cognitive Map</div>
+<div class="sec-h rv">10 faculties of intelligence</div>
+<p class="sec-p rv">Inspired by DeepMind's 2026 AGI framework. Each Bittensor subnet maps to one or more cognitive faculties.</p>
+<table class="ctbl rv">
+<thead><tr><th>Faculty</th><th>Subnet Types</th><th>Coverage</th><th style="text-align:right">Score</th><th style="text-align:right">Subnets</th></tr></thead>
+<tbody>
+<tr><td class="cn">Perception</td><td class="cs">Image, Vision, Scraping</td><td><span class="cb"><span class="cbf" data-w="78"></span></span></td><td class="cv">78%</td><td class="cc">14</td></tr>
+<tr><td class="cn">Generation</td><td class="cs">Text, Image, Audio</td><td><span class="cb"><span class="cbf" data-w="92"></span></span></td><td class="cv">92%</td><td class="cc">22</td></tr>
+<tr><td class="cn">Attention</td><td class="cs">Real-time, Low-latency</td><td><span class="cb"><span class="cbf" data-w="65"></span></span></td><td class="cv">65%</td><td class="cc">8</td></tr>
+<tr><td class="cn">Learning</td><td class="cs">Training, Fine-tuning</td><td><span class="cb"><span class="cbf" data-w="58"></span></span></td><td class="cv">58%</td><td class="cc">6</td></tr>
+<tr><td class="cn">Memory</td><td class="cs">Storage, Data Curation</td><td><span class="cb"><span class="cbf" data-w="71"></span></span></td><td class="cv">71%</td><td class="cc">11</td></tr>
+<tr><td class="cn">Reasoning</td><td class="cs">LLM Inference</td><td><span class="cb"><span class="cbf" data-w="88"></span></span></td><td class="cv">88%</td><td class="cc">18</td></tr>
+<tr><td class="cn">Metacognition</td><td class="cs">Annotation, Evaluation</td><td><span class="cb"><span class="cbf" data-w="45"></span></span></td><td class="cv">45%</td><td class="cc">4</td></tr>
+<tr><td class="cn">Executive Fn</td><td class="cs">Compute, Orchestration</td><td><span class="cb"><span class="cbf" data-w="62"></span></span></td><td class="cv">62%</td><td class="cc">9</td></tr>
+<tr><td class="cn">Problem Solving</td><td class="cs">Multi-step Agents</td><td><span class="cb"><span class="cbf" data-w="53"></span></span></td><td class="cv">53%</td><td class="cc">5</td></tr>
+<tr><td class="cn">Social Cognition</td><td class="cs">Dialogue, Conversation</td><td><span class="cb"><span class="cbf" data-w="40"></span></span></td><td class="cv">40%</td><td class="cc">3</td></tr>
+</tbody>
+</table>
+<p class="arch-cap rv">Table 1 — Mapping Bittensor's 129 subnets to DeepMind's 10 cognitive faculties.</p>
+</div>
 </section>
 
-<!-- LEARNING -->
-<section class="learn" id="learning">
-  <div class="mw">
-    <div class="sec-label reveal">Learning Engine</div>
-    <div class="sec-h reveal" style="text-align:center;max-width:none">Self-evolving routing weights</div>
-    <p class="sec-p reveal" style="text-align:center;margin:0 auto 48px;max-width:540px">Every query teaches the router. Weights shift toward what works.</p>
-    <div class="learn-compare reveal">
-      <div class="learn-col">
-        <div class="learn-col-h">Initial Weights</div>
-        <div class="learn-row"><span class="learn-sig">Inference</span><span class="learn-val">0.180</span></div>
-        <div class="learn-row"><span class="learn-sig">Prediction</span><span class="learn-val">0.140</span></div>
-        <div class="learn-row"><span class="learn-sig">Scraping</span><span class="learn-val">0.100</span></div>
-        <div class="learn-row"><span class="learn-sig">Storage</span><span class="learn-val">0.100</span></div>
-        <div class="learn-row"><span class="learn-sig">Annotation</span><span class="learn-val">0.080</span></div>
-        <div class="learn-row"><span class="learn-sig">Training</span><span class="learn-val">0.050</span></div>
-      </div>
-      <div class="learn-arrow">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <span>847 CYCLES</span>
-      </div>
-      <div class="learn-col">
-        <div class="learn-col-h">Learned Weights</div>
-        <div class="learn-row"><span class="learn-sig">Inference</span><span class="learn-val" style="color:var(--accent)">0.359</span></div>
-        <div class="learn-row"><span class="learn-sig">Prediction</span><span class="learn-val" style="color:var(--accent)">0.233</span></div>
-        <div class="learn-row"><span class="learn-sig">Scraping</span><span class="learn-val">0.209</span></div>
-        <div class="learn-row"><span class="learn-sig">Storage</span><span class="learn-val">0.144</span></div>
-        <div class="learn-row"><span class="learn-sig">Annotation</span><span class="learn-val" style="color:var(--text3)">0.049</span></div>
-        <div class="learn-row"><span class="learn-sig">Training</span><span class="learn-val" style="color:var(--text3)">0.006</span></div>
-      </div>
-    </div>
-  </div>
+<!-- LEARN -->
+<section class="sec lsec" id="learning">
+<div class="sec-spot" style="background:radial-gradient(circle,rgba(0,219,188,.06),transparent);bottom:10%;right:-200px"></div>
+<div class="mw">
+<div class="sec-label rv">Learning Engine</div>
+<div class="sec-h rv" style="text-align:center;max-width:none">Self-evolving routing weights</div>
+<p class="sec-p rv" style="text-align:center;margin:0 auto 52px;max-width:540px">Every query teaches the router. Weights shift toward what works.</p>
+<div class="lcomp rv">
+<div class="lcol"><div class="lcol-h">Initial Weights</div>
+<div class="lr"><span class="lrs">Inference</span><span class="lrv">0.180</span></div>
+<div class="lr"><span class="lrs">Prediction</span><span class="lrv">0.140</span></div>
+<div class="lr"><span class="lrs">Scraping</span><span class="lrv">0.100</span></div>
+<div class="lr"><span class="lrs">Storage</span><span class="lrv">0.100</span></div>
+<div class="lr"><span class="lrs">Annotation</span><span class="lrv">0.080</span></div>
+<div class="lr"><span class="lrs">Training</span><span class="lrv">0.050</span></div>
+</div>
+<div class="larr"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>847 CYCLES</span></div>
+<div class="lcol"><div class="lcol-h">Learned Weights</div>
+<div class="lr"><span class="lrs">Inference</span><span class="lrv up">0.359</span></div>
+<div class="lr"><span class="lrs">Prediction</span><span class="lrv up">0.233</span></div>
+<div class="lr"><span class="lrs">Scraping</span><span class="lrv">0.209</span></div>
+<div class="lr"><span class="lrs">Storage</span><span class="lrv">0.144</span></div>
+<div class="lr"><span class="lrs">Annotation</span><span class="lrv dn">0.049</span></div>
+<div class="lr"><span class="lrs">Training</span><span class="lrv dn">0.006</span></div>
+</div>
+</div>
+</div>
 </section>
 
 <!-- TOKEN -->
-<section class="token">
-  <div class="mw">
-    <div class="token-inner">
-      <div class="token-left">
-        <div class="token-sym">$TAU</div>
-        <div class="token-desc">Powers Eigentau's routing economy on Base. Query fees fund subnet interactions via TAO.</div>
-      </div>
-      <div class="token-pills">
-        <span class="token-pill">Route</span>
-        <span class="token-pill">Stake</span>
-        <span class="token-pill">Learn</span>
-      </div>
-      <div class="token-soon"><span></span> Coming Soon</div>
-    </div>
-  </div>
+<section class="tok">
+<div class="mw">
+<div class="tok-in">
+<div class="tok-l"><div class="tok-s">$TAU</div><div class="tok-d">Powers Eigentau's routing economy on Base. Query fees fund subnet interactions via TAO.</div></div>
+<div class="tok-ps"><span class="tok-p">Route</span><span class="tok-p">Stake</span><span class="tok-p">Learn</span></div>
+<div class="tok-soon"><span></span> Coming Soon</div>
+</div>
+</div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="mw">
-    <div class="foot">
-      <div class="foot-l">
-        <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#666678" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
-        Eigentau
-      </div>
-      <div class="foot-r">
-        <a href="/">Home</a>
-        <a href="docs.html">Docs</a>
-        <a href="https://app.eigentau.ai">App</a>
-        <a href="https://x.com/eigentau" target="_blank">X</a>
-        <span style="color:var(--text3);font-size:11px;font-family:var(--mono)">Built on Bittensor</span>
-      </div>
-    </div>
-  </div>
-</footer>
+<footer><div class="mw"><div class="ft">
+<div class="ft-l"><svg viewBox="0 0 28 28" fill="none" width="18" height="18"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#666678" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>Eigentau</div>
+<div class="ft-r"><a href="/">Home</a><a href="docs.html">Docs</a><a href="https://app.eigentau.ai">App</a><a href="https://x.com/eigentau" target="_blank">X</a><span style="color:var(--t3);font-size:11px;font-family:var(--mono)">Built on Bittensor</span></div>
+</div></div></footer>
 
 <script>
-// Scroll reveal
-const ro = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); }
-}), { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-// Counter
-function animateNum(el) {
-  const t = +el.dataset.target, d = 1200, s = performance.now();
-  (function tick(n) {
-    const p = Math.min((n - s) / d, 1), v = Math.round(t * (1 - Math.pow(1 - p, 3)));
-    el.textContent = v.toLocaleString();
-    if (p < 1) requestAnimationFrame(tick);
-  })(s);
+// ── HERO CANVAS ──
+(function(){
+const c=document.getElementById('hc'),x=c.getContext('2d');
+let w,h,nodes=[],edges=[],particles=[];
+const AC='#00DBBC';
+function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight}
+function init(){
+resize();nodes=[];edges=[];particles=[];
+const cx=w*.5,cy=h*.45,count=Math.min(Math.floor(w*h/16000),45);
+nodes.push({x:cx,y:cy,r:7,c:true,vx:0,vy:0});
+for(let i=0;i<count;i++){
+const a=(i/count)*Math.PI*2+Math.random()*.6;
+const d=90+Math.random()*Math.min(w*.32,320);
+nodes.push({x:cx+Math.cos(a)*d+(Math.random()-.5)*80,y:cy+Math.sin(a)*d+(Math.random()-.5)*80,r:1.5+Math.random()*2,c:false,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12});
 }
-const co = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { animateNum(e.target); co.unobserve(e.target); }
-}), { threshold: 0.5 });
-document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
+for(let i=1;i<nodes.length;i++){
+let dx=nodes[i].x-nodes[0].x,dy=nodes[i].y-nodes[0].y;
+if(Math.sqrt(dx*dx+dy*dy)<320)edges.push({a:0,b:i});
+for(let j=i+1;j<nodes.length;j++){
+let ddx=nodes[i].x-nodes[j].x,ddy=nodes[i].y-nodes[j].y;
+if(Math.sqrt(ddx*ddx+ddy*ddy)<110)edges.push({a:i,b:j});
+}}
+for(let i=0;i<Math.min(edges.length,20);i++){
+const e=edges[Math.floor(Math.random()*edges.length)];
+particles.push({e,t:Math.random(),s:.002+Math.random()*.004,d:Math.random()>.5?1:-1});
+}}
+function draw(){
+x.clearRect(0,0,w,h);
+// edges
+for(const e of edges){
+const a=nodes[e.a],b=nodes[e.b],ic=a.c||b.c;
+x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);
+x.strokeStyle=ic?'rgba(0,219,188,.1)':'rgba(255,255,255,.025)';
+x.lineWidth=ic?1:.5;x.stroke();
+}
+// particles
+for(const p of particles){
+const a=nodes[p.e.a],b=nodes[p.e.b];
+const px=a.x+(b.x-a.x)*p.t,py=a.y+(b.y-a.y)*p.t;
+x.beginPath();x.arc(px,py,1.8,0,Math.PI*2);
+const g=x.createRadialGradient(px,py,0,px,py,4);
+g.addColorStop(0,AC);g.addColorStop(1,'rgba(0,219,188,0)');
+x.fillStyle=g;x.fill();
+p.t+=p.s*p.d;if(p.t>1||p.t<0)p.d*=-1;
+}
+// nodes
+for(const n of nodes){
+if(n.c){
+const g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,50);
+g.addColorStop(0,'rgba(0,219,188,.12)');g.addColorStop(1,'rgba(0,219,188,0)');
+x.beginPath();x.arc(n.x,n.y,50,0,Math.PI*2);x.fillStyle=g;x.fill();
+// eigenvector arrows
+for(let a=0;a<6;a++){
+const ang=a/6*Math.PI*2+Date.now()*.0002;
+const len=30+Math.sin(Date.now()*.001+a)*8;
+x.beginPath();x.moveTo(n.x,n.y);
+x.lineTo(n.x+Math.cos(ang)*len,n.y+Math.sin(ang)*len);
+x.strokeStyle='rgba(0,219,188,.15)';x.lineWidth=1;x.stroke();
+}
+x.beginPath();x.arc(n.x,n.y,n.r,0,Math.PI*2);x.fillStyle=AC;x.fill();
+x.beginPath();x.arc(n.x,n.y,n.r+3,0,Math.PI*2);x.strokeStyle='rgba(0,219,188,.3)';x.lineWidth=1;x.stroke();
+}else{
+x.beginPath();x.arc(n.x,n.y,n.r,0,Math.PI*2);x.fillStyle='rgba(238,238,240,.12)';x.fill();
+}
+n.x+=n.vx;n.y+=n.vy;
+if(n.x<0||n.x>w)n.vx*=-1;if(n.y<0||n.y>h)n.vy*=-1;
+}
+requestAnimationFrame(draw);
+}
+init();draw();
+window.addEventListener('resize',()=>{resize();init()});
+})();
+
+// ── GLASS NAV on scroll ──
+const gn=document.getElementById('gnav');
+window.addEventListener('scroll',()=>{gn.classList.toggle('scrolled',window.scrollY>60)});
+
+// ── SCROLL REVEAL ──
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vi');ro.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+// ── COUNTERS ──
+function anim(el){const t=+el.dataset.target,d=1400,s=performance.now();(function f(n){const p=Math.min((n-s)/d,1),v=Math.round(t*(1-Math.pow(1-p,3)));el.textContent=v.toLocaleString();if(p<1)requestAnimationFrame(f)})(s)}
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){anim(e.target);co.unobserve(e.target)}}),{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+
+// ── TABLE BARS ──
+const bo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';bo.unobserve(e.target)}}),{threshold:.3});
+document.querySelectorAll('[data-w]').forEach(el=>{el.style.width='0%';bo.observe(el)});
 </script>
 </body>
 </html>
