@@ -587,11 +587,10 @@ window.addEventListener('mouseleave',()=>{mx=-1;my=-1});
 })();
 
 // ── SECTION GEOMETRIC ANIMATIONS ──
-(function(){
 const PI=Math.PI,cos=Math.cos,sin=Math.sin;
-function proj(v,s,ox,oy){const p=3.5,z=v[2]+p,f=p/z*s;return[v[0]*f+ox,v[1]*f+oy,f]}
-function rY(v,a){const c=cos(a),s=sin(a);return[v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c]}
-function rX(v,a){const c=cos(a),s=sin(a);return[v[0],v[1]*c-v[2]*s,v[1]*s+v[2]*c]}
+function proj2(v,s,ox,oy){const p=3.5,z=v[2]+p,f=p/z*s;return[v[0]*f+ox,v[1]*f+oy,f]}
+function rY2(v,a){const c=cos(a),s=sin(a);return[v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c]}
+function rX2(v,a){const c=cos(a),s=sin(a);return[v[0],v[1]*c-v[2]*s,v[1]*s+v[2]*c]}
 
 // ── WHAT: Slowly rotating octahedron with pulsing vertices
 (function(){
@@ -605,7 +604,7 @@ t+=.004;
 c.width=c.offsetWidth;c.height=c.offsetHeight;
 const w=c.width,h=c.height,sc=Math.min(w,h)*.12;
 const ox=w*.15,oy=h*.5;
-const pts=verts.map(v=>{let r=rY([...v],t*.6);r=rX(r,t*.4+.5);return proj(r,sc,ox,oy)});
+const pts=verts.map(v=>{let r=rY2([...v],t*.6);r=rX2(r,t*.4+.5);return proj2(r,sc,ox,oy)});
 x.lineWidth=.6;
 for(const[a,b]of edges){
 x.beginPath();x.moveTo(pts[a][0],pts[a][1]);x.lineTo(pts[b][0],pts[b][1]);
@@ -717,8 +716,8 @@ let px=(R+r*cos(v))*cos(u);
 let py=(R+r*cos(v))*sin(u);
 let pz=r*sin(v);
 // rotate
-let r1=rY([px,py,pz],t*.7);r1=rX(r1,t*.5+.8);
-const p=proj(r1,1,cx,cy);
+let r1=rY2([px,py,pz],t*.7);r1=rX2(r1,t*.5+.8);
+const p=proj2(r1,1,cx,cy);
 pts.push(p);
 }
 }
