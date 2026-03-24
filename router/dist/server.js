@@ -3,7 +3,7 @@ import cors from 'cors';
 import { decompose } from './decompose.js';
 import { executeAll } from './execute.js';
 import { synthesize } from './synthesize.js';
-import { saveRoute, getRecentRoutes, getRouteCount, getWeights, updateWeight, getInsights, getStats, createAgent, getAgent, listAgents, deleteAgent, getMessages, getAgentTasks, getAgentCount } from './db.js';
+import { saveRoute, getRecentRoutes, getRouteCount, getWeights, updateWeight, getInsights, getStats, createAgent, getAgent, listAgents, deleteAgent, getMessages, getAgentTasks, getAgentCount, createApiKey, validateApiKey, listApiKeys, addAgentFile, getAgentFiles, deleteAgentFile } from './db.js';
 import { chat } from './agent.js';
 import { randomUUID } from 'crypto';
 import { ROUTING_TABLE, FACULTIES } from './subnets.js';
@@ -261,6 +261,132 @@ app.get('/api/agents/:id/tasks', (req, res) => {
     }));
     res.json({ tasks });
 });
+// ══════════════════════════════════════
+// PUBLIC API (v1) — API key authenticated
+// ══════════════════════════════════════
+function authMiddleware(req, res, next) {
+    const key = req.headers.authorization?.replace('Bearer ', '') || req.query.api_key;
+    if (!key || !validateApiKey(key)) {
+        res.status(401).json({ error: 'Invalid or missing API key. Get one at app.eigentau.ai' });
+        return;
+    }
+    next();
+}
+// ── API KEY MANAGEMENT (no auth needed for creation) ──
+app.post('/v1/keys', (req, res) => {
+    const { name } = req.body;
+    if (!name)
+        return res.status(400).json({ error: 'Missing name' });
+    const key = createApiKey(name);
+    res.json({ key, name, message: 'Save this key — it cannot be retrieved later.' });
+});
+app.get('/v1/keys', (req, res) => {
+    res.json({ keys: listApiKeys() });
+});
+// ── All /v1/ endpoints below require auth ──
+const v1 = express.Router();
+v1.use(authMiddleware);
+// Create agent
+v1.post('/agents', (req, res) => {
+    const { name, description, systemPrompt, goal, autonomous } = req.body;
+    if (!name || !description || !systemPrompt) {
+        return res.status(400).json({ error: 'Missing name, description, or systemPrompt' });
+    }
+    const id = randomUUID().slice(0, 8);
+    createAgent({ id, name, description, systemPrompt, goal, autonomous: !!autonomous });
+    res.json({ id, name, status: 'active' });
+});
+// List agents
+v1.get('/agents', (_req, res) => {
+    const agents = listAgents().map((a) => ({
+        id: a.id, name: a.name, description: a.description,
+        totalTasks: a.total_tasks, avgQuality: Math.round(a.avg_quality),
+    }));
+    res.json({ agents });
+});
+// Chat with agent
+v1.post('/agents/:id/chat', async (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent)
+        return res.status(404).json({ error: 'Agent not found' });
+    const { message } = req.body;
+    if (!message)
+        return res.status(400).json({ error: 'Missing message' });
+    try {
+        const result = await chat(agent, message);
+        res.json(result);
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+// Get agent messages
+v1.get('/agents/:id/messages', (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent)
+        return res.status(404).json({ error: 'Agent not found' });
+    res.json({ messages: getMessages(req.params.id, 100) });
+});
+// Upload file to agent knowledge base
+v1.post('/agents/:id/files', (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent)
+        return res.status(404).json({ error: 'Agent not found' });
+    const { filename, content, mimeType } = req.body;
+    if (!filename || !content)
+        return res.status(400).json({ error: 'Missing filename or content' });
+    addAgentFile(req.params.id, filename, content, mimeType || 'text/plain');
+    res.json({ ok: true, filename });
+});
+// List agent files
+v1.get('/agents/:id/files', (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent)
+        return res.status(404).json({ error: 'Agent not found' });
+    res.json({ files: getAgentFiles(req.params.id) });
+});
+// Delete agent file
+v1.delete('/agents/:id/files/:fileId', (req, res) => {
+    deleteAgentFile(req.params.id, parseInt(req.params.fileId));
+    res.json({ deleted: true });
+});
+// Delete agent
+v1.delete('/agents/:id', (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent)
+        return res.status(404).json({ error: 'Agent not found' });
+    deleteAgent(req.params.id);
+    res.json({ deleted: true });
+});
+// Direct route (no agent, just cognitive routing)
+v1.post('/route', async (req, res) => {
+    const { query } = req.body;
+    if (!query)
+        return res.status(400).json({ error: 'Missing query' });
+    const start = Date.now();
+    try {
+        const decomposition = await decompose(query);
+        const results = await executeAll(decomposition.subtasks);
+        const synthesis = await synthesize(query, results);
+        const totalLatencyMs = Date.now() - start;
+        for (const f of synthesis.faculties_used)
+            updateWeight(f, synthesis.quality);
+        saveRoute({
+            query, decomposition,
+            results: results.map(r => ({ task: r.subtask.task, faculty: r.subtask.faculty, subnet: r.subnet, result: r.result, source: r.source, latencyMs: r.latencyMs })),
+            synthesis: synthesis.answer, quality: synthesis.quality, totalLatencyMs,
+            facultiesUsed: synthesis.faculties_used, subnetsUsed: synthesis.subnets_used,
+        });
+        res.json({
+            answer: synthesis.answer, quality: synthesis.quality, latencyMs: totalLatencyMs,
+            steps: results.map(r => ({ task: r.subtask.task, faculty: r.subtask.faculty, subnet: `SN${r.subnet.netuid} ${r.subnet.name}` })),
+        });
+    }
+    catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+app.use('/v1', v1);
 app.listen(PORT, () => {
     console.log(`Eigentau Router running on port ${PORT}`);
 });

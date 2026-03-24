@@ -171,4 +171,65 @@ export function getAgentTasks(agentId, limit = 20) {
 export function getAgentCount() {
     return db.prepare('SELECT COUNT(*) as n FROM agents').get().n;
 }
+// ── API KEYS ──
+db.exec(`
+  CREATE TABLE IF NOT EXISTS api_keys (
+    key TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    last_used TEXT,
+    total_requests INTEGER NOT NULL DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS agent_files (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    agent_id TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    content TEXT NOT NULL,
+    mime_type TEXT NOT NULL DEFAULT 'text/plain',
+    size_bytes INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (agent_id) REFERENCES agents(id)
+  );
+`);
+export function createApiKey(name) {
+    const key = 'eig_' + randomBytes(24).toString('hex');
+    db.prepare('INSERT INTO api_keys (key, name) VALUES (?, ?)').run(key, name);
+    return key;
+}
+export function validateApiKey(key) {
+    const row = db.prepare('SELECT key FROM api_keys WHERE key = ?').get(key);
+    if (row) {
+        db.prepare('UPDATE api_keys SET last_used = datetime(\'now\'), total_requests = total_requests + 1 WHERE key = ?').run(key);
+        return true;
+    }
+    return false;
+}
+export function listApiKeys() {
+    return db.prepare('SELECT key, name, created_at, last_used, total_requests FROM api_keys ORDER BY created_at DESC').all();
+}
+export function deleteApiKey(key) {
+    db.prepare('DELETE FROM api_keys WHERE key = ?').run(key);
+}
+// ── AGENT FILES (knowledge base) ──
+export function addAgentFile(agentId, filename, content, mimeType = 'text/plain') {
+    db.prepare('INSERT INTO agent_files (agent_id, filename, content, mime_type, size_bytes) VALUES (?, ?, ?, ?, ?)')
+        .run(agentId, filename, content, mimeType, Buffer.byteLength(content));
+}
+export function getAgentFiles(agentId) {
+    return db.prepare('SELECT id, filename, mime_type, size_bytes, created_at FROM agent_files WHERE agent_id = ? ORDER BY created_at DESC').all(agentId);
+}
+export function getAgentFileContent(agentId, fileId) {
+    return db.prepare('SELECT * FROM agent_files WHERE agent_id = ? AND id = ?').get(agentId, fileId);
+}
+export function deleteAgentFile(agentId, fileId) {
+    db.prepare('DELETE FROM agent_files WHERE agent_id = ? AND id = ?').run(agentId, fileId);
+}
+export function getAgentKnowledge(agentId) {
+    const files = db.prepare('SELECT filename, content FROM agent_files WHERE agent_id = ?').all(agentId);
+    if (files.length === 0)
+        return '';
+    return '\n\n--- KNOWLEDGE BASE ---\n' + files.map(f => `[${f.filename}]\n${f.content}`).join('\n\n');
+}
+import { randomBytes } from 'crypto';
 export default db;

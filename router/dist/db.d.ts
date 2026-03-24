@@ -39,4 +39,13 @@ export declare function addTask(agentId: string, query: string): number | bigint
 export declare function completeTask(taskId: number | bigint, result: string, quality: number, latencyMs: number): void;
 export declare function getAgentTasks(agentId: string, limit?: number): unknown[];
 export declare function getAgentCount(): number;
+export declare function createApiKey(name: string): string;
+export declare function validateApiKey(key: string): boolean;
+export declare function listApiKeys(): unknown[];
+export declare function deleteApiKey(key: string): void;
+export declare function addAgentFile(agentId: string, filename: string, content: string, mimeType?: string): void;
+export declare function getAgentFiles(agentId: string): unknown[];
+export declare function getAgentFileContent(agentId: string, fileId: number): any;
+export declare function deleteAgentFile(agentId: string, fileId: number): void;
+export declare function getAgentKnowledge(agentId: string): string;
 export default db;

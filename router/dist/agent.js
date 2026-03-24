@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { decompose } from './decompose.js';
 import { executeAll } from './execute.js';
 import { synthesize } from './synthesize.js';
-import { addMessage, getMessages, addTask, completeTask, updateAgentStats, updateWeight, saveRoute } from './db.js';
+import { addMessage, getMessages, addTask, completeTask, updateAgentStats, updateWeight, saveRoute, getAgentKnowledge } from './db.js';
 const client = new Anthropic();
 export async function chat(agent, userMessage) {
     const start = Date.now();
@@ -14,11 +14,14 @@ export async function chat(agent, userMessage) {
         role: m.role,
         content: m.content,
     }));
+    // Inject knowledge base
+    const knowledge = getAgentKnowledge(agent.id);
+    const fullPrompt = agent.system_prompt + knowledge;
     // First: let the agent decide if this needs multi-subnet routing or a direct answer
     const triage = await client.messages.create({
         model: agent.model || 'claude-haiku-4-5-20251001',
         max_tokens: 256,
-        system: `${agent.system_prompt}
+        system: `${fullPrompt}
 
 You are an autonomous AI agent powered by Eigentau's cognitive routing network on Bittensor.
 You have access to 129+ specialized subnets across 10 cognitive faculties.
@@ -73,7 +76,7 @@ Respond with JSON only (no fences): {"route": true/false, "reason": "brief reaso
         const agentReply = await client.messages.create({
             model: agent.model || 'claude-haiku-4-5-20251001',
             max_tokens: 1024,
-            system: `${agent.system_prompt}
+            system: `${fullPrompt}
 
 You just routed a query across Bittensor's cognitive network and got a synthesized result.
 Use this result to give a helpful, natural response to the user. Add your own personality and insight.
@@ -102,7 +105,7 @@ ${synthesis.answer}`,
         const agentReply = await client.messages.create({
             model: agent.model || 'claude-haiku-4-5-20251001',
             max_tokens: 1024,
-            system: agent.system_prompt,
+            system: fullPrompt,
             messages,
         });
         const reply = agentReply.content[0].type === 'text' ? agentReply.content[0].text : '';
