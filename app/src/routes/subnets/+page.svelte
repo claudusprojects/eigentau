@@ -1,55 +1,89 @@
 <script lang="ts">
-  const subnets = [
-    { id: 1, name: 'Apex', faculty: 'Reasoning', emission: 4.2, miners: 256, health: 98, weight: 0.359 },
-    { id: 8, name: 'Taoshi', faculty: 'Executive', emission: 2.8, miners: 128, health: 94, weight: 0.233 },
-    { id: 13, name: 'Data Universe', faculty: 'Perception', emission: 2.1, miners: 180, health: 91, weight: 0.209 },
-    { id: 19, name: 'Nineteen', faculty: 'Attention', emission: 3.5, miners: 210, health: 96, weight: 0.144 },
-    { id: 33, name: 'ReadyAI', faculty: 'Metacognition', emission: 1.4, miners: 256, health: 88, weight: 0.049 },
-    { id: 5, name: 'Kaizen', faculty: 'Generation', emission: 3.1, miners: 190, health: 93, weight: 0.12 },
-    { id: 9, name: 'Templar', faculty: 'Learning', emission: 1.8, miners: 95, health: 85, weight: 0.006 },
-    { id: 21, name: 'FileTAO', faculty: 'Memory', emission: 1.2, miners: 64, health: 82, weight: 0.08 },
-    { id: 4, name: 'Targon', faculty: 'Reasoning', emission: 2.4, miners: 220, health: 95, weight: 0.15 },
-    { id: 14, name: 'LLM Defender', faculty: 'Problem Solving', emission: 0.9, miners: 48, health: 79, weight: 0.03 },
-  ];
+  import { subnets, FACULTY_COLORS, type Faculty } from '$lib/subnets';
+
+  let search = $state('');
+  let filterFaculty = $state('all');
+
+  const faculties = [...new Set(subnets.map(s => s.primary))].sort();
+
+  const filtered = $derived(
+    subnets
+      .filter(s => filterFaculty === 'all' || s.primary === filterFaculty)
+      .filter(s =>
+        search === '' ||
+        s.name.toLowerCase().includes(search.toLowerCase()) ||
+        s.desc.toLowerCase().includes(search.toLowerCase()) ||
+        `sn${s.netuid}`.includes(search.toLowerCase())
+      )
+  );
 </script>
 
-<div class="space-y-8">
-  <div>
-    <h1 class="font-serif text-2xl italic text-text mb-2">Subnets</h1>
-    <p class="text-sm text-text-muted">Bittensor subnets tracked by the routing engine.</p>
+<div class="space-y-6">
+  <div class="flex items-end justify-between">
+    <div>
+      <h1 class="font-serif text-2xl italic text-text mb-2">Subnets</h1>
+      <p class="text-sm text-text-muted">{subnets.length} Bittensor subnets classified by cognitive faculty.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <input
+        type="text"
+        placeholder="Search subnets..."
+        bind:value={search}
+        class="bg-bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-text font-mono placeholder:text-text-muted focus:outline-none focus:border-accent w-48"
+      />
+      <select
+        bind:value={filterFaculty}
+        class="bg-bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-text font-mono focus:outline-none focus:border-accent"
+      >
+        <option value="all">All Faculties</option>
+        {#each faculties as f}
+          <option value={f}>{f}</option>
+        {/each}
+      </select>
+    </div>
   </div>
 
   <div class="bg-bg-card border border-border rounded-xl overflow-hidden">
     <table class="w-full">
       <thead>
         <tr class="border-b border-border">
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-6 py-3">Subnet</th>
+          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-6 py-3 w-16">ID</th>
+          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Name</th>
           <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Faculty</th>
-          <th class="text-right text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Emission</th>
-          <th class="text-right text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Miners</th>
-          <th class="text-right text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Health</th>
-          <th class="text-right text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-6 py-3">Route Weight</th>
+          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Secondary</th>
+          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Description</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-border">
-        {#each subnets as sn}
+        {#each filtered as sn}
+          {@const color = FACULTY_COLORS[sn.primary as Faculty]}
           <tr class="hover:bg-bg-card-hover transition-colors">
-            <td class="px-6 py-4">
-              <span class="text-xs font-mono text-text-muted mr-2">SN{sn.id}</span>
-              <span class="text-sm text-text">{sn.name}</span>
+            <td class="px-6 py-3">
+              <span class="text-xs font-mono text-text-muted">SN{sn.netuid}</span>
             </td>
-            <td class="px-4 py-4">
-              <span class="text-xs font-mono px-2 py-0.5 rounded bg-accent-dim text-accent">{sn.faculty}</span>
+            <td class="px-4 py-3">
+              <span class="text-sm text-text font-medium">{sn.name}</span>
             </td>
-            <td class="px-4 py-4 text-right font-mono text-sm text-text-secondary">{sn.emission.toFixed(1)}%</td>
-            <td class="px-4 py-4 text-right font-mono text-sm text-text-secondary">{sn.miners}</td>
-            <td class="px-4 py-4 text-right">
-              <span class="font-mono text-sm {sn.health >= 90 ? 'text-accent' : sn.health >= 80 ? 'text-text-secondary' : 'text-danger'}">{sn.health}%</span>
+            <td class="px-4 py-3">
+              <span class="text-[11px] font-mono px-2 py-0.5 rounded" style="background: {color}22; color: {color}">{sn.primary}</span>
             </td>
-            <td class="px-6 py-4 text-right font-mono text-sm text-text-muted">{sn.weight.toFixed(3)}</td>
+            <td class="px-4 py-3">
+              {#if sn.secondary}
+                {@const sc = FACULTY_COLORS[sn.secondary as Faculty]}
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded" style="background: {sc}15; color: {sc}">{sn.secondary}</span>
+              {:else}
+                <span class="text-[11px] text-text-muted">—</span>
+              {/if}
+            </td>
+            <td class="px-4 py-3">
+              <span class="text-xs text-text-muted">{sn.desc}</span>
+            </td>
           </tr>
         {/each}
       </tbody>
     </table>
+    <div class="px-6 py-3 border-t border-border flex items-center justify-between">
+      <span class="text-[11px] font-mono text-text-muted">{filtered.length} of {subnets.length} subnets</span>
+    </div>
   </div>
 </div>

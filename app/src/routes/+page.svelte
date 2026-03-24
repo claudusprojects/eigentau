@@ -1,37 +1,28 @@
 <script lang="ts">
+  import { subnets, FACULTIES, FACULTY_COLORS, getFacultyStats, type Faculty } from '$lib/subnets';
+
+  const facultyStats = getFacultyStats();
+
   const stats = [
-    { label: 'Subnets Mapped', value: '129', delta: '+3' },
-    { label: 'Queries Routed', value: '48,291', delta: '+847' },
-    { label: 'Routing Accuracy', value: '74.2%', delta: '+1.8%' },
-    { label: 'Avg Response', value: '2.4s', delta: '-0.3s' },
+    { label: 'Subnets Mapped', value: subnets.length.toString(), delta: 'live' },
+    { label: 'Faculties Covered', value: '10 / 10', delta: '100%' },
+    { label: 'Cognitive Coverage', value: Math.round(facultyStats.reduce((s, f) => s + f.score, 0) / facultyStats.length) + '%', delta: 'avg score' },
+    { label: 'Top Faculty', value: 'Reasoning', delta: facultyStats.find(f => f.faculty === 'Reasoning')?.primary + ' subnets' },
   ];
 
   const recentRoutes = [
-    { id: 'RT-4821', task: 'Research top Bittensor subnets by growth', subnets: ['SN1', 'SN13', 'SN8'], faculties: ['Reasoning', 'Perception', 'Executive'], quality: 92, time: '3.1s' },
-    { id: 'RT-4820', task: 'Predict TAO price movement next 7 days', subnets: ['SN8', 'SN19'], faculties: ['Executive', 'Attention'], quality: 78, time: '1.8s' },
-    { id: 'RT-4819', task: 'Summarize latest subnet registrations', subnets: ['SN13', 'SN1', 'SN33'], faculties: ['Perception', 'Reasoning', 'Metacognition'], quality: 88, time: '4.2s' },
-    { id: 'RT-4818', task: 'Analyze validator consensus across subnets', subnets: ['SN1', 'SN8'], faculties: ['Reasoning', 'Executive'], quality: 85, time: '2.7s' },
-    { id: 'RT-4817', task: 'Generate report on emission distribution', subnets: ['SN13', 'SN1', 'SN8', 'SN33'], faculties: ['Perception', 'Reasoning', 'Executive', 'Metacognition'], quality: 94, time: '5.6s' },
-  ];
-
-  const cognitiveScores = [
-    { name: 'Perception', score: 78 },
-    { name: 'Generation', score: 92 },
-    { name: 'Reasoning', score: 88 },
-    { name: 'Memory', score: 71 },
-    { name: 'Attention', score: 65 },
-    { name: 'Learning', score: 58 },
-    { name: 'Executive', score: 62 },
-    { name: 'Metacognition', score: 45 },
-    { name: 'Problem Solving', score: 53 },
-    { name: 'Social', score: 40 },
+    { id: 'RT-4821', task: 'Research top Bittensor subnets by growth', subnets: ['SN1', 'SN13', 'SN22'], faculties: ['Reasoning', 'Memory', 'Attention'], quality: 92, time: '3.1s' },
+    { id: 'RT-4820', task: 'Predict TAO price movement next 7 days', subnets: ['SN8', 'SN50', 'SN6'], faculties: ['Problem Solving', 'Generation', 'Reasoning'], quality: 78, time: '1.8s' },
+    { id: 'RT-4819', task: 'Summarize latest subnet registrations', subnets: ['SN42', 'SN1', 'SN33'], faculties: ['Perception', 'Reasoning', 'Memory'], quality: 88, time: '4.2s' },
+    { id: 'RT-4818', task: 'Analyze validator consensus across subnets', subnets: ['SN1', 'SN15', 'SN0'], faculties: ['Reasoning', 'Metacognition', 'Executive Functions'], quality: 85, time: '2.7s' },
+    { id: 'RT-4817', task: 'Generate report on emission distribution', subnets: ['SN42', 'SN1', 'SN82', 'SN15'], faculties: ['Perception', 'Reasoning', 'Reasoning', 'Metacognition'], quality: 94, time: '5.6s' },
   ];
 </script>
 
 <div class="space-y-6">
   <div>
     <h1 class="font-serif text-2xl italic text-text mb-1">Overview</h1>
-    <p class="text-[13px] text-text-muted">Routing engine status and performance.</p>
+    <p class="text-[13px] text-text-muted">Routing engine status and cognitive profile.</p>
   </div>
 
   <!-- Stats -->
@@ -40,7 +31,7 @@
       <div class="bg-bg-card border border-border rounded-lg p-5 hover:border-border-strong transition-colors">
         <div class="text-[10px] text-text-muted font-mono uppercase tracking-widest mb-2">{stat.label}</div>
         <div class="text-xl font-mono font-medium text-text tracking-tight">{stat.value}</div>
-        <div class="text-[11px] font-mono text-accent mt-1">{stat.delta} today</div>
+        <div class="text-[11px] font-mono text-accent mt-1">{stat.delta}</div>
       </div>
     {/each}
   </div>
@@ -50,7 +41,7 @@
     <div class="col-span-2 bg-bg-card border border-border rounded-lg overflow-hidden">
       <div class="px-5 py-3 border-b border-border flex items-center justify-between">
         <h2 class="text-[13px] font-semibold text-text">Recent Routes</h2>
-        <span class="text-[10px] font-mono text-text-muted">Last 5</span>
+        <span class="text-[10px] font-mono text-text-muted">Mock data — router not yet live</span>
       </div>
       {#each recentRoutes as route}
         <div class="px-5 py-3.5 border-b border-border last:border-b-0 hover:bg-bg-card-hover transition-colors">
@@ -84,14 +75,15 @@
         <h2 class="text-[13px] font-semibold text-text">Cognitive Profile</h2>
       </div>
       <div class="p-5 space-y-3">
-        {#each cognitiveScores as faculty}
+        {#each facultyStats as f}
+          {@const color = FACULTY_COLORS[f.faculty]}
           <div>
             <div class="flex items-center justify-between mb-1">
-              <span class="text-[12px] text-text-secondary">{faculty.name}</span>
-              <span class="text-[11px] font-mono text-text-muted">{faculty.score}%</span>
+              <span class="text-[12px] text-text-secondary">{f.faculty}</span>
+              <span class="text-[11px] font-mono text-text-muted">{f.primary}</span>
             </div>
             <div class="h-1 bg-border rounded-full overflow-hidden">
-              <div class="h-full rounded-full transition-all" style="width:{faculty.score}%;background:linear-gradient(90deg,#00DBBC,rgba(0,219,188,.4))"></div>
+              <div class="h-full rounded-full transition-all" style="width:{f.score}%;background:{color}"></div>
             </div>
           </div>
         {/each}
