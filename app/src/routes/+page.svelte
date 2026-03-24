@@ -9,11 +9,30 @@
   const shape=stats.map((f,i)=>pt(i,R*f.score/100));
   const path=shape.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' ')+'Z';
 
-  const routes = [
-    { task: 'Research top Bittensor subnets by emission growth', subs: ['SN1 Apex','SN13 Data Universe','SN22 Desearch'], q: 92, time: '3.1s' },
-    { task: 'Predict TAO price movement next 7 days', subs: ['SN8 Vanta','SN50 Synth','SN6 Numinous'], q: 78, time: '1.8s' },
-    { task: 'Summarize latest subnet registrations', subs: ['SN42 Gopher','SN1 Apex','SN33 ReadyAI'], q: 88, time: '4.2s' },
-  ];
+  import { onMount } from 'svelte';
+  const API = 'https://router-production-cb1b.up.railway.app';
+
+  let routes: { query: string; quality: number; totalLatencyMs: number; subnetsUsed: string[]; facultiesUsed: string[] }[] = $state([]);
+  let totalRoutes = $state(0);
+  let avgQuality = $state(0);
+
+  onMount(async () => {
+    try {
+      const [routesRes, statsRes] = await Promise.all([
+        fetch(`${API}/api/routes`),
+        fetch(`${API}/api/stats`),
+      ]);
+      if (routesRes.ok) {
+        const d = await routesRes.json();
+        routes = d.routes;
+        totalRoutes = d.total;
+      }
+      if (statsRes.ok) {
+        const s = await statsRes.json();
+        avgQuality = s.avgQuality;
+      }
+    } catch {}
+  });
 </script>
 
 <!-- Hero — same style as website hero -->
@@ -97,22 +116,32 @@
   </div>
 </div>
 
-<!-- Recent Routes — uses website .pipe-step card style -->
+<!-- Recent Routes — live from backend -->
 <div>
-  <h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:40px">Recent routes</h2>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-    {#each routes as r}
-      <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:32px 24px;transition:border-color .3s,box-shadow .3s"
-        onmouseenter={(e) => { e.currentTarget.style.borderColor = 'var(--ac)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(0,219,188,.06)'; }}
-        onmouseleave={(e) => { e.currentTarget.style.borderColor = 'var(--bdr)'; e.currentTarget.style.boxShadow = 'none'; }}>
-        <p style="font-size:16px;font-weight:700;color:var(--t1);margin-bottom:12px;letter-spacing:-.01em;line-height:1.4">{r.task}</p>
-        <p style="font-size:13px;line-height:1.7;color:var(--t2);margin-bottom:16px">{r.time} · {r.q}% quality</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          {#each r.subs as s}
-            <span style="font-family:var(--mono);font-size:11px;color:var(--ac);padding:6px 14px;border:1px solid rgba(0,219,188,.2);border-radius:99px;background:var(--acd)">{s}</span>
-          {/each}
+  <h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:40px">
+    Recent routes
+    {#if totalRoutes > 0}<span style="font-family:var(--mono);font-size:14px;color:var(--t3);font-style:normal;margin-left:12px">{totalRoutes} total</span>{/if}
+  </h2>
+  {#if routes.length === 0}
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:48px;text-align:center">
+      <p style="font-size:16px;color:var(--t2);margin-bottom:8px">No routes yet</p>
+      <p style="font-size:13px;color:var(--t3)">Go to the <a href="/router" style="color:var(--ac)">Router</a> page and send your first query</p>
+    </div>
+  {:else}
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      {#each routes.slice(0, 6) as r}
+        <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:32px 24px;transition:border-color .3s,box-shadow .3s"
+          onmouseenter={(e) => { e.currentTarget.style.borderColor = 'var(--ac)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(0,219,188,.06)'; }}
+          onmouseleave={(e) => { e.currentTarget.style.borderColor = 'var(--bdr)'; e.currentTarget.style.boxShadow = 'none'; }}>
+          <p style="font-size:16px;font-weight:700;color:var(--t1);margin-bottom:12px;letter-spacing:-.01em;line-height:1.4">{r.query}</p>
+          <p style="font-size:13px;line-height:1.7;color:var(--t2);margin-bottom:16px">{(r.totalLatencyMs / 1000).toFixed(1)}s · {r.quality}% quality</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            {#each (r.subnetsUsed || []).slice(0, 3) as s}
+              <span style="font-family:var(--mono);font-size:11px;color:var(--ac);padding:6px 14px;border:1px solid rgba(0,219,188,.2);border-radius:99px;background:var(--acd)">{typeof s === 'string' ? s : `SN${s.netuid} ${s.name}`}</span>
+            {/each}
+          </div>
         </div>
-      </div>
-    {/each}
-  </div>
+      {/each}
+    </div>
+  {/if}
 </div>
