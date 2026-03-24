@@ -18,8 +18,8 @@ Inspired by Google DeepMind's 2026 AGI cognitive framework, which defines genera
 ## Current State (2026-03-24)
 
 ### What's Live
-- **Website**: eigentau.ai (Hostinger) — immersive scroll-snap panels, 3D icosahedron hero, per-section geometric canvas animations, hexagonal brain logo
-- **App**: app.eigentau.ai (Railway) — SvelteKit 2 dashboard with 6 pages, all mock data, ready for backend
+- **Website**: eigentau.ai (Hostinger) — immersive scroll-snap panels, 3D icosahedron hero, per-section geometric canvas animations, hexagonal brain logo, OG banners for X/Telegram
+- **App**: app.eigentau.ai (Railway) — SvelteKit 2 dashboard with 6 pages, real subnet data (119 subnets classified by cognitive faculty), routes still mock
 - **Docs**: eigentau.ai/docs — editorial documentation page explaining the project in plain language
 - **GitHub**: github.com/claudusprojects/eigentau (public)
 - **Domain**: eigentau.ai (purchased on Hostinger 2026-03-24)
@@ -59,12 +59,16 @@ Inspired by Google DeepMind's 2026 AGI cognitive framework, which defines genera
 - All sizes: favicon.svg, favicon.ico (16+32+48), PNG 16/32/48/180/192/512
 - Applied everywhere: website nav + footer, docs nav, app sidebar, all favicon tags
 
-### TODO (Next Phases)
+### Completed Phases
 
-**Phase 3: Cognitive Map Research**
-- Research all 129+ Bittensor subnets and classify each by cognitive faculty
-- Replace mock data in app with real subnet-to-faculty mapping
-- Score each faculty based on actual subnet coverage + performance
+**Phase 3: Cognitive Map Research** (2026-03-24) DONE
+- Researched all 129 Bittensor subnets via SubnetRadar, SubnetAlpha, TaoStats, Yuma AI
+- 119 active subnets classified by primary + secondary cognitive faculty (10 inactive/unknown excluded)
+- Data file: `app/src/lib/subnets.ts` — typed interfaces, faculty colors, descriptions, computed stats
+- App pages updated: Overview (real cognitive profile), Cognitive Map (expandable faculty cards), Subnets (searchable/filterable table)
+- Faculty distribution: Reasoning (28), Executive Functions (27), Problem Solving (21), Learning (14), Generation (11), Perception (11), Memory (10), Social Cognition (5), Metacognition (4), Attention (3)
+
+### TODO (Next Phases)
 
 **Phase 4: Router Agent** (`router/` — to be built)
 - Task decomposition via Claude API
@@ -163,6 +167,8 @@ claudecooks/eigentau/
     faviconexample.html        # Logo picker page (can be removed)
     logo.svg                   # Clean logo SVG
     logo-favicon.svg           # Logo with dark bg rect for favicons
+    og-banner.svg              # OG preview banner source (1200x630)
+    og-banner.png              # OG preview banner rendered PNG
     favicon.svg                # Same as logo.svg
     favicon.ico                # Multi-size ICO (16+32+48)
     favicon-16x16.png
@@ -174,8 +180,10 @@ claudecooks/eigentau/
     .htaccess                  # HTTPS redirect + clean URLs (/docs, /faviconexample)
   app/                         # SvelteKit 2 dashboard
     src/
+      lib/
+        subnets.ts             # 119 Bittensor subnets with cognitive faculty classifications
       app.css                  # Tailwind 4 + theme vars + fonts
-      app.html                 # HTML shell with all favicon tags
+      app.html                 # HTML shell with all favicon + OG meta tags
       routes/
         +layout.svelte         # Sidebar nav + top bar
         +page.svelte           # Overview dashboard
@@ -267,20 +275,20 @@ claudecooks/eigentau/
 ## Session Handoff Notes (2026-03-24)
 
 ### Where We Left Off
-- All Phase 1-2 work complete: website, app, docs, logo, favicons, DNS, deployments
-- Last commit: `1978da2` — "Fix logo alignment: flex center on nav + footer + docs"
-- Website is live and looking good with the 3D icosahedron hero and per-section animations
-- App is deployed but still has mock data and could use more visual polish
-- Docs page is clean and well-written
-- Logo (hexagonal brain) is finalized and deployed everywhere
+- Phase 1-3 complete: website, app, docs, logo, favicons, DNS, deployments, subnet research
+- Last commit: `7bf6249` — "Phase 3: Real subnet data — 119 subnets classified by cognitive faculty"
+- Website navbar fixed (was mix-blend-mode:difference, now solid backdrop-blur)
+- OG banners created and deployed (1200x630 PNG, og: + twitter: meta tags on all pages)
+- App has real subnet data: Cognitive Map (expandable faculty cards), Subnets (searchable table), Overview (real cognitive profile)
+- Routes in Overview page are still mock — will be replaced when router agent is built
 
 ### Immediate Next Steps
 1. **Clean up**: Remove `faviconexample.html` and `eigen-logo-*.png` (DALL-E test images) from website dir
-2. **App polish**: The app works but could still be improved visually — the user said it needed to be "much better and easier to read". Current state is improved but not finalized
-3. **Phase 3: Cognitive Map Research**: Research all 129 Bittensor subnets, classify by faculty, replace mock data
-4. **Phase 4: Router Agent**: Build the actual routing engine in `router/` directory
+2. **Phase 4: Router Agent**: Build the actual routing engine in `router/` directory
+3. **App polish**: Router page and Strategy page still use placeholder data
+4. **Railway deploy gotcha**: `serviceInstanceDeploy` without `commitSha` (full 40-char SHA) reuses last successful commit. Always pass full SHA for new code.
 
-### Design Decisions Made This Session
+### Design Decisions
 - Dark theme with #00DBBC teal accent (Bittensor ecosystem native)
 - Instrument Serif italic for display headings (NOT EB Garamond — too similar to TensorQ)
 - DM Sans for body text
@@ -288,4 +296,5 @@ claudecooks/eigentau/
 - Immersive scroll-snap panels (NOT flowing sections — too template-y)
 - 3D animated icosahedron as hero visual (NOT random dots/lines)
 - Per-section geometric canvas animations (octahedron, dot matrix, Lissajous, torus)
+- Nav: solid backdrop-blur (NOT mix-blend-mode:difference — caused inverted text bleed-through)
 - The user is very particular about design quality — generic/template-looking designs are rejected
