@@ -17,13 +17,8 @@
 <div class="flex h-screen overflow-hidden">
   <aside class="w-56 shrink-0 border-r border-border bg-bg-alt flex flex-col">
     <a href="https://eigentau.ai" class="flex items-center gap-2.5 px-5 h-14 border-b border-border no-underline">
-      <svg viewBox="0 0 120 120" width="22" height="22" fill="none">
-        <path d="M20 32 C20 32,35 22,60 22 C85 22,100 32,100 32" stroke="#00DBBC" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <path d="M62 30 L62 88 C62 94,58 98,52 98" stroke="#00DBBC" stroke-width="5" stroke-linecap="round" fill="none"/>
-        <path d="M20 32 L20 38" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-        <path d="M100 32 L100 38" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="62" cy="30" r="6" fill="#040406" stroke="#00DBBC" stroke-width="2"/>
-        <circle cx="62" cy="30" r="2.5" fill="#00DBBC"/>
+      <svg viewBox="0 0 120 140" width="20" height="23" fill="none">
+        <path d="M 8 8 C 8 8,20 2,60 2 C 100 2,112 8,112 8 L 114 14 C 114 20,108 28,98 32 L 76 38 L 76 110 C 76 122,68 132,60 136 C 52 132,44 122,44 110 L 44 38 L 22 32 C 12 28,6 20,6 14 Z" fill="#00DBBC"/>
       </svg>
       <span class="font-serif text-lg italic text-text">Eigentau</span>
     </a>

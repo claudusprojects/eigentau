@@ -1,11 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
   <rect width="120" height="120" rx="22" fill="#040406"/>
-  <path d="M20 42 C20 42, 35 32, 60 32 C85 32, 100 42, 100 42" stroke="#00DBBC" stroke-width="5.5" stroke-linecap="round" fill="none"/>
-  <path d="M62 40 L62 88 C62 94, 58 98, 52 98" stroke="#00DBBC" stroke-width="5.5" stroke-linecap="round" fill="none"/>
-  <path d="M20 42 L20 48" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-  <path d="M100 42 L100 48" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="62" cy="40" r="6" fill="#040406" stroke="#00DBBC" stroke-width="2"/>
-  <circle cx="62" cy="40" r="2.5" fill="#00DBBC"/>
-  <line x1="62" y1="28" x2="62" y2="20" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
-  <polyline points="58,24 62,20 66,24" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".6"/>
+  <path d="
+    M 14 18
+    C 14 18, 26 12, 60 12
+    C 94 12, 106 18, 106 18
+    L 108 24
+    C 108 30, 102 36, 94 40
+    L 74 44
+    L 74 90
+    C 74 100, 68 108, 60 112
+    C 52 108, 46 100, 46 90
+    L 46 44
+    L 26 40
+    C 18 36, 12 30, 12 24
+    Z
+  " fill="#00DBBC"/>
 </svg>

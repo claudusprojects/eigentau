@@ -1,36 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <!-- Greek tau (τ) with classical serif styling + eigenvector node -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none">
+  <!-- Tau cross — thick, solid, flared crossbar, tapered stem -->
+  <path d="
+    M 8 8
+    C 8 8, 20 2, 60 2
+    C 100 2, 112 8, 112 8
+    L 114 14
+    C 114 20, 108 28, 98 32
+    L 76 38
+    L 76 110
+    C 76 122, 68 132, 60 136
+    C 52 132, 44 122, 44 110
+    L 44 38
+    L 22 32
+    C 12 28, 6 20, 6 14
+    Z
+  " fill="#00DBBC"/>
 
-  <!-- Tau crossbar — curved like classical Greek, not straight like Bittensor's T -->
-  <path d="M20 32 C20 32, 35 22, 60 22 C85 22, 100 32, 100 32" stroke="#00DBBC" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Subtle inner shadow/depth line -->
+  <path d="
+    M 44 38
+    L 44 110
+    C 44 120, 50 128, 56 132
+  " stroke="rgba(0,0,0,.15)" stroke-width="3" fill="none" stroke-linecap="round"/>
 
-  <!-- Tau stem — slightly tapered, offset right like lowercase τ -->
-  <path d="M62 30 L62 88 C62 94, 58 98, 52 98" stroke="#00DBBC" stroke-width="5" stroke-linecap="round" fill="none"/>
-
-  <!-- Serif flourish at top of stem -->
-  <path d="M55 30 L69 30" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Left serif on crossbar -->
-  <path d="M20 32 L20 38" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Right serif on crossbar -->
-  <path d="M100 32 L100 38" stroke="#00DBBC" stroke-width="3" stroke-linecap="round"/>
-
-  <!-- Eigenvector node at intersection — the signature element -->
-  <circle cx="62" cy="30" r="6" fill="#040406" stroke="#00DBBC" stroke-width="2"/>
-  <circle cx="62" cy="30" r="2.5" fill="#00DBBC"/>
-
-  <!-- Subtle glow behind node -->
-  <circle cx="62" cy="30" r="12" fill="url(#glow)" opacity=".4"/>
-
-  <!-- Small directional arrow extending from node (eigenvector) -->
-  <line x1="62" y1="18" x2="62" y2="10" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
-  <polyline points="58,14 62,10 66,14" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".5"/>
-
-  <defs>
-    <radialGradient id="glow">
-      <stop offset="0" stop-color="#00DBBC"/>
-      <stop offset="1" stop-color="#00DBBC" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <!-- Highlight edge on crossbar -->
+  <path d="
+    M 12 8
+    C 12 8, 24 4, 60 4
+    C 96 4, 108 8, 108 8
+  " stroke="rgba(255,255,255,.12)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
 </svg>
