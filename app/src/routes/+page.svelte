@@ -15,12 +15,14 @@
   let routes: { query: string; quality: number; totalLatencyMs: number; subnetsUsed: string[]; facultiesUsed: string[] }[] = $state([]);
   let totalRoutes = $state(0);
   let avgQuality = $state(0);
+  let taoPrice = $state(0);
 
   onMount(async () => {
     try {
-      const [routesRes, statsRes] = await Promise.all([
+      const [routesRes, statsRes, priceRes] = await Promise.all([
         fetch(`${API}/api/routes`),
         fetch(`${API}/api/stats`),
+        fetch(`${API}/api/tao-price`),
       ]);
       if (routesRes.ok) {
         const d = await routesRes.json();
@@ -30,6 +32,10 @@
       if (statsRes.ok) {
         const s = await statsRes.json();
         avgQuality = s.avgQuality;
+      }
+      if (priceRes.ok) {
+        const p = await priceRes.json();
+        taoPrice = p.price;
       }
     } catch {}
   });
@@ -51,7 +57,7 @@
     { v: subnets.length.toString(), l: 'Subnets mapped to cognitive faculties', accent: true },
     { v: '10', l: 'DeepMind AGI faculties covered', accent: false },
     { v: avg + '%', l: 'Composite AGI coverage score', accent: false },
-    { v: '$308', l: 'TAO price — powering subnet queries', accent: false },
+    { v: taoPrice > 0 ? '$' + Math.round(taoPrice) : '—', l: 'TAO price — live from CoinGecko', accent: false },
   ] as s}
     <div style="text-align:center">
       <div style="font-family:var(--mono);font-size:48px;font-weight:600;color:{s.accent ? 'var(--ac)' : 'var(--t1)'};letter-spacing:-.03em">{s.v}</div>

@@ -109,6 +109,74 @@ app.get('/api/cognitive-map', (_req, res) => {
     }));
     res.json({ faculties: map });
 });
+// ── STRATEGY / CONFIG ──
+app.get('/api/strategy', (_req, res) => {
+    const stats = getStats();
+    const weights = stats.weights;
+    // Compute regime from weight distribution
+    const maxW = Math.max(...weights.map((w) => w.weight));
+    const minW = Math.min(...weights.map((w) => w.weight));
+    const spread = maxW - minW;
+    const regime = spread > 0.3 ? 'CONCENTRATED' : spread > 0.15 ? 'DIVERGING' : 'NEUTRAL';
+    // Real params derived from actual usage
+    const avgLatency = stats.totalRoutes > 0
+        ? Math.round(getRecentRoutes(20).reduce((s, r) => s + r.total_latency_ms, 0) / Math.min(stats.totalRoutes, 20))
+        : 0;
+    const activeFaculties = weights.filter((w) => w.total_uses > 0).length;
+    res.json({
+        regime,
+        regimeDesc: regime === 'NEUTRAL'
+            ? 'Weights evenly distributed. No strong routing preference detected yet.'
+            : regime === 'DIVERGING'
+                ? 'Some faculties emerging as preferred routes based on quality outcomes.'
+                : 'Strong routing preferences established. Top faculties dominate routing decisions.',
+        params: [
+            { key: 'decomposition_depth', value: '2-5', reason: 'Claude decomposes into 2-5 sub-tasks based on query complexity.' },
+            { key: 'ema_blend_factor', value: '0.80', reason: '80% current / 20% new — prevents catastrophic forgetting while allowing adaptation.' },
+            { key: 'fallback_timeout_ms', value: '15000', reason: 'TensorGate subnet query timeout before falling back to Claude inference.' },
+            { key: 'active_faculties', value: `${activeFaculties}/10`, reason: `${activeFaculties} of 10 cognitive faculties have been used in routing so far.` },
+            { key: 'avg_latency_ms', value: avgLatency.toString(), reason: `Average end-to-end latency across ${stats.totalRoutes} routes processed.` },
+            { key: 'avg_quality', value: `${stats.avgQuality}%`, reason: `Mean synthesis quality score across all routed queries.` },
+        ],
+    });
+});
+// ── TAO PRICE (from TensorGate) ──
+let cachedTaoPrice = { price: 0, ts: 0 };
+app.get('/api/tao-price', async (_req, res) => {
+    // Cache for 60s
+    if (Date.now() - cachedTaoPrice.ts < 60000 && cachedTaoPrice.price > 0) {
+        return res.json({ price: cachedTaoPrice.price });
+    }
+    try {
+        const r = await fetch('https://hub-production-dcbd.up.railway.app/api/v1/agent/network-stats', {
+            signal: AbortSignal.timeout(5000),
+        });
+        if (r.ok) {
+            const d = await r.json();
+            const priceMatch = JSON.stringify(d).match(/\$?([\d,]+\.?\d*)/);
+            if (priceMatch) {
+                cachedTaoPrice = { price: parseFloat(priceMatch[1].replace(',', '')), ts: Date.now() };
+                return res.json({ price: cachedTaoPrice.price });
+            }
+        }
+    }
+    catch { }
+    // Fallback: try CoinGecko
+    try {
+        const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bittensor&vs_currencies=usd', {
+            signal: AbortSignal.timeout(5000),
+        });
+        if (r.ok) {
+            const d = await r.json();
+            if (d.bittensor?.usd) {
+                cachedTaoPrice = { price: d.bittensor.usd, ts: Date.now() };
+                return res.json({ price: cachedTaoPrice.price });
+            }
+        }
+    }
+    catch { }
+    res.json({ price: cachedTaoPrice.price || 0 });
+});
 app.listen(PORT, () => {
     console.log(`Eigentau Router running on port ${PORT}`);
 });
