@@ -2,72 +2,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 @theme {
+  --color-void: #020204;
   --color-bg: #040406;
-  --color-bg-alt: #07070D;
-  --color-bg-surface: #0B0B14;
-  --color-bg-surface-hover: #0F0F1A;
-  --color-bg-elevated: #131320;
-  --color-border: #18182A;
-  --color-border-strong: #252542;
-  --color-text: #EDEDF0;
-  --color-text-secondary: #9898AE;
-  --color-text-dim: #5C5C74;
-  --color-accent: #00DBBC;
-  --color-accent-glow: rgba(0, 219, 188, 0.12);
-  --color-accent-subtle: rgba(0, 219, 188, 0.06);
-  --color-red: #FF4D6A;
-  --color-amber: #FFB020;
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --color-surface: #0A0A12;
+  --color-glass: rgba(10,10,18,.65);
+  --color-glass-border: rgba(255,255,255,.04);
+  --color-glass-hover: rgba(255,255,255,.06);
+  --color-border: #141424;
+  --color-border-lite: rgba(255,255,255,.06);
+  --color-text: #EEEEF2;
+  --color-body: #94949E;
+  --color-muted: #50505E;
+  --color-dim: #2E2E3C;
+  --color-teal: #00DBBC;
+  --color-teal-glow: rgba(0,219,188,.15);
+  --color-teal-soft: rgba(0,219,188,.06);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-data: 'JetBrains Mono', monospace;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text-secondary);
-  line-height: 1.65;
+  font-family: var(--font-body);
+  background: var(--color-void);
+  color: var(--color-body);
   font-size: 15px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  height: 100vh;
 }
+a { text-decoration:none; color:inherit; }
+button { font-family:inherit; border:none; cursor:pointer; }
 
-a { text-decoration: none; color: inherit; }
-button { font-family: inherit; }
+/* Scrollbar — near invisible */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--color-dim); border-radius:99px; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 99px; }
-
-/* ---- Keyframes ---- */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ---- ANIMATIONS ---- */
+@keyframes rise {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
 }
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(0,219,188,.08); }
-  50% { box-shadow: 0 0 30px rgba(0,219,188,.15); }
+@keyframes glow-pulse {
+  0%,100% { opacity:.6; }
+  50% { opacity:1; }
 }
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .35; }
+@keyframes float-hex {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
 }
+.rise { animation: rise .6s cubic-bezier(.16,1,.3,1) both; }
+.rise-d1 { animation-delay: .07s; }
+.rise-d2 { animation-delay: .14s; }
+.rise-d3 { animation-delay: .21s; }
+.rise-d4 { animation-delay: .28s; }
 
-/* ---- Shared ---- */
-.page-enter { animation: fadeUp .5s ease both; }
-.page-enter-d1 { animation-delay: .08s; }
-.page-enter-d2 { animation-delay: .16s; }
-.page-enter-d3 { animation-delay: .24s; }
+/* ---- GLASS PANEL ---- */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 20px;
+}
+.glass:hover { border-color: var(--color-glass-hover); }
 
-/* Geometric decoration — subtle hexagonal dots */
-.geo-dot {
-  position: absolute;
-  width: 6px; height: 6px;
-  background: var(--color-accent);
-  opacity: .08;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+/* ---- GLOW LINE ---- */
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-teal), transparent);
+  opacity: .15;
 }

@@ -11,76 +11,75 @@
   const learnings = [
     { cycle: 847, text: 'Multi-subnet queries involving SN1+SN13 produce 23% higher quality than SN1 alone for research tasks.', type: 'positive' as const },
     { cycle: 845, text: 'SN8 prediction accuracy drops below 60% during high-volatility network periods. Route to SN1 reasoning instead.', type: 'caution' as const },
-    { cycle: 842, text: 'Adding SN15 metacognition step improves overall quality by 8% but adds 1.2s latency. Worth it for complex queries.', type: 'positive' as const },
-    { cycle: 839, text: 'Real-time subnets (SN64 Chutes) have 3x higher failure rate during peak hours. Implement fallback routing.', type: 'caution' as const },
-    { cycle: 836, text: 'Optimal decomposition depth is 3-5 subtasks. Beyond 5, synthesis quality degrades due to context dilution.', type: 'insight' as const },
+    { cycle: 842, text: 'Adding SN15 metacognition step improves quality by 8% but adds 1.2s latency. Worth it for complex queries.', type: 'positive' as const },
+    { cycle: 839, text: 'Real-time subnets (SN64) have 3x higher failure rate during peak hours. Implement fallback routing.', type: 'caution' as const },
+    { cycle: 836, text: 'Optimal decomposition depth is 3-5 subtasks. Beyond 5, synthesis quality degrades from context dilution.', type: 'insight' as const },
   ];
-
-  const typeMap = {
-    positive: { label: 'positive', color: 'text-accent', bg: 'bg-accent/8 border-accent/15' },
-    caution: { label: 'caution', color: 'text-amber', bg: 'bg-amber/8 border-amber/15' },
-    insight: { label: 'insight', color: 'text-text-secondary', bg: 'bg-bg-elevated border-border' },
-  };
 </script>
 
-<div class="space-y-12 page-enter">
-  <div class="relative">
-    <h1 class="font-serif italic text-[42px] text-text leading-none tracking-[-0.03em] mb-4">Learning Engine</h1>
-    <p class="text-[17px] text-text-secondary max-w-xl">Self-evolving routing weights and insights derived from query outcomes over time.</p>
-    <div class="absolute -left-10 top-0 w-[3px] h-full bg-gradient-to-b from-accent/40 via-accent/10 to-transparent rounded-full"></div>
+<div class="pt-6">
+  <div class="mb-16 rise">
+    <h1 class="font-[var(--font-display)] italic text-[clamp(48px,5vw,72px)] text-text leading-[.95] tracking-[-0.04em] mb-5">Learning</h1>
+    <p class="text-[18px] text-body max-w-2xl leading-relaxed">Self-evolving routing weights and insights. The engine learns which subnet combinations produce the best results.</p>
   </div>
 
-  <div class="grid grid-cols-2 gap-6">
+  <div class="glow-line mb-10 rise rise-d1"></div>
+
+  <div class="grid grid-cols-[420px_1fr] gap-10 rise rise-d2">
     <!-- Weights -->
-    <div class="bg-bg-surface border border-border rounded-2xl overflow-hidden page-enter page-enter-d1">
-      <div class="flex items-center justify-between px-7 py-5 border-b border-border">
-        <h2 class="font-serif italic text-[22px] text-text">Routing Weights</h2>
-        <span class="font-mono text-[12px] text-text-dim px-3 py-1 rounded-full border border-border">Cycle 847</span>
+    <div>
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="font-[var(--font-display)] italic text-[28px] text-text">Routing Weights</h2>
+        <span class="font-[var(--font-data)] text-[11px] text-dim">Cycle 847</span>
       </div>
-      <div class="p-7 space-y-7">
+      <div class="space-y-7">
         {#each weights as w}
           {@const delta = w.weight - w.prev}
           {@const pct = Math.round(w.weight * 100)}
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="text-[15px] text-text font-medium">{w.signal}</span>
+              <span class="text-[16px] text-text">{w.signal}</span>
               <div class="flex items-center gap-4">
-                <span class="font-mono text-[14px] text-text-secondary">{w.weight.toFixed(3)}</span>
-                <span class="font-mono text-[13px] {delta >= 0 ? 'text-accent' : 'text-red'}">
+                <span class="font-[var(--font-data)] text-[14px] text-body">{w.weight.toFixed(3)}</span>
+                <span class="font-[var(--font-data)] text-[13px] {delta >= 0 ? 'text-teal' : 'text-[#FF4D6A]'}">
                   {delta >= 0 ? '+' : ''}{delta.toFixed(3)}
                 </span>
               </div>
             </div>
-            <div class="h-[6px] bg-border rounded-full overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-700" style="width:{pct}%;background:{w.color}"></div>
+            <div class="h-[4px] rounded-full overflow-hidden" style="background:var(--color-border)">
+              <div class="h-full rounded-full" style="width:{pct}%;background:{w.color};transition:width 1s cubic-bezier(.16,1,.3,1)"></div>
             </div>
           </div>
         {/each}
-        <div class="pt-6 border-t border-border flex justify-between items-center">
-          <span class="text-[14px] text-text-dim">Overall Accuracy</span>
-          <span class="font-mono text-[24px] font-medium text-accent leading-none">74.2%</span>
-        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-border-lite flex items-baseline justify-between">
+        <span class="text-[15px] text-muted">Overall Accuracy</span>
+        <span class="font-[var(--font-data)] text-[32px] text-teal font-medium leading-none">74.2%</span>
       </div>
     </div>
 
     <!-- Learnings -->
-    <div class="bg-bg-surface border border-border rounded-2xl overflow-hidden page-enter page-enter-d2">
-      <div class="flex items-center justify-between px-7 py-5 border-b border-border">
-        <h2 class="font-serif italic text-[22px] text-text">Recent Learnings</h2>
-        <span class="font-mono text-[12px] text-text-dim px-3 py-1 rounded-full border border-border">296 total</span>
+    <div>
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="font-[var(--font-display)] italic text-[28px] text-text">Learnings</h2>
+        <span class="font-[var(--font-data)] text-[11px] text-dim">296 total</span>
       </div>
-      {#each learnings as l}
-        {@const t = typeMap[l.type]}
-        <div class="px-7 py-6 border-b border-border/40 last:border-b-0">
-          <div class="flex items-center gap-3 mb-3">
-            <span class="font-mono text-[13px] text-text-dim">Cycle {l.cycle}</span>
-            <span class="font-mono text-[11px] {t.color} px-2.5 py-1 rounded-full border {t.bg}">{t.label}</span>
+      <div class="space-y-3">
+        {#each learnings as l}
+          <div class="glass px-7 py-6">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="font-[var(--font-data)] text-[12px] text-muted">Cycle {l.cycle}</span>
+              <span class="font-[var(--font-data)] text-[10px] uppercase tracking-[.08em] px-2.5 py-1 rounded-full
+                {l.type === 'positive' ? 'text-teal bg-teal-soft border border-teal/10' :
+                 l.type === 'caution' ? 'text-[#FFB020] bg-[rgba(255,176,32,.06)] border border-[rgba(255,176,32,.1)]' :
+                 'text-body bg-[rgba(255,255,255,.03)] border border-border-lite'}">{l.type}</span>
+            </div>
+            <p class="text-[15px] text-body leading-[1.8]">{l.text}</p>
           </div>
-          <p class="text-[14px] text-text-secondary leading-[1.75]">{l.text}</p>
+        {/each}
+        <div class="text-center pt-4">
+          <span class="font-[var(--font-data)] text-[11px] text-dim">Mock data — learning engine not yet live</span>
         </div>
-      {/each}
-      <div class="px-7 py-4 bg-bg-alt">
-        <span class="font-mono text-[11px] text-text-dim px-3 py-1 rounded-full border border-border">mock data — learning engine not yet live</span>
       </div>
     </div>
   </div>
