@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eigentau — The Fundamental Direction of Intelligence</title>
-<meta name="description" content="Decentralized AGI orchestration on Bittensor. Eigentau routes complex tasks across 129+ specialized subnets, synthesizes results, and self-learns optimal routing patterns.">
+<meta name="description" content="Decentralized AGI orchestration on Bittensor. Route complex tasks across 129+ specialized subnets.">
 <meta property="og:title" content="Eigentau — Decentralized AGI Orchestration">
 <meta property="og:description" content="The fundamental direction of intelligence. Route, synthesize, and learn across Bittensor's subnet ecosystem.">
 <meta property="og:type" content="website">
@@ -13,1030 +13,385 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #0A0A0A;
-  --bg-alt: #0E0E0E;
-  --bg-card: #111111;
-  --bg-card-hover: #161616;
-  --border: #1A1A1A;
-  --border-strong: #252525;
-  --text: #FFFFFF;
-  --text-secondary: #A0A0A0;
-  --text-muted: #606060;
-  --accent: #00DBBC;
-  --accent-dim: rgba(0, 219, 188, 0.15);
-  --accent-glow: rgba(0, 219, 188, 0.08);
-  --serif: 'EB Garamond', 'Times New Roman', serif;
-  --sans: 'Manrope', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --max-w: 1200px;
-  --radius: 12px;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050508;--bg2:#0B0B10;--bg3:#101018;--bg4:#16161F;
+  --border:#1E1E2A;--border2:#2A2A3A;
+  --text:#EEEEF0;--text2:#9999AA;--text3:#666678;
+  --accent:#00DBBC;--accent2:rgba(0,219,188,.12);--accent3:rgba(0,219,188,.06);
+  --sans:'Outfit',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+  --max:1180px;--r:14px;
 }
-
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--text-secondary);
-  line-height: 1.7;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
-a:hover { opacity: 0.8; }
-
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text2);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.mw{max-width:var(--max);margin:0 auto;padding:0 28px}
 
 /* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s;
-}
-.nav-inner {
-  max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
-}
-.nav-logo {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--serif); font-size: 22px; font-weight: 600;
-  color: var(--text); letter-spacing: -0.02em;
-}
-.nav-logo svg { width: 28px; height: 28px; }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-links a {
-  font-size: 14px; font-weight: 500; color: var(--text-secondary);
-  letter-spacing: 0.02em; transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--text); opacity: 1; }
-.nav-cta {
-  background: var(--accent) !important; color: #000 !important;
-  padding: 8px 20px; border-radius: 8px; font-weight: 600;
-  font-size: 13px !important; letter-spacing: 0.03em;
-  transition: transform 0.2s, box-shadow 0.2s !important;
-}
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,219,188,0.3); opacity: 1 !important; }
-.nav-x { color: var(--text-muted) !important; }
-.nav-x:hover { color: var(--text) !important; }
-.mobile-menu { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.mobile-menu svg { width: 24px; height: 24px; stroke: var(--text-secondary); }
+header{padding:20px 0;position:relative;z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--text);letter-spacing:-.02em}
+.logo svg{width:26px;height:26px}
+.nav-r{display:flex;align-items:center;gap:28px}
+.nav-r a{font-size:13px;font-weight:500;color:var(--text3);transition:color .2s}
+.nav-r a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#000;padding:8px 20px;border-radius:8px;font-weight:600;font-size:12px;letter-spacing:.03em;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
 
 /* ── HERO ── */
-.hero {
-  position: relative; min-height: 100vh;
-  display: flex; align-items: center;
-  padding-top: 64px; overflow: hidden;
-}
-.hero-canvas {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; opacity: 0.6;
-}
-.hero-grid {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 0; opacity: 0.04;
-  background-image:
-    linear-gradient(var(--text-muted) 1px, transparent 1px),
-    linear-gradient(90deg, var(--text-muted) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-.hero-content {
-  position: relative; z-index: 2;
-  max-width: 720px; padding: 80px 0 120px;
-}
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--mono); font-size: 12px; font-weight: 400;
-  color: var(--accent); letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-}
-.hero-tag::before {
-  content: ''; width: 8px; height: 8px; background: var(--accent);
-  border-radius: 50%; animation: pulse 2s infinite;
-}
-.hero h1 {
-  font-family: var(--serif); font-size: clamp(48px, 6vw, 76px);
-  font-weight: 600; font-style: italic; color: var(--text);
-  line-height: 1.08; letter-spacing: -0.03em;
-  margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-}
-.hero h1 em {
-  font-style: normal; color: var(--accent);
-  text-shadow: 0 0 40px rgba(0,219,188,0.2);
-}
-.hero-sub {
-  font-size: 18px; line-height: 1.8; color: var(--text-secondary);
-  max-width: 560px; margin-bottom: 40px;
-  opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
-}
-.hero-ctas {
-  display: flex; gap: 16px; flex-wrap: wrap;
-  opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent); color: #000;
-  padding: 14px 32px; border-radius: 10px;
-  font-weight: 700; font-size: 15px; letter-spacing: 0.02em;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,219,188,0.25); opacity: 1; }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: var(--text);
-  padding: 14px 32px; border-radius: 10px;
-  font-weight: 600; font-size: 15px;
-  border: 1px solid var(--border-strong);
-  transition: border-color 0.2s, background 0.2s;
-}
-.btn-secondary:hover { border-color: var(--text-muted); background: rgba(255,255,255,0.03); opacity: 1; }
+.hero{text-align:center;padding:100px 0 80px;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,219,188,.06) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px;background:var(--accent2);padding:6px 16px;border-radius:20px;border:1px solid rgba(0,219,188,.15)}
+.hero-badge span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(42px,5.5vw,72px);font-weight:800;color:var(--text);line-height:1.08;letter-spacing:-.04em;margin-bottom:24px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),#00FFD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:17px;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.8}
+.hero-btns{display:flex;gap:12px;justify-content:center}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;transition:transform .15s,box-shadow .15s}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,219,188,.2)}
+.btn-p svg{width:14px;height:14px}
+.btn-s{display:inline-flex;align-items:center;gap:8px;color:var(--text);padding:12px 28px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--border2);transition:border-color .2s}
+.btn-s:hover{border-color:var(--text3)}
 
-/* ── STATS BAR ── */
-.stats-bar {
-  position: relative; z-index: 2;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  background: var(--bg-alt);
-}
-.stats-inner {
-  max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-}
-.stat-item {
-  padding: 32px 0; text-align: center;
-  border-right: 1px solid var(--border);
-}
-.stat-item:last-child { border-right: none; }
-.stat-value {
-  font-family: var(--mono); font-size: 32px; font-weight: 500;
-  color: var(--text); letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
-.stat-label {
-  font-size: 12px; font-weight: 500; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.1em;
-}
+/* ── MARQUEE ── */
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;overflow:hidden;white-space:nowrap}
+.marquee{display:inline-flex;gap:48px;animation:scroll 30s linear infinite}
+.marquee span{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;opacity:.5}
+@keyframes scroll{to{transform:translateX(-50%)}}
 
-/* ── SECTIONS ── */
-section { padding: 120px 0; }
-.section-tag {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--accent); letter-spacing: 0.12em;
-  text-transform: uppercase; margin-bottom: 20px;
-}
-.section-title {
-  font-family: var(--serif); font-size: clamp(36px, 4vw, 52px);
-  font-weight: 600; font-style: italic; color: var(--text);
-  line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px;
-}
-.section-desc {
-  font-size: 17px; line-height: 1.8; color: var(--text-secondary);
-  max-width: 640px; margin-bottom: 56px;
-}
-
-/* ── HOW IT WORKS ── */
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-.step {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 40px 28px;
-  position: relative; transition: border-color 0.3s, background 0.3s;
-}
-.step:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
-.step-num {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--text-muted); letter-spacing: 0.1em;
-  margin-bottom: 20px;
-}
-.step-icon {
-  width: 48px; height: 48px; margin-bottom: 24px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 10px; background: var(--accent-dim);
-}
-.step-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
-.step h3 {
-  font-family: var(--sans); font-size: 18px; font-weight: 700;
-  color: var(--text); margin-bottom: 12px; letter-spacing: -0.01em;
-}
-.step p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
-.step-connector {
-  position: absolute; right: -14px; top: 50%; z-index: 2;
-  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
-}
-.step:last-child .step-connector { display: none; }
+/* ── BENTO ── */
+.bento-section{padding:100px 0}
+.sec-label{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.sec-h{font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--text);letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}
+.sec-p{font-size:16px;color:var(--text2);max-width:480px;margin-bottom:48px;line-height:1.8}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:2px}
+.bento-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:32px;transition:border-color .25s}
+.bento-card:hover{border-color:var(--border2)}
+.bento-card.wide{grid-column:span 2}
+.bento-card.tall{grid-row:span 2}
+.bc-icon{width:40px;height:40px;border-radius:10px;background:var(--accent2);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.bc-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.5}
+.bc-h{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.bc-p{font-size:13px;color:var(--text2);line-height:1.7}
+.bc-num{font-family:var(--mono);font-size:36px;font-weight:600;color:var(--accent);margin-bottom:4px}
+.bc-num-label{font-size:12px;color:var(--text3);font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase}
 
 /* ── ARCHITECTURE ── */
-.arch-section { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.arch-diagram {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 48px; margin-bottom: 40px;
-  position: relative; overflow: hidden;
-}
-.arch-svg { width: 100%; height: auto; display: block; }
-.arch-note {
-  font-size: 15px; line-height: 1.8; color: var(--text-secondary);
-  max-width: 720px;
-}
-.arch-note strong { color: var(--text); font-weight: 600; }
+.arch{padding:100px 0;border-top:1px solid var(--border)}
+.arch-diagram{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:48px 32px;margin-bottom:20px;overflow-x:auto}
+.arch-diagram svg{width:100%;height:auto;display:block;min-width:700px}
+.arch-caption{font-family:var(--mono);font-size:12px;color:var(--text3);text-align:center;line-height:1.6}
 
-/* ── COGNITIVE MAP ── */
-.cognitive-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
-}
-.faculty-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 28px 20px;
-  transition: border-color 0.3s, transform 0.2s;
-  position: relative; overflow: hidden;
-}
-.faculty-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-.faculty-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: var(--accent); opacity: 0;
-  transition: opacity 0.3s;
-}
-.faculty-card:hover::before { opacity: 1; }
-.faculty-icon {
-  width: 36px; height: 36px; margin-bottom: 16px;
-  display: flex; align-items: center; justify-content: center;
-}
-.faculty-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
-.faculty-name {
-  font-size: 14px; font-weight: 700; color: var(--text);
-  margin-bottom: 8px;
-}
-.faculty-subnets {
-  font-size: 11px; color: var(--text-muted);
-  font-family: var(--mono); letter-spacing: 0.02em;
-  margin-bottom: 16px; line-height: 1.5;
-}
-.faculty-bar {
-  height: 3px; background: var(--border); border-radius: 2px;
-  overflow: hidden;
-}
-.faculty-bar-fill {
-  height: 100%; background: var(--accent); border-radius: 2px;
-  transition: width 1s ease-out;
-}
+/* ── TABLE ── */
+.table-section{padding:100px 0;border-top:1px solid var(--border)}
+.cog-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.cog-table th{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);font-weight:500}
+.cog-table td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px}
+.cog-table tr:hover td{background:var(--bg3)}
+.cog-name{color:var(--text);font-weight:600}
+.cog-subs{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.cog-bar{width:80px;height:4px;background:var(--border);border-radius:2px;display:inline-block;vertical-align:middle;overflow:hidden}
+.cog-bar-fill{height:100%;background:var(--accent);border-radius:2px}
+.cog-score{font-family:var(--mono);font-size:12px;color:var(--text2);width:50px;text-align:right}
+.cog-count{font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right}
 
 /* ── LEARNING ── */
-.learning-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-.learning-features { display: flex; flex-direction: column; gap: 20px; }
-.learning-feature {
-  display: flex; gap: 16px; align-items: flex-start;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px;
-}
-.learning-feature-icon {
-  flex-shrink: 0; width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--accent-dim); border-radius: 8px;
-}
-.learning-feature-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
-.learning-feature h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.learning-feature p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-.learning-viz {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 32px;
-}
-.learning-viz-title {
-  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;
-}
-.weight-row {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 16px;
-}
-.weight-label {
-  font-family: var(--mono); font-size: 12px; color: var(--text-secondary);
-  width: 120px; flex-shrink: 0;
-}
-.weight-bar-bg {
-  flex: 1; height: 6px; background: var(--border);
-  border-radius: 3px; overflow: hidden; position: relative;
-}
-.weight-bar-fill {
-  height: 100%; background: var(--accent); border-radius: 3px;
-  transition: width 1.5s ease-out;
-}
-.weight-val {
-  font-family: var(--mono); font-size: 11px; color: var(--text-muted);
-  width: 40px; text-align: right; flex-shrink: 0;
-}
-.weight-delta {
-  font-family: var(--mono); font-size: 10px; width: 48px;
-  text-align: right; flex-shrink: 0;
-}
-.weight-delta.up { color: var(--accent); }
-.weight-delta.down { color: #EF4444; }
+.learn{padding:100px 0;border-top:1px solid var(--border)}
+.learn-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:start;max-width:800px;margin:0 auto}
+.learn-col{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.learn-col-h{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.learn-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.learn-row:last-child{border-bottom:none}
+.learn-sig{font-size:12px;color:var(--text2)}
+.learn-val{font-family:var(--mono);font-size:12px;color:var(--text)}
+.learn-arrow{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:30px}
+.learn-arrow svg{width:32px;height:32px;stroke:var(--accent);stroke-width:1.5;fill:none}
+.learn-arrow span{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.1em}
 
 /* ── TOKEN ── */
-.token-section { background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.token-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 40px; }
-.token-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 36px 28px;
-  transition: border-color 0.3s;
-}
-.token-card:hover { border-color: var(--border-strong); }
-.token-card h3 {
-  font-family: var(--serif); font-size: 24px; font-weight: 600;
-  font-style: italic; color: var(--text); margin-bottom: 12px;
-}
-.token-card p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
-.token-address {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 8px; padding: 14px 20px;
-}
-.token-address-label {
-  font-size: 12px; color: var(--text-muted); font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em;
-}
-.token-address-val {
-  font-family: var(--mono); font-size: 13px; color: var(--text-secondary);
-}
-.badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  color: var(--accent); background: var(--accent-dim);
-  padding: 4px 12px; border-radius: 20px;
-  letter-spacing: 0.05em; margin-left: auto;
-}
-.badge::before {
-  content: ''; width: 6px; height: 6px; background: var(--accent);
-  border-radius: 50%; animation: pulse 2s infinite;
-}
+.token{padding:48px 0;border-top:1px solid var(--border);background:var(--bg2)}
+.token-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.token-left{display:flex;align-items:center;gap:20px}
+.token-sym{font-size:32px;font-weight:800;color:var(--text);letter-spacing:-.02em}
+.token-desc{font-size:13px;color:var(--text2);max-width:320px}
+.token-pills{display:flex;gap:8px}
+.token-pill{font-family:var(--mono);font-size:11px;color:var(--text3);padding:6px 14px;border:1px solid var(--border);border-radius:20px}
+.token-soon{font-family:var(--mono);font-size:11px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.token-soon span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
 
 /* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 48px 0;
-}
-.footer-inner {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.footer-logo {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--serif); font-size: 18px; font-weight: 600;
-  color: var(--text);
-}
-.footer-logo svg { width: 22px; height: 22px; }
-.footer-links { display: flex; gap: 28px; }
-.footer-links a {
-  font-size: 13px; color: var(--text-muted); font-weight: 500;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--text); }
-.footer-note {
-  font-size: 12px; color: var(--text-muted);
-  font-family: var(--mono); letter-spacing: 0.02em;
-}
+footer{padding:28px 0;border-top:1px solid var(--border)}
+.foot{display:flex;align-items:center;justify-content:space-between}
+.foot-l{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text3)}
+.foot-l svg{width:18px;height:18px}
+.foot-r{display:flex;gap:24px}
+.foot-r a{font-size:12px;color:var(--text3);transition:color .2s}
+.foot-r a:hover{color:var(--text)}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-@keyframes flowDash {
-  to { stroke-dashoffset: -20; }
-}
-
-.reveal {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-
-/* SVG animation classes */
-.node-pulse { animation: pulse 3s ease-in-out infinite; }
-.flow-line {
-  stroke-dasharray: 8 12;
-  animation: flowDash 1.5s linear infinite;
-}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes flowDash{to{stroke-dashoffset:-20}}
+.flow-line{stroke-dasharray:8 12;animation:flowDash 1.5s linear infinite}
+.reveal{opacity:0;transition:opacity .6s ease}
+.reveal.vis{opacity:1}
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .cognitive-grid { grid-template-columns: repeat(3, 1fr); }
-  .learning-grid { grid-template-columns: 1fr; }
-  .token-grid { grid-template-columns: 1fr; }
-  .step-connector { display: none !important; }
-}
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .mobile-menu { display: block; }
-  .steps { grid-template-columns: 1fr; }
-  .cognitive-grid { grid-template-columns: repeat(2, 1fr); }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .stat-item:nth-child(2) { border-right: none; }
-  .hero-content { padding: 40px 0 80px; }
-  section { padding: 80px 0; }
-  .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-  .footer-links { flex-wrap: wrap; justify-content: center; }
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr}.bento-card.wide{grid-column:span 1}}
+@media(max-width:640px){
+  .bento{grid-template-columns:1fr}.bento-card.wide,.bento-card.tall{grid-column:span 1;grid-row:span 1}
+  .nav-r a:not(.nav-cta){display:none}.hero{padding:60px 0 50px}
+  .learn-compare{grid-template-columns:1fr;gap:16px}.learn-arrow{flex-direction:row;padding:0}
+  .learn-arrow svg{transform:rotate(90deg)}
+  .token-inner{flex-direction:column;align-items:flex-start}
+  .cog-table{display:block;overflow-x:auto}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/>
-        <circle cx="14" cy="2" r="2" fill="#00DBBC"/>
-        <circle cx="6" cy="8" r="1.5" fill="#00DBBC" opacity="0.6"/>
-        <circle cx="22" cy="8" r="1.5" fill="#00DBBC" opacity="0.6"/>
-        <circle cx="14" cy="26" r="1.5" fill="#00DBBC" opacity="0.4"/>
-      </svg>
-      Eigentau
-    </a>
-    <div class="nav-links">
-      <a href="#how-it-works">How It Works</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#cognitive-map">Cognitive Map</a>
-      <a href="docs.html">Docs</a>
-      <a href="https://x.com/eigentau" class="nav-x" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+<header>
+  <div class="mw">
+    <div class="nav">
+      <a href="/" class="logo">
+        <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
+        Eigentau
       </a>
-      <a href="https://app.eigentau.ai" class="nav-cta">Launch App</a>
+      <div class="nav-r">
+        <a href="#system">System</a>
+        <a href="#faculties">Faculties</a>
+        <a href="docs.html">Docs</a>
+        <a href="https://x.com/eigentau" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://app.eigentau.ai" class="nav-cta">Launch App</a>
+      </div>
     </div>
-    <button class="mobile-menu" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
   </div>
-</nav>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-tag">Decentralized AGI Orchestration</div>
-      <h1>The Fundamental Direction of <em>Intelligence</em></h1>
-      <p class="hero-sub">Eigentau orchestrates Bittensor's 129+ specialized subnets into unified general intelligence. Complex tasks decomposed, routed, synthesized, learned.</p>
-      <div class="hero-ctas">
-        <a href="https://app.eigentau.ai" class="btn-primary">
-          Launch App
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="docs.html" class="btn-secondary">Read Docs</a>
-      </div>
+  <div class="mw">
+    <div class="hero-badge"><span></span> Decentralized AGI Orchestration</div>
+    <h1>The fundamental direction<br>of <em>intelligence</em></h1>
+    <p>Eigentau orchestrates Bittensor's 129+ specialized subnets into unified general intelligence. Every query routed. Every result learned.</p>
+    <div class="hero-btns">
+      <a href="https://app.eigentau.ai" class="btn-p">Launch App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="docs.html" class="btn-s">Documentation</a>
     </div>
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-value" data-target="129" data-suffix="">0</div>
-      <div class="stat-label">Subnets Mapped</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" data-target="10" data-suffix="">0</div>
-      <div class="stat-label">Cognitive Faculties</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" data-target="12847" data-suffix="" data-comma="true">0</div>
-      <div class="stat-label">Routing Paths Learned</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value" data-target="48291" data-suffix="" data-comma="true">0</div>
-      <div class="stat-label">Queries Processed</div>
-    </div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
+    <span>SN1 Apex</span><span>SN5 Kaizen</span><span>SN8 Taoshi</span><span>SN9 Templar</span><span>SN13 Data Universe</span><span>SN19 Nineteen</span><span>SN21 FileTAO</span><span>SN33 ReadyAI</span><span>SN40 Chunking</span><span>SN55 NIOME</span><span>SN82 Hermes</span><span>SN110 Rich Kids</span>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
-<section id="how-it-works">
-  <div class="container">
-    <div class="section-tag reveal">Process</div>
-    <h2 class="section-title reveal">How Eigentau thinks</h2>
-    <p class="section-desc reveal">Every query passes through four stages. Each stage sharpens the result. Each result sharpens the system.</p>
-    <div class="steps">
-      <div class="step reveal reveal-delay-1">
-        <div class="step-num">01</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L14 3.27a2 2 0 0 0-2 0L6 6.27A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3a2 2 0 0 0 2 0l6-3A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
-        </div>
-        <h3>Decompose</h3>
-        <p>Complex tasks broken into atomic sub-tasks by AI. Each sub-task mapped to a cognitive faculty.</p>
-        <div class="step-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
-        </div>
+<!-- BENTO FEATURES -->
+<section class="bento-section" id="system">
+  <div class="mw">
+    <div class="sec-label reveal">The System</div>
+    <div class="sec-h reveal">AGI through orchestration,<br>not monolithic models</div>
+    <p class="sec-p reveal">Each query is decomposed, routed to optimal subnets, synthesized, and scored. The routing engine learns from every interaction.</p>
+    <div class="bento">
+      <div class="bento-card wide reveal">
+        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L14 3.27a2 2 0 0 0-2 0L6 6.27A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3a2 2 0 0 0 2 0l6-3A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><line x1="12" y1="22" x2="12" y2="12"/></svg></div>
+        <div class="bc-h">Task Decomposition</div>
+        <div class="bc-p">Complex queries broken into atomic sub-tasks by AI. Each sub-task is mapped to a cognitive faculty and matched to the best-performing subnet combination.</div>
       </div>
-      <div class="step reveal reveal-delay-2">
-        <div class="step-num">02</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        </div>
-        <h3>Route</h3>
-        <p>Each sub-task matched to optimal Bittensor subnet(s) using learned routing weights and live performance data.</p>
-        <div class="step-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
-        </div>
+      <div class="bento-card reveal">
+        <div class="bc-num" data-target="129">0</div>
+        <div class="bc-num-label">Subnets Mapped</div>
       </div>
-      <div class="step reveal reveal-delay-3">
-        <div class="step-num">03</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><circle cx="12" cy="12" r="4"/></svg>
-        </div>
-        <h3>Synthesize</h3>
-        <p>Results from multiple subnets combined, conflicts resolved, coherent unified answer assembled.</p>
-        <div class="step-connector">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
-        </div>
+      <div class="bento-card reveal">
+        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg></div>
+        <div class="bc-h">Intelligent Routing</div>
+        <div class="bc-p">Learned weights determine which subnets handle each sub-task. Routes adapt based on performance data.</div>
       </div>
-      <div class="step reveal reveal-delay-4">
-        <div class="step-num">04</div>
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>Learn</h3>
-        <p>Routing patterns scored against outcomes. Weights adjusted via EMA blending. The system improves with every query.</p>
+      <div class="bento-card reveal">
+        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div class="bc-h">Multi-Subnet Synthesis</div>
+        <div class="bc-p">Results from parallel subnet queries are merged, conflicts resolved, and a coherent unified answer assembled.</div>
+      </div>
+      <div class="bento-card wide reveal">
+        <div class="bc-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="bc-h">Self-Learning Routing Engine</div>
+        <div class="bc-p">Every routed query is scored. Signal-to-performance correlations computed. Weights adjusted via EMA blending (80% current, 20% new signal). The system improves with every query — no human tuning required.</div>
+      </div>
+      <div class="bento-card reveal">
+        <div class="bc-num" data-target="10">0</div>
+        <div class="bc-num-label">Cognitive Faculties</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ARCHITECTURE -->
-<section id="architecture" class="arch-section">
-  <div class="container">
-    <div class="section-tag reveal">Architecture</div>
-    <h2 class="section-title reveal">Mixture of Subnets</h2>
-    <p class="section-desc reveal">A learned gating network routes each task to the optimal combination of Bittensor's specialized subnets.</p>
+<!-- ARCHITECTURE DIAGRAM -->
+<section class="arch" id="architecture">
+  <div class="mw">
+    <div class="sec-label reveal">Architecture</div>
+    <div class="sec-h reveal">Mixture of Subnets</div>
+    <p class="sec-p reveal">A learned gating network routes each task to the optimal combination of Bittensor's specialized subnets.</p>
     <div class="arch-diagram reveal">
-      <svg class="arch-svg" viewBox="0 0 900 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- User -->
-        <rect x="20" y="130" width="120" height="60" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="80" y="158" fill="#A0A0A0" font-family="Manrope,sans-serif" font-size="11" font-weight="600" text-anchor="middle">USER QUERY</text>
-        <text x="80" y="174" fill="#606060" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">complex task</text>
-        <!-- Arrow to Router -->
-        <line x1="140" y1="160" x2="220" y2="160" stroke="#333" stroke-width="1" class="flow-line"/>
-        <!-- Router -->
-        <rect x="220" y="110" width="160" height="100" rx="12" stroke="#00DBBC" stroke-width="1.5" fill="rgba(0,219,188,0.05)"/>
-        <text x="300" y="148" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="10" font-weight="500" text-anchor="middle">EIGENTAU ROUTER</text>
-        <text x="300" y="166" fill="#A0A0A0" font-family="Manrope,sans-serif" font-size="10" text-anchor="middle">Decompose + Route</text>
-        <text x="300" y="182" fill="#606060" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Claude AI + Learned Weights</text>
-        <!-- Fan-out lines -->
-        <line x1="380" y1="135" x2="480" y2="65" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="380" y1="150" x2="480" y2="115" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="380" y1="160" x2="480" y2="160" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="380" y1="170" x2="480" y2="205" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="380" y1="185" x2="480" y2="255" stroke="#333" stroke-width="1" class="flow-line"/>
-        <!-- Subnet nodes -->
-        <rect x="480" y="40" width="130" height="44" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="545" y="58" fill="#A0A0A0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">SN1 INFERENCE</text>
-        <text x="545" y="72" fill="#606060" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Reasoning</text>
-        <rect x="480" y="93" width="130" height="44" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="545" y="111" fill="#A0A0A0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">SN13 SCRAPING</text>
-        <text x="545" y="125" fill="#606060" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Perception</text>
-        <rect x="480" y="146" width="130" height="44" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="545" y="164" fill="#A0A0A0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">SN8 PREDICTION</text>
-        <text x="545" y="178" fill="#606060" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Executive Fn</text>
-        <rect x="480" y="199" width="130" height="44" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="545" y="217" fill="#A0A0A0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">SN19 REALTIME</text>
-        <text x="545" y="231" fill="#606060" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Attention</text>
-        <rect x="480" y="252" width="130" height="44" rx="8" stroke="#333" stroke-width="1"/>
-        <text x="545" y="270" fill="#A0A0A0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">SN33 ANNOTATE</text>
-        <text x="545" y="284" fill="#606060" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Metacognition</text>
-        <!-- Converge lines -->
-        <line x1="610" y1="65" x2="690" y2="135" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="610" y1="115" x2="690" y2="150" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="610" y1="160" x2="690" y2="160" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="610" y1="205" x2="690" y2="170" stroke="#333" stroke-width="1" class="flow-line"/>
-        <line x1="610" y1="255" x2="690" y2="185" stroke="#333" stroke-width="1" class="flow-line"/>
-        <!-- Synthesis -->
-        <rect x="690" y="120" width="120" height="80" rx="12" stroke="#00DBBC" stroke-width="1" fill="rgba(0,219,188,0.03)"/>
-        <text x="750" y="152" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="10" font-weight="500" text-anchor="middle">SYNTHESIZE</text>
-        <text x="750" y="168" fill="#A0A0A0" font-family="Manrope,sans-serif" font-size="10" text-anchor="middle">Merge + Resolve</text>
-        <text x="750" y="184" fill="#606060" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">+ Learn</text>
-        <!-- Output arrow -->
-        <line x1="810" y1="160" x2="880" y2="160" stroke="#00DBBC" stroke-width="1.5" class="flow-line"/>
-        <polygon points="880,155 890,160 880,165" fill="#00DBBC"/>
+      <svg viewBox="0 0 900 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="30" y="110" width="100" height="50" rx="8" stroke="#2A2A3A" stroke-width="1"/>
+        <text x="80" y="132" fill="#9999AA" font-family="Outfit,sans-serif" font-size="10" font-weight="600" text-anchor="middle">USER QUERY</text>
+        <text x="80" y="148" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">complex task</text>
+        <line x1="130" y1="135" x2="210" y2="135" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <rect x="210" y="95" width="150" height="80" rx="10" stroke="#00DBBC" stroke-width="1.5" fill="rgba(0,219,188,.04)"/>
+        <text x="285" y="125" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">EIGENTAU ROUTER</text>
+        <text x="285" y="142" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Decompose + Route</text>
+        <text x="285" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">Claude AI + Weights</text>
+        <line x1="360" y1="110" x2="470" y2="50" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="360" y1="125" x2="470" y2="100" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="360" y1="135" x2="470" y2="140" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="360" y1="145" x2="470" y2="180" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="360" y1="160" x2="470" y2="225" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <rect x="470" y="30" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="46" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN1 INFERENCE</text><text x="530" y="58" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Reasoning</text>
+        <rect x="470" y="78" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="94" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN13 SCRAPING</text><text x="530" y="106" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Perception</text>
+        <rect x="470" y="126" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="142" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN8 PREDICTION</text><text x="530" y="154" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Executive</text>
+        <rect x="470" y="174" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="190" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN19 REALTIME</text><text x="530" y="202" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Attention</text>
+        <rect x="470" y="222" width="120" height="36" rx="6" stroke="#2A2A3A" stroke-width="1"/><text x="530" y="238" fill="#9999AA" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">SN33 ANNOTATE</text><text x="530" y="250" fill="#666678" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">Metacognition</text>
+        <line x1="590" y1="50" x2="690" y2="115" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="590" y1="100" x2="690" y2="125" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="590" y1="140" x2="690" y2="135" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="590" y1="180" x2="690" y2="145" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <line x1="590" y1="225" x2="690" y2="155" stroke="#2A2A3A" stroke-width="1" class="flow-line"/>
+        <rect x="690" y="100" width="120" height="70" rx="10" stroke="#00DBBC" stroke-width="1" fill="rgba(0,219,188,.03)"/>
+        <text x="750" y="128" fill="#00DBBC" font-family="JetBrains Mono,monospace" font-size="9" font-weight="500" text-anchor="middle">SYNTHESIZE</text>
+        <text x="750" y="144" fill="#9999AA" font-family="Outfit,sans-serif" font-size="9" text-anchor="middle">Merge + Resolve</text>
+        <text x="750" y="158" fill="#666678" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">+ Learn</text>
+        <line x1="810" y1="135" x2="870" y2="135" stroke="#00DBBC" stroke-width="1.5" class="flow-line"/>
+        <polygon points="870,130 880,135 870,140" fill="#00DBBC"/>
       </svg>
     </div>
-    <p class="arch-note reveal">
-      <strong>Like a Mixture of Experts model</strong>, Eigentau's router learns which subnet combinations produce the best results for each task type. The gating network adjusts weights via exponential moving average blending — 80% current knowledge, 20% new signal — ensuring stable, continuous improvement without catastrophic forgetting.
-    </p>
+    <p class="arch-caption reveal">Fig. 1 — Eigentau routes each task to multiple subnets in parallel, then synthesizes results. Routing weights are adjusted via exponential moving average after each query.</p>
   </div>
 </section>
 
-<!-- COGNITIVE MAP -->
-<section id="cognitive-map">
-  <div class="container">
-    <div class="section-tag reveal">Cognitive Map</div>
-    <h2 class="section-title reveal">Mapping Intelligence</h2>
-    <p class="section-desc reveal">Inspired by DeepMind's 2026 AGI framework, Eigentau maps Bittensor's subnets to 10 cognitive faculties — creating a live measure of decentralized general intelligence.</p>
-    <div class="cognitive-grid">
-      <div class="faculty-card reveal reveal-delay-1">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
-        <div class="faculty-name">Perception</div>
-        <div class="faculty-subnets">Image, Vision, Scraping</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="78"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-1">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>
-        <div class="faculty-name">Generation</div>
-        <div class="faculty-subnets">Text, Image, Audio Gen</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="92"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-2">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div class="faculty-name">Attention</div>
-        <div class="faculty-subnets">Real-time, Low-latency</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="65"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-2">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-        <div class="faculty-name">Learning</div>
-        <div class="faculty-subnets">Training, Fine-tuning</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="58"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-2">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 7h10M7 12h10M7 17h6"/></svg></div>
-        <div class="faculty-name">Memory</div>
-        <div class="faculty-subnets">Storage, Data Curation</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="71"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-3">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.47V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
-        <div class="faculty-name">Reasoning</div>
-        <div class="faculty-subnets">LLM Inference</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="88"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-3">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
-        <div class="faculty-name">Metacognition</div>
-        <div class="faculty-subnets">Annotation, Evaluation</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="45"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-3">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
-        <div class="faculty-name">Executive Fn</div>
-        <div class="faculty-subnets">Compute, Orchestration</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="62"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-4">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="faculty-name">Problem Solving</div>
-        <div class="faculty-subnets">Multi-step Agents</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="53"></div></div>
-      </div>
-      <div class="faculty-card reveal reveal-delay-4">
-        <div class="faculty-icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="faculty-name">Social Cognition</div>
-        <div class="faculty-subnets">Dialogue, Conversation</div>
-        <div class="faculty-bar"><div class="faculty-bar-fill" data-width="40"></div></div>
-      </div>
-    </div>
+<!-- COGNITIVE TABLE -->
+<section class="table-section" id="faculties">
+  <div class="mw">
+    <div class="sec-label reveal">Cognitive Map</div>
+    <div class="sec-h reveal">10 faculties of intelligence</div>
+    <p class="sec-p reveal">Inspired by DeepMind's 2026 AGI framework. Each Bittensor subnet maps to one or more cognitive faculties.</p>
+    <table class="cog-table reveal">
+      <thead>
+        <tr><th>Faculty</th><th>Subnet Types</th><th>Coverage</th><th style="text-align:right">Score</th><th style="text-align:right">Subnets</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="cog-name">Perception</td><td class="cog-subs">Image, Vision, Scraping</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:78%"></span></span></td><td class="cog-score">78%</td><td class="cog-count">14</td></tr>
+        <tr><td class="cog-name">Generation</td><td class="cog-subs">Text, Image, Audio</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:92%"></span></span></td><td class="cog-score">92%</td><td class="cog-count">22</td></tr>
+        <tr><td class="cog-name">Attention</td><td class="cog-subs">Real-time, Low-latency</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:65%"></span></span></td><td class="cog-score">65%</td><td class="cog-count">8</td></tr>
+        <tr><td class="cog-name">Learning</td><td class="cog-subs">Training, Fine-tuning</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:58%"></span></span></td><td class="cog-score">58%</td><td class="cog-count">6</td></tr>
+        <tr><td class="cog-name">Memory</td><td class="cog-subs">Storage, Data Curation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:71%"></span></span></td><td class="cog-score">71%</td><td class="cog-count">11</td></tr>
+        <tr><td class="cog-name">Reasoning</td><td class="cog-subs">LLM Inference</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:88%"></span></span></td><td class="cog-score">88%</td><td class="cog-count">18</td></tr>
+        <tr><td class="cog-name">Metacognition</td><td class="cog-subs">Annotation, Evaluation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:45%"></span></span></td><td class="cog-score">45%</td><td class="cog-count">4</td></tr>
+        <tr><td class="cog-name">Executive Fn</td><td class="cog-subs">Compute, Orchestration</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:62%"></span></span></td><td class="cog-score">62%</td><td class="cog-count">9</td></tr>
+        <tr><td class="cog-name">Problem Solving</td><td class="cog-subs">Multi-step Agents</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:53%"></span></span></td><td class="cog-score">53%</td><td class="cog-count">5</td></tr>
+        <tr><td class="cog-name">Social Cognition</td><td class="cog-subs">Dialogue, Conversation</td><td><span class="cog-bar"><span class="cog-bar-fill" style="width:40%"></span></span></td><td class="cog-score">40%</td><td class="cog-count">3</td></tr>
+      </tbody>
+    </table>
+    <p class="arch-caption reveal">Table 1 — Mapping Bittensor's 129 subnets to DeepMind's 10 cognitive faculties. Scores represent weighted subnet coverage per faculty.</p>
   </div>
 </section>
 
-<!-- LEARNING ENGINE -->
-<section id="learning" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-  <div class="container">
-    <div class="section-tag reveal">Learning Engine</div>
-    <h2 class="section-title reveal">Self-Evolving Intelligence</h2>
-    <p class="section-desc reveal">Every query teaches the router. Eigentau tracks which subnet combinations produce the best results and continuously optimizes its routing weights.</p>
-    <div class="learning-grid">
-      <div class="learning-features">
-        <div class="learning-feature reveal">
-          <div class="learning-feature-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <div>
-            <h4>Outcome Tracking</h4>
-            <p>Every routed query is scored. The system measures which subnet combinations produce the highest quality results for each task type.</p>
-          </div>
-        </div>
-        <div class="learning-feature reveal">
-          <div class="learning-feature-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          </div>
-          <div>
-            <h4>Signal Correlation</h4>
-            <p>Pearson correlation between routing signals and outcomes. Identifies which subnet performance metrics actually predict result quality.</p>
-          </div>
-        </div>
-        <div class="learning-feature reveal">
-          <div class="learning-feature-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          </div>
-          <div>
-            <h4>EMA Weight Blending</h4>
-            <p>Routing weights adjust via exponential moving average — 80% current knowledge, 20% new data. Stable improvement without catastrophic shifts.</p>
-          </div>
-        </div>
-        <div class="learning-feature reveal">
-          <div class="learning-feature-icon">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L14 3.27a2 2 0 0 0-2 0L6 6.27A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.73l6 3a2 2 0 0 0 2 0l6-3A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <div>
-            <h4>Regime Detection</h4>
-            <p>Detects shifts in network state — subnet congestion, performance degradation, new subnet launches — and adapts routing accordingly.</p>
-          </div>
-        </div>
+<!-- LEARNING -->
+<section class="learn" id="learning">
+  <div class="mw">
+    <div class="sec-label reveal">Learning Engine</div>
+    <div class="sec-h reveal" style="text-align:center;max-width:none">Self-evolving routing weights</div>
+    <p class="sec-p reveal" style="text-align:center;margin:0 auto 48px;max-width:540px">Every query teaches the router. Weights shift toward what works.</p>
+    <div class="learn-compare reveal">
+      <div class="learn-col">
+        <div class="learn-col-h">Initial Weights</div>
+        <div class="learn-row"><span class="learn-sig">Inference</span><span class="learn-val">0.180</span></div>
+        <div class="learn-row"><span class="learn-sig">Prediction</span><span class="learn-val">0.140</span></div>
+        <div class="learn-row"><span class="learn-sig">Scraping</span><span class="learn-val">0.100</span></div>
+        <div class="learn-row"><span class="learn-sig">Storage</span><span class="learn-val">0.100</span></div>
+        <div class="learn-row"><span class="learn-sig">Annotation</span><span class="learn-val">0.080</span></div>
+        <div class="learn-row"><span class="learn-sig">Training</span><span class="learn-val">0.050</span></div>
       </div>
-      <div class="learning-viz reveal">
-        <div class="learning-viz-title">Live Routing Weights</div>
-        <div class="weight-row">
-          <span class="weight-label">Inference</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="82"></div></div>
-          <span class="weight-val">0.359</span>
-          <span class="weight-delta up">+0.041</span>
-        </div>
-        <div class="weight-row">
-          <span class="weight-label">Prediction</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="58"></div></div>
-          <span class="weight-val">0.233</span>
-          <span class="weight-delta up">+0.018</span>
-        </div>
-        <div class="weight-row">
-          <span class="weight-label">Scraping</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="48"></div></div>
-          <span class="weight-val">0.209</span>
-          <span class="weight-delta down">-0.012</span>
-        </div>
-        <div class="weight-row">
-          <span class="weight-label">Storage</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="34"></div></div>
-          <span class="weight-val">0.144</span>
-          <span class="weight-delta up">+0.007</span>
-        </div>
-        <div class="weight-row">
-          <span class="weight-label">Annotation</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="18"></div></div>
-          <span class="weight-val">0.049</span>
-          <span class="weight-delta down">-0.003</span>
-        </div>
-        <div class="weight-row">
-          <span class="weight-label">Training</span>
-          <div class="weight-bar-bg"><div class="weight-bar-fill" data-width="8"></div></div>
-          <span class="weight-val">0.006</span>
-          <span class="weight-delta up">+0.002</span>
-        </div>
-        <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-family:var(--mono);font-size:11px;color:var(--text-muted);">Cycle 847 / EMA 0.80</span>
-          <span style="font-family:var(--mono);font-size:11px;color:var(--accent);">Accuracy: 74.2%</span>
-        </div>
+      <div class="learn-arrow">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>847 CYCLES</span>
+      </div>
+      <div class="learn-col">
+        <div class="learn-col-h">Learned Weights</div>
+        <div class="learn-row"><span class="learn-sig">Inference</span><span class="learn-val" style="color:var(--accent)">0.359</span></div>
+        <div class="learn-row"><span class="learn-sig">Prediction</span><span class="learn-val" style="color:var(--accent)">0.233</span></div>
+        <div class="learn-row"><span class="learn-sig">Scraping</span><span class="learn-val">0.209</span></div>
+        <div class="learn-row"><span class="learn-sig">Storage</span><span class="learn-val">0.144</span></div>
+        <div class="learn-row"><span class="learn-sig">Annotation</span><span class="learn-val" style="color:var(--text3)">0.049</span></div>
+        <div class="learn-row"><span class="learn-sig">Training</span><span class="learn-val" style="color:var(--text3)">0.006</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TOKEN -->
-<section class="token-section" id="token">
-  <div class="container">
-    <div class="section-tag reveal">Token</div>
-    <h2 class="section-title reveal">$TAU</h2>
-    <p class="section-desc reveal">The $TAU token powers Eigentau's routing economy on Base. Query fees fund subnet interactions via TAO.</p>
-    <div class="token-grid">
-      <div class="token-card reveal reveal-delay-1">
-        <h3>Route</h3>
-        <p>Pay for multi-subnet queries. Each routed task costs $TAU proportional to the number of subnets engaged and compute required.</p>
+<section class="token">
+  <div class="mw">
+    <div class="token-inner">
+      <div class="token-left">
+        <div class="token-sym">$TAU</div>
+        <div class="token-desc">Powers Eigentau's routing economy on Base. Query fees fund subnet interactions via TAO.</div>
       </div>
-      <div class="token-card reveal reveal-delay-2">
-        <h3>Stake</h3>
-        <p>Stake $TAU for priority routing and higher quality synthesis. Stakers get access to the full cognitive dashboard and learning insights.</p>
+      <div class="token-pills">
+        <span class="token-pill">Route</span>
+        <span class="token-pill">Stake</span>
+        <span class="token-pill">Learn</span>
       </div>
-      <div class="token-card reveal reveal-delay-3">
-        <h3>Learn</h3>
-        <p>Contribute proven routing recipes — task decomposition patterns that produce great results. Earn $TAU rewards when others use your routes.</p>
-      </div>
-    </div>
-    <div class="token-address reveal">
-      <span class="token-address-label">Contract</span>
-      <span class="token-address-val">Coming soon on Base</span>
-      <span class="badge">Soon</span>
+      <div class="token-soon"><span></span> Coming Soon</div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <svg width="22" height="22" viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
+  <div class="mw">
+    <div class="foot">
+      <div class="foot-l">
+        <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L14 26" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round"/><path d="M6 8L14 2L22 8" stroke="#00DBBC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="4" stroke="#666678" stroke-width="1.5"/><circle cx="14" cy="2" r="2" fill="#00DBBC"/></svg>
         Eigentau
       </div>
-      <div class="footer-links">
+      <div class="foot-r">
         <a href="/">Home</a>
         <a href="docs.html">Docs</a>
         <a href="https://app.eigentau.ai">App</a>
         <a href="https://x.com/eigentau" target="_blank">X</a>
+        <span style="color:var(--text3);font-size:11px;font-family:var(--mono)">Built on Bittensor</span>
       </div>
-      <div class="footer-note">Built on Bittensor</div>
     </div>
   </div>
 </footer>
 
 <script>
-// ── HERO CANVAS: Neural network with eigenvector routing ──
-(function() {
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas.getContext('2d');
-  let w, h, nodes = [], particles = [], edges = [];
-  const ACCENT = '#00DBBC';
+// Scroll reveal
+const ro = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  function resize() {
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-  }
-
-  function init() {
-    resize();
-    nodes = [];
-    edges = [];
-    particles = [];
-
-    // Create network nodes
-    const count = Math.min(Math.floor(w * h / 18000), 40);
-    const centerX = w * 0.7, centerY = h * 0.45;
-
-    // Central brain node
-    nodes.push({ x: centerX, y: centerY, r: 6, central: true, vx: 0, vy: 0 });
-
-    for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
-      const dist = 80 + Math.random() * Math.min(w * 0.3, 280);
-      nodes.push({
-        x: centerX + Math.cos(angle) * dist + (Math.random() - 0.5) * 60,
-        y: centerY + Math.sin(angle) * dist + (Math.random() - 0.5) * 60,
-        r: 2 + Math.random() * 2,
-        central: false,
-        vx: (Math.random() - 0.5) * 0.15,
-        vy: (Math.random() - 0.5) * 0.15,
-      });
-    }
-
-    // Create edges (connections)
-    for (let i = 1; i < nodes.length; i++) {
-      const dx = nodes[i].x - nodes[0].x;
-      const dy = nodes[i].y - nodes[0].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 300) {
-        edges.push({ from: 0, to: i });
-      }
-      // Some inter-node connections
-      for (let j = i + 1; j < nodes.length; j++) {
-        const ddx = nodes[i].x - nodes[j].x;
-        const ddy = nodes[i].y - nodes[j].y;
-        if (Math.sqrt(ddx * ddx + ddy * ddy) < 120) {
-          edges.push({ from: i, to: j });
-        }
-      }
-    }
-
-    // Spawn particles on edges
-    for (let i = 0; i < Math.min(edges.length, 15); i++) {
-      const e = edges[Math.floor(Math.random() * edges.length)];
-      particles.push({ edge: e, t: Math.random(), speed: 0.002 + Math.random() * 0.004, dir: Math.random() > 0.5 ? 1 : -1 });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-
-    // Draw edges
-    for (const e of edges) {
-      const a = nodes[e.from], b = nodes[e.to];
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      const isCenter = a.central || b.central;
-      ctx.strokeStyle = isCenter ? 'rgba(0,219,188,0.12)' : 'rgba(255,255,255,0.04)';
-      ctx.lineWidth = isCenter ? 1 : 0.5;
-      ctx.stroke();
-    }
-
-    // Draw particles
-    for (const p of particles) {
-      const a = nodes[p.edge.from], b = nodes[p.edge.to];
-      const x = a.x + (b.x - a.x) * p.t;
-      const y = a.y + (b.y - a.y) * p.t;
-      ctx.beginPath();
-      ctx.arc(x, y, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = ACCENT;
-      ctx.globalAlpha = 0.6;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      p.t += p.speed * p.dir;
-      if (p.t > 1 || p.t < 0) p.dir *= -1;
-    }
-
-    // Draw nodes
-    for (const n of nodes) {
-      if (n.central) {
-        // Glow
-        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 30);
-        grad.addColorStop(0, 'rgba(0,219,188,0.15)');
-        grad.addColorStop(1, 'rgba(0,219,188,0)');
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 30, 0, Math.PI * 2);
-        ctx.fillStyle = grad;
-        ctx.fill();
-        // Core
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = ACCENT;
-        ctx.fill();
-      } else {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,255,255,0.15)';
-        ctx.fill();
-      }
-
-      // Gentle drift
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > w) n.vx *= -1;
-      if (n.y < 0 || n.y > h) n.vy *= -1;
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  init();
-  draw();
-  window.addEventListener('resize', () => { resize(); init(); });
-})();
-
-// ── SCROLL REVEAL ──
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// ── COUNTER ANIMATION ──
-function animateCounters() {
-  document.querySelectorAll('.stat-value[data-target]').forEach(el => {
-    const target = parseInt(el.dataset.target);
-    const useComma = el.dataset.comma === 'true';
-    const duration = 1800;
-    const start = performance.now();
-    function tick(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const val = Math.round(target * eased);
-      el.textContent = useComma ? val.toLocaleString() : val;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  });
+// Counter
+function animateNum(el) {
+  const t = +el.dataset.target, d = 1200, s = performance.now();
+  (function tick(n) {
+    const p = Math.min((n - s) / d, 1), v = Math.round(t * (1 - Math.pow(1 - p, 3)));
+    el.textContent = v.toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
+  })(s);
 }
-
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateCounters();
-      statsObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-statsObserver.observe(document.querySelector('.stats-bar'));
-
-// ── FACULTY BARS + WEIGHT BARS ──
-const barObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.style.width = e.target.dataset.width + '%';
-      barObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('[data-width]').forEach(el => {
-  el.style.width = '0%';
-  barObserver.observe(el);
-});
+const co = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { animateNum(e.target); co.unobserve(e.target); }
+}), { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
 </script>
 </body>
 </html>
