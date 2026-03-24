@@ -326,61 +326,194 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 </footer>
 
 <script>
-// ── PERSISTENT ANIMATED BACKGROUND ──
+// ── 3D GEOMETRIC VISUALIZATION ──
 (function(){
-const c=document.getElementById('bg'),x=c.getContext('2d');
-let w,h,nodes=[],edges=[],particles=[],mouse={x:-1,y:-1};
+const c=document.getElementById('bg'),g=c.getContext('2d');
+let w,h,mx=-1,my=-1,t=0;
+
+// Golden ratio for icosahedron
+const phi=(1+Math.sqrt(5))/2;
+
+// Icosahedron vertices (12 vertices)
+const icoVerts=[
+[-1,phi,0],[1,phi,0],[-1,-phi,0],[1,-phi,0],
+[0,-1,phi],[0,1,phi],[0,-1,-phi],[0,1,-phi],
+[phi,0,-1],[phi,0,1],[-phi,0,-1],[-phi,0,1]
+].map(v=>{const l=Math.sqrt(v[0]**2+v[1]**2+v[2]**2);return v.map(c=>c/l)});
+
+// Icosahedron edges (30 edges)
+const icoEdges=[];
+for(let i=0;i<icoVerts.length;i++)for(let j=i+1;j<icoVerts.length;j++){
+const d=Math.sqrt((icoVerts[i][0]-icoVerts[j][0])**2+(icoVerts[i][1]-icoVerts[j][1])**2+(icoVerts[i][2]-icoVerts[j][2])**2);
+if(d<1.2)icoEdges.push([i,j]);
+}
+
+// Outer dodecahedron shell (20 vertices)
+const dodVerts=[];
+for(let i=0;i<20;i++){
+const a=i/20*Math.PI*2,b=Math.acos(1-2*(i+.5)/20);
+dodVerts.push([Math.sin(b)*Math.cos(a)*1.8,Math.sin(b)*Math.sin(a)*1.8,Math.cos(b)*1.8]);
+}
+
+// Orbital rings
+const rings=[];
+for(let r=0;r<3;r++){
+const pts=[];const tilt=r*Math.PI/3;
+for(let i=0;i<60;i++){
+const a=i/60*Math.PI*2;
+pts.push(a);
+}
+rings.push({pts,tilt,radius:1.4+r*.25,speed:.2+r*.15});
+}
+
+// Floating math symbols
+const symbols=['λ','Σ','∇','∂','τ','∫','Ω','π','Δ','∞','ξ','φ'];
+const floaters=symbols.map((s,i)=>({
+s,x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random()*2-1,
+speed:.001+Math.random()*.002,phase:Math.random()*Math.PI*2,
+orbit:2.2+Math.random()*.8
+}));
+
+// Particle trails along edges
+const trails=[];
+for(let i=0;i<15;i++){
+const ei=Math.floor(Math.random()*icoEdges.length);
+trails.push({edge:ei,t:Math.random(),speed:.005+Math.random()*.008,dir:1});
+}
+
 function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
-function init(){
-resize();nodes=[];edges=[];particles=[];
-const count=Math.min(Math.floor(w*h/20000),60);
-for(let i=0;i<count;i++){
-nodes.push({x:Math.random()*w,y:Math.random()*h*4,r:1+Math.random()*1.5,
-vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,
-ox:Math.random()*w,oy:Math.random()*h*4});
+
+function rotY(v,a){const c=Math.cos(a),s=Math.sin(a);return[v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c]}
+function rotX(v,a){const c=Math.cos(a),s=Math.sin(a);return[v[0],v[1]*c-v[2]*s,v[1]*s+v[2]*c]}
+function rotZ(v,a){const c=Math.cos(a),s=Math.sin(a);return[v[0]*c-v[1]*s,v[0]*s+v[1]*c,v[2]]}
+
+function project(v,scale,ox,oy){
+const perspective=4;
+const z=v[2]+perspective;
+const f=perspective/z*scale;
+return[v[0]*f+ox,v[1]*f+oy,z,f];
 }
-}
+
 function draw(){
+t+=.003;
 const sy=scrollY;
-x.clearRect(0,0,w,h);
-// draw connections
-for(let i=0;i<nodes.length;i++){
-const a=nodes[i];
-const ay=a.y-sy;
-if(ay<-100||ay>h+100)continue;
-for(let j=i+1;j<nodes.length;j++){
-const b=nodes[j];
-const by=b.y-sy;
-if(by<-100||by>h+100)continue;
-const dx=a.x-b.x,dy=ay-by,d=Math.sqrt(dx*dx+dy*dy);
-if(d<150){
-x.beginPath();x.moveTo(a.x,ay);x.lineTo(b.x,by);
-x.strokeStyle=`rgba(0,219,188,${(.08*(1-d/150)).toFixed(3)})`;
-x.lineWidth=.5;x.stroke();
+const heroFade=Math.max(0,1-sy/(h*.8));
+g.clearRect(0,0,w,h);
+
+const cx=w*.62,cy=h*.45;
+const sc=Math.min(w,h)*.18;
+
+// Mouse influence on rotation
+const mxr=mx>0?(mx/w-.5)*.3:0;
+const myr=my>0?(my/h-.5)*.3:0;
+const ry=t*.4+mxr;
+const rx=t*.25+myr+.3;
+
+// ── DRAW ORBITAL RINGS ──
+g.globalAlpha=heroFade*.25;
+for(const ring of rings){
+g.beginPath();
+let first=true;
+for(const a of ring.pts){
+const angle=a+t*ring.speed;
+let v=[Math.cos(angle)*ring.radius,0,Math.sin(angle)*ring.radius];
+v=rotX(v,ring.tilt);v=rotY(v,ry);v=rotX(v,rx);
+const p=project(v,sc,cx,cy);
+if(first){g.moveTo(p[0],p[1]);first=false}else g.lineTo(p[0],p[1]);
 }
+g.closePath();g.strokeStyle='rgba(0,219,188,.15)';g.lineWidth=.5;g.stroke();
 }
-// draw node
-x.beginPath();x.arc(a.x,ay,a.r,0,Math.PI*2);
-x.fillStyle='rgba(238,238,240,.06)';x.fill();
-// mouse interaction
-if(mouse.x>0){
-const mdx=a.x-mouse.x,mdy=ay-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
-if(md<200){
-x.beginPath();x.moveTo(a.x,ay);x.lineTo(mouse.x,mouse.y);
-x.strokeStyle=`rgba(0,219,188,${(.06*(1-md/200)).toFixed(3)})`;
-x.lineWidth=.5;x.stroke();
+
+// ── DRAW OUTER SHELL DOTS ──
+g.globalAlpha=heroFade*.3;
+for(let i=0;i<dodVerts.length;i++){
+let v=[...dodVerts[i]];
+// gentle breathing
+const breathe=1+Math.sin(t*2+i)*.05;
+v=v.map(c=>c*breathe);
+v=rotY(v,ry*.7);v=rotX(v,rx*.7);
+const p=project(v,sc,cx,cy);
+const sz=Math.max(.5,1.5*p[3]/sc);
+g.beginPath();g.arc(p[0],p[1],sz,0,Math.PI*2);
+g.fillStyle='rgba(0,219,188,.3)';g.fill();
 }
+
+// ── DRAW ICOSAHEDRON EDGES ──
+g.globalAlpha=heroFade;
+const projected=icoVerts.map(v=>{
+let r=rotY([...v],ry);r=rotX(r,rx);
+return project(r,sc,cx,cy);
+});
+
+for(const[a,b]of icoEdges){
+const pa=projected[a],pb=projected[b];
+const avgZ=(pa[2]+pb[2])/2;
+const bright=Math.max(.1,Math.min(.5,(avgZ-2)/3));
+g.beginPath();g.moveTo(pa[0],pa[1]);g.lineTo(pb[0],pb[1]);
+g.strokeStyle=`rgba(0,219,188,${bright.toFixed(2)})`;
+g.lineWidth=.8;g.stroke();
 }
-a.x+=a.vx;a.y+=a.vy;
-if(a.x<0||a.x>w)a.vx*=-1;
-if(a.y<-100||a.y>h*4+100)a.vy*=-1;
+
+// ── DRAW ICOSAHEDRON VERTICES ──
+for(let i=0;i<projected.length;i++){
+const p=projected[i];
+const bright=Math.max(.2,Math.min(.8,(p[2]-2)/3));
+const sz=Math.max(1.5,3*p[3]/sc);
+// glow
+const grad=g.createRadialGradient(p[0],p[1],0,p[0],p[1],sz*4);
+grad.addColorStop(0,`rgba(0,219,188,${(bright*.4).toFixed(2)})`);
+grad.addColorStop(1,'rgba(0,219,188,0)');
+g.beginPath();g.arc(p[0],p[1],sz*4,0,Math.PI*2);g.fillStyle=grad;g.fill();
+// core
+g.beginPath();g.arc(p[0],p[1],sz,0,Math.PI*2);
+g.fillStyle=`rgba(0,219,188,${bright.toFixed(2)})`;g.fill();
 }
+
+// ── PARTICLE TRAILS ──
+g.globalAlpha=heroFade*.8;
+for(const tr of trails){
+const[ai,bi]=icoEdges[tr.edge];
+const pa=projected[ai],pb=projected[bi];
+const px=pa[0]+(pb[0]-pa[0])*tr.t;
+const py=pa[1]+(pb[1]-pa[1])*tr.t;
+const grad=g.createRadialGradient(px,py,0,px,py,6);
+grad.addColorStop(0,'rgba(0,255,224,.6)');
+grad.addColorStop(1,'rgba(0,219,188,0)');
+g.beginPath();g.arc(px,py,3,0,Math.PI*2);g.fillStyle=grad;g.fill();
+tr.t+=tr.speed*tr.dir;
+if(tr.t>1||tr.t<0){tr.dir*=-1;tr.edge=Math.floor(Math.random()*icoEdges.length)}
+}
+
+// ── FLOATING MATH SYMBOLS ──
+g.globalAlpha=heroFade*.35;
+g.font='14px "JetBrains Mono"';
+for(const f of floaters){
+const angle=t*f.speed*100+f.phase;
+let v=[Math.cos(angle)*f.orbit,Math.sin(angle*.7)*f.orbit*.6,Math.sin(angle)*f.orbit];
+v=rotY(v,ry*.5);v=rotX(v,rx*.5);
+const p=project(v,sc,cx,cy);
+const bright=Math.max(.15,Math.min(.5,(p[2]-2)/4));
+g.fillStyle=`rgba(0,219,188,${bright.toFixed(2)})`;
+g.textAlign='center';g.textBaseline='middle';
+g.fillText(f.s,p[0],p[1]);
+}
+
+// ── CENTER GLOW ──
+g.globalAlpha=heroFade;
+const cGrad=g.createRadialGradient(cx,cy,0,cx,cy,sc*1.2);
+cGrad.addColorStop(0,'rgba(0,219,188,.06)');
+cGrad.addColorStop(.5,'rgba(0,219,188,.02)');
+cGrad.addColorStop(1,'rgba(0,219,188,0)');
+g.beginPath();g.arc(cx,cy,sc*1.2,0,Math.PI*2);g.fillStyle=cGrad;g.fill();
+
+g.globalAlpha=1;
 requestAnimationFrame(draw);
 }
-init();draw();
-window.addEventListener('resize',()=>{resize();init()});
-window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
-window.addEventListener('mouseleave',()=>{mouse.x=-1;mouse.y=-1});
+
+resize();draw();
+window.addEventListener('resize',resize);
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+window.addEventListener('mouseleave',()=>{mx=-1;my=-1});
 })();
 
 // ── SCROLL REVEALS ──
