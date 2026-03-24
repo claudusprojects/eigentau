@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#040406"/>
+      <stop offset="100%" stop-color="#0C0C18"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="rgba(0,219,188,0.08)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="acGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00DBBC"/>
+      <stop offset="100%" stop-color="#00A896"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="#181822" stroke-width="0.5" opacity="0.5">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Decorative geometric: icosahedron wireframe (simplified) -->
+  <g transform="translate(880, 280)" stroke="#00DBBC" fill="none" opacity="0.15" stroke-width="1">
+    <polygon points="0,-120 114,-37 70,97 -70,97 -114,-37"/>
+    <polygon points="0,-120 70,97 -70,97"/>
+    <polygon points="114,-37 -114,-37 0,120"/>
+    <line x1="0" y1="-120" x2="-114" y2="-37"/>
+    <line x1="114" y1="-37" x2="70" y2="97"/>
+    <line x1="-114" y1="-37" x2="-70" y2="97"/>
+    <circle cx="0" cy="0" r="3" fill="#00DBBC" opacity="0.4"/>
+  </g>
+
+  <!-- Orbital ring -->
+  <ellipse cx="880" cy="280" rx="160" ry="50" stroke="#00DBBC" stroke-width="0.8" fill="none" opacity="0.1" transform="rotate(-20, 880, 280)"/>
+  <ellipse cx="880" cy="280" rx="140" ry="45" stroke="#00DBBC" stroke-width="0.5" fill="none" opacity="0.06" transform="rotate(25, 880, 280)"/>
+
+  <!-- Hexagonal brain logo -->
+  <g transform="translate(80, 205)">
+    <polygon points="32,28 40,24 48,28 48,36 40,40 32,36" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.1"/>
+    <polygon points="48,28 56,24 64,28 64,36 56,40 48,36" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.1"/>
+    <polygon points="24,40 32,36 40,40 40,48 32,52 24,48" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.15"/>
+    <polygon points="40,40 48,36 56,40 56,48 48,52 40,48" stroke="#00DBBC" stroke-width="2.5" fill="#00DBBC" fill-opacity="0.2"/>
+    <polygon points="56,40 64,36 72,40 72,48 64,52 56,48" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.15"/>
+    <polygon points="32,52 40,48 48,52 48,60 40,64 32,60" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.1"/>
+    <polygon points="48,52 56,48 64,52 64,60 56,64 48,60" stroke="#00DBBC" stroke-width="2" fill="#00DBBC" fill-opacity="0.1"/>
+    <circle cx="48" cy="44" r="4" fill="#00DBBC"/>
+  </g>
+
+  <!-- Title text -->
+  <text x="80" y="330" font-family="Georgia, serif" font-size="72" font-style="italic" fill="#F0F0F2" letter-spacing="-3">Eigentau</text>
+
+  <!-- Tagline -->
+  <text x="82" y="375" font-family="system-ui, sans-serif" font-size="18" fill="#8A8A9E" letter-spacing="0.5">The fundamental direction of intelligence</text>
+
+  <!-- Descriptor line -->
+  <text x="82" y="420" font-family="system-ui, sans-serif" font-size="14" fill="#55556A">Decentralized AGI orchestration on Bittensor</text>
+
+  <!-- Accent line -->
+  <rect x="80" y="445" width="60" height="2" rx="1" fill="url(#acGrad)"/>
+
+  <!-- Stats strip -->
+  <g transform="translate(82, 480)">
+    <text font-family="monospace" font-size="24" fill="#F0F0F2" font-weight="500">129+</text>
+    <text font-family="system-ui, sans-serif" font-size="10" fill="#55556A" y="18" letter-spacing="1.5" text-transform="uppercase">SUBNETS</text>
+  </g>
+  <g transform="translate(222, 480)">
+    <text font-family="monospace" font-size="24" fill="#F0F0F2" font-weight="500">10</text>
+    <text font-family="system-ui, sans-serif" font-size="10" fill="#55556A" y="18" letter-spacing="1.5">FACULTIES</text>
+  </g>
+  <g transform="translate(342, 480)">
+    <text font-family="monospace" font-size="24" fill="#00DBBC" font-weight="500">$TAU</text>
+    <text font-family="system-ui, sans-serif" font-size="10" fill="#55556A" y="18" letter-spacing="1.5">TOKEN</text>
+  </g>
+
+  <!-- Bottom border accent -->
+  <rect x="0" y="626" width="1200" height="4" fill="url(#acGrad)" opacity="0.6"/>
+
+  <!-- Top-right domain -->
+  <text x="1120" y="50" font-family="monospace" font-size="13" fill="#55556A" text-anchor="end">eigentau.ai</text>
+</svg>

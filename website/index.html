@@ -6,9 +6,17 @@
 <title>Eigentau — The Fundamental Direction of Intelligence</title>
 <meta name="description" content="Decentralized AGI orchestration on Bittensor. Route complex tasks across 129+ specialized subnets.">
 <meta property="og:title" content="Eigentau — Decentralized AGI Orchestration">
-<meta property="og:description" content="The fundamental direction of intelligence.">
+<meta property="og:description" content="The fundamental direction of intelligence. Route complex tasks across 129+ Bittensor subnets.">
 <meta property="og:url" content="https://eigentau.ai">
+<meta property="og:image" content="https://eigentau.ai/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Eigentau — Decentralized AGI Orchestration">
+<meta name="twitter:description" content="The fundamental direction of intelligence. Route complex tasks across 129+ Bittensor subnets.">
+<meta name="twitter:image" content="https://eigentau.ai/og-banner.png">
+<meta name="twitter:site" content="@eigentau">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -33,14 +41,15 @@ a{color:inherit;text-decoration:none}
 canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:difference}
-.nav-in{max-width:1300px;margin:0 auto;padding:24px 40px;display:flex;align-items:center;justify-content:space-between}
-.n-logo{font-family:var(--serif);font-size:20px;color:white;font-style:italic;display:flex;align-items:center;gap:8px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,4,6,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(24,24,34,.5)}
+.nav-in{max-width:1300px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:space-between}
+.n-logo{font-family:var(--serif);font-size:20px;color:var(--t1);font-style:italic;display:flex;align-items:center;gap:8px}
 .n-logo svg{flex-shrink:0;vertical-align:middle}
 .n-links{display:flex;align-items:center;gap:32px}
-.n-links a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s}
-.n-links a:hover{color:white}
-.n-cta{background:white;color:black;padding:8px 22px;border-radius:99px;font-size:12px;font-weight:600;letter-spacing:.02em}
+.n-links a{font-size:13px;color:var(--t3);transition:color .2s}
+.n-links a:hover{color:var(--t1)}
+.n-cta{background:var(--ac);color:#000;padding:8px 22px;border-radius:99px;font-size:12px;font-weight:600;letter-spacing:.02em;transition:box-shadow .2s}
+.n-cta:hover{box-shadow:0 0 24px var(--acg)}
 
 /* SECTIONS */
 .panel{min-height:100vh;position:relative;z-index:1;display:flex;align-items:center;scroll-snap-align:start;overflow:hidden}
