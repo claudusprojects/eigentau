@@ -18,7 +18,7 @@
 <div class="space-y-8">
   <div class="flex items-end justify-between">
     <div>
-      <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Cognitive Map</h1>
+      <h1 class="font-serif text-2xl italic text-text mb-2">Cognitive Map</h1>
       <p class="text-sm text-text-muted">Bittensor's subnets mapped to DeepMind's 10 AGI cognitive faculties.</p>
     </div>
     <div class="text-right">

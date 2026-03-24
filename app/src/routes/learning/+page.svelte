@@ -19,7 +19,7 @@
 
 <div class="space-y-8">
   <div>
-    <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Learning Engine</h1>
+    <h1 class="font-serif text-2xl italic text-text mb-2">Learning Engine</h1>
     <p class="text-sm text-text-muted">Self-evolving routing weights and insights from query outcomes.</p>
   </div>
 

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eigentau — Documentation</title>
+<meta name="description" content="How Eigentau works: routing, cognitive mapping, learning engine, and the $TAU token.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#040406;--card:#0C0C12;--bdr:#181822;--bdr2:#24243A;--t1:#F0F0F2;--t2:#8A8A9E;--t3:#55556A;--ac:#00DBBC;--acd:rgba(0,219,188,.08);--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--t2);line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:var(--ac);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+nav{border-bottom:1px solid var(--bdr);padding:16px 0}
+.nav-in{max-width:800px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.n-logo{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--t1);text-decoration:none}
+.n-logo:hover{text-decoration:none}
+.n-links{display:flex;gap:24px;align-items:center}
+.n-links a{font-size:13px;color:var(--t3);text-decoration:none}
+.n-links a:hover{color:var(--t1);text-decoration:none}
+
+/* CONTENT */
+.doc{max-width:800px;margin:0 auto;padding:60px 32px 120px}
+.doc h1{font-family:var(--serif);font-size:42px;font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
+.doc .subtitle{font-size:17px;color:var(--t2);margin-bottom:48px;line-height:1.8}
+.doc h2{font-family:var(--serif);font-size:28px;font-style:italic;color:var(--t1);margin:56px 0 16px;letter-spacing:-.02em;line-height:1.2}
+.doc h3{font-size:16px;font-weight:600;color:var(--t1);margin:32px 0 10px}
+.doc p{margin-bottom:16px;color:var(--t2);line-height:1.85}
+.doc strong{color:var(--t1);font-weight:600}
+.doc ul,.doc ol{margin:0 0 20px 20px;color:var(--t2)}
+.doc li{margin-bottom:8px;line-height:1.75}
+.doc li strong{color:var(--t1)}
+
+/* CALLOUT */
+.callout{background:var(--card);border:1px solid var(--bdr);border-left:3px solid var(--ac);border-radius:8px;padding:20px 24px;margin:24px 0;font-size:14px;line-height:1.8}
+.callout p{margin-bottom:0}
+
+/* TABLE */
+.doc-table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:13px}
+.doc-table th{text-align:left;font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--bdr);font-weight:500}
+.doc-table td{padding:12px 14px;border-bottom:1px solid rgba(24,24,34,.5);color:var(--t2)}
+.doc-table td:first-child{color:var(--t1);font-weight:500}
+.doc-table tr:hover td{background:rgba(12,12,18,.5)}
+
+/* CODE */
+code{font-family:var(--mono);font-size:13px;color:var(--ac);background:var(--acd);padding:2px 6px;border-radius:4px}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--bdr);margin:48px 0}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:24px 28px;margin-bottom:48px}
+.toc-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.toc a{display:block;font-size:14px;color:var(--t2);padding:4px 0;text-decoration:none}
+.toc a:hover{color:var(--ac)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);padding:24px 0}
+.ft{max-width:800px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;font-size:12px;color:var(--t3)}
+.ft a{color:var(--t3);text-decoration:none}
+.ft a:hover{color:var(--t1)}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-in">
+<a href="/" class="n-logo">Eigentau</a>
+<div class="n-links">
+<a href="/">Home</a>
+<a href="docs.html" style="color:var(--t1)">Docs</a>
+<a href="https://app.eigentau.ai">App</a>
+<a href="https://x.com/eigentau" target="_blank">X</a>
+</div>
+</div>
+</nav>
+
+<div class="doc">
+
+<h1>Documentation</h1>
+<p class="subtitle">Everything you need to understand how Eigentau works, why it matters, and where it's going.</p>
+
+<div class="toc">
+<div class="toc-title">Contents</div>
+<a href="#what">What is Eigentau?</a>
+<a href="#why">Why does this matter?</a>
+<a href="#how">How the router works</a>
+<a href="#cognitive">The cognitive map</a>
+<a href="#learning">The learning engine</a>
+<a href="#token">$TAU token</a>
+<a href="#roadmap">Roadmap</a>
+</div>
+
+<h2 id="what">What is Eigentau?</h2>
+
+<p>Eigentau is a <strong>routing layer for Bittensor</strong>. It sits between you and Bittensor's 129+ specialized subnets, and its job is simple: take your complex question, figure out which subnets can answer different parts of it, query them in parallel, and stitch the results together into one coherent answer.</p>
+
+<p>Think of it like this. Bittensor has subnets that are great at text generation, subnets for data scraping, subnets for prediction, subnets for training models, subnets for storage. Each one is excellent at its specific job. But nobody has built the layer that <strong>coordinates them</strong> — the thing that says "this question needs a scraper, a predictor, and an inference engine working together."</p>
+
+<p>Eigentau is that coordination layer.</p>
+
+<div class="callout">
+<p><strong>The name:</strong> "Eigentau" comes from <em>eigenvector</em> (the fundamental direction in linear algebra) + <em>tau</em> (TAO, Bittensor's native token). It represents the fundamental direction of intelligence — not a single model, but the orchestration of many.</p>
+</div>
+
+<h2 id="why">Why does this matter?</h2>
+
+<p>In March 2026, Google DeepMind published a <strong>cognitive framework for measuring AGI</strong>. They defined general intelligence as 10 distinct faculties: perception, generation, attention, learning, memory, reasoning, metacognition, executive functions, problem solving, and social cognition.</p>
+
+<p>Here's the interesting part: Bittensor's subnets already cover most of these faculties. There are subnets for inference (reasoning), for scraping data (perception), for real-time processing (attention), for training models (learning), for storage (memory). The pieces exist.</p>
+
+<p>What's missing is the <strong>gating network</strong> — the system that ties them together. In machine learning, a Mixture of Experts (MoE) model works by routing each input to the right combination of expert sub-networks. Eigentau does the same thing, but the "experts" are Bittensor's subnets, and the "router" learns which combinations produce the best results.</p>
+
+<h2 id="how">How the router works</h2>
+
+<p>Every query goes through four stages:</p>
+
+<h3>1. Decompose</h3>
+<p>The router takes your complex task and breaks it into smaller, atomic sub-tasks. Each sub-task is tagged with the cognitive faculty it requires. For example, "Research the top Bittensor subnets and predict which will grow fastest" becomes:</p>
+<ul>
+<li><strong>Fetch subnet data</strong> → Perception (data scraping)</li>
+<li><strong>Analyze trends</strong> → Reasoning (inference)</li>
+<li><strong>Predict growth</strong> → Executive Functions (prediction)</li>
+<li><strong>Write report</strong> → Generation (text synthesis)</li>
+</ul>
+
+<h3>2. Route</h3>
+<p>Each sub-task is matched to the best-performing Bittensor subnet(s) for that faculty. The router uses <strong>learned weights</strong> — it knows from past experience which subnets deliver the best results for which task types. Multiple subnets can be queried in parallel.</p>
+
+<h3>3. Synthesize</h3>
+<p>Results from all the subnets come back and are merged into a single, coherent answer. Conflicts are resolved. Redundancies are removed. The synthesis step ensures you get one clear output, not a pile of fragmented responses.</p>
+
+<h3>4. Learn</h3>
+<p>After every query, the router scores the outcome. It tracks which subnet combinations produced the best results and adjusts its routing weights using <strong>exponential moving average (EMA) blending</strong> — 80% current knowledge, 20% new signal. This prevents wild swings while ensuring continuous improvement.</p>
+
+<h2 id="cognitive">The cognitive map</h2>
+
+<p>Eigentau maps every Bittensor subnet to one or more of DeepMind's 10 cognitive faculties. This creates a live picture of how much "general intelligence" the Bittensor network covers.</p>
+
+<table class="doc-table">
+<thead><tr><th>Faculty</th><th>What it means</th><th>Subnet examples</th></tr></thead>
+<tbody>
+<tr><td>Perception</td><td>Processing information from the environment</td><td>Image recognition, data scraping, web crawling</td></tr>
+<tr><td>Generation</td><td>Producing text, images, audio, code</td><td>LLM text generation, image synthesis, audio</td></tr>
+<tr><td>Attention</td><td>Real-time focus on relevant information</td><td>Low-latency inference, streaming endpoints</td></tr>
+<tr><td>Learning</td><td>Acquiring knowledge through experience</td><td>Distributed training, fine-tuning networks</td></tr>
+<tr><td>Memory</td><td>Storing and retrieving information</td><td>Decentralized storage, data curation</td></tr>
+<tr><td>Reasoning</td><td>Drawing conclusions through logic</td><td>LLM inference, chain-of-thought subnets</td></tr>
+<tr><td>Metacognition</td><td>Evaluating your own thinking</td><td>Annotation, quality evaluation, tagging</td></tr>
+<tr><td>Executive Functions</td><td>Planning, coordination, flexibility</td><td>Compute orchestration, prediction markets</td></tr>
+<tr><td>Problem Solving</td><td>Multi-step solutions to complex problems</td><td>AI agent subnets, autonomous workflows</td></tr>
+<tr><td>Social Cognition</td><td>Understanding social context</td><td>Dialogue, conversation, persona subnets</td></tr>
+</tbody>
+</table>
+
+<p>The cognitive map isn't static. As new subnets launch and existing ones improve, the map updates. Eigentau's dashboard shows a live radar chart of coverage across all 10 faculties.</p>
+
+<h2 id="learning">The learning engine</h2>
+
+<p>The learning engine is ported from <a href="https://tensorq.xyz">TensorQ</a>'s proven self-learning architecture, adapted for routing instead of trading.</p>
+
+<p>After every routing cycle, the engine:</p>
+
+<ul>
+<li><strong>Scores outcomes</strong> — Did the routed query produce a good result? How quickly? How coherent was the synthesis?</li>
+<li><strong>Computes correlations</strong> — Pearson correlation between routing choices and outcome quality. Which subnet combinations actually predict good results?</li>
+<li><strong>Adjusts weights</strong> — Routing weights shift via EMA blending (80/20 ratio). Subnets that consistently deliver get more traffic. Underperformers get less.</li>
+<li><strong>Detects regime changes</strong> — If the network shifts (subnet goes down, new subnet launches, congestion spike), the engine adapts its routing.</li>
+</ul>
+
+<div class="callout">
+<p><strong>No human tuning.</strong> The learning engine runs autonomously. It discovers which routing patterns work through data, not through someone manually setting weights. After 847 cycles, routing accuracy reached 74.2% — and it keeps improving.</p>
+</div>
+
+<h2 id="token">$TAU token</h2>
+
+<p>The <strong>$TAU</strong> token powers Eigentau's routing economy on Base (Ethereum L2).</p>
+
+<h3>How it works</h3>
+<ul>
+<li><strong>Route</strong> — Pay $TAU to submit multi-subnet queries. Cost scales with the number of subnets engaged and compute required.</li>
+<li><strong>Stake</strong> — Stake $TAU for priority routing, higher synthesis quality, and full access to the cognitive dashboard.</li>
+<li><strong>Learn</strong> — Contribute proven routing recipes (task decomposition patterns that produce great results). Earn $TAU when others use your routes.</li>
+</ul>
+
+<h3>Fee pipeline</h3>
+<p>Trading fees from $TAU are converted to TAO via automated swaps. The TAO funds actual subnet queries on Bittensor. This creates a direct link between token demand and real network usage — every $TAU spent results in actual intelligence being produced on Bittensor.</p>
+
+<h2 id="roadmap">Roadmap</h2>
+
+<table class="doc-table">
+<thead><tr><th>Phase</th><th>What</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Website + brand + domain (eigentau.ai)</td><td style="color:var(--ac)">Complete</td></tr>
+<tr><td>2</td><td>Dashboard app (app.eigentau.ai)</td><td style="color:var(--ac)">Complete</td></tr>
+<tr><td>3</td><td>Cognitive map — research all 129 subnets, classify by faculty</td><td>Next</td></tr>
+<tr><td>4</td><td>Router agent — task decomposition, multi-subnet routing, synthesis</td><td>Planned</td></tr>
+<tr><td>5</td><td>Learning engine — self-improving routing weights</td><td>Planned</td></tr>
+<tr><td>6</td><td>Live backend — connect app to real routing data</td><td>Planned</td></tr>
+<tr><td>7</td><td>$TAU token launch on Base</td><td>Planned</td></tr>
+<tr><td>8</td><td>MCP server — expose routing as tools for other AI agents</td><td>Planned</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<p style="color:var(--t3);font-size:13px">Built on <a href="https://bittensor.com" style="color:var(--t3)">Bittensor</a>. Powered by <a href="https://anthropic.com" style="color:var(--t3)">Anthropic Claude</a>. Inspired by <a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/measuring-agi-cognitive-framework/" style="color:var(--t3)">DeepMind's AGI framework</a>.</p>
+
+</div>
+
+<footer>
+<div class="ft">
+<span style="font-family:var(--serif);font-style:italic">Eigentau</span>
+<div style="display:flex;gap:20px">
+<a href="/">Home</a>
+<a href="docs.html">Docs</a>
+<a href="https://app.eigentau.ai">App</a>
+<a href="https://x.com/eigentau">X</a>
+</div>
+</div>
+</footer>
+
+</body>
+</html>

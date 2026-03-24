@@ -15,7 +15,7 @@
 
 <div class="space-y-8">
   <div>
-    <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Subnets</h1>
+    <h1 class="font-serif text-2xl italic text-text mb-2">Subnets</h1>
     <p class="text-sm text-text-muted">Bittensor subnets tracked by the routing engine.</p>
   </div>
 

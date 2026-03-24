@@ -1,35 +1,35 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 @theme {
-  --color-bg: #050508;
-  --color-bg-alt: #0B0B10;
-  --color-bg-card: #101018;
-  --color-bg-card-hover: #16161F;
-  --color-border: #1E1E2A;
-  --color-border-strong: #2A2A3A;
-  --color-text: #EEEEF0;
-  --color-text-secondary: #B0B0BC;
-  --color-text-muted: #707080;
+  --color-bg: #040406;
+  --color-bg-alt: #0A0A10;
+  --color-bg-card: #0C0C12;
+  --color-bg-card-hover: #12121C;
+  --color-border: #181822;
+  --color-border-strong: #24243A;
+  --color-text: #F0F0F2;
+  --color-text-secondary: #8A8A9E;
+  --color-text-muted: #55556A;
   --color-accent: #00DBBC;
-  --color-accent-dim: rgba(0, 219, 188, 0.12);
+  --color-accent-dim: rgba(0, 219, 188, 0.10);
   --color-danger: #EF4444;
-  --font-sans: 'Outfit', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text-secondary);
   line-height: 1.7;
-  font-size: 15px;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
