@@ -2,78 +2,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 @theme {
-  --color-void: #020204;
-  --color-bg: #040406;
-  --color-surface: #0A0A12;
-  --color-glass: rgba(10,10,18,.65);
-  --color-glass-border: rgba(255,255,255,.04);
-  --color-glass-hover: rgba(255,255,255,.06);
-  --color-border: #141424;
-  --color-border-lite: rgba(255,255,255,.06);
-  --color-text: #EEEEF2;
-  --color-body: #94949E;
-  --color-muted: #50505E;
-  --color-dim: #2E2E3C;
+  --color-void: #020203;
+  --color-bg: #060608;
+  --color-panel: #0c0c10;
+  --color-raised: #111116;
+  --color-line: #1a1a24;
+  --color-line-lite: rgba(255,255,255,.05);
+  --color-text: #e8e8ec;
+  --color-sub: #8c8c9a;
+  --color-faint: #4a4a58;
+  --color-ghost: #2a2a36;
   --color-teal: #00DBBC;
-  --color-teal-glow: rgba(0,219,188,.15);
-  --color-teal-soft: rgba(0,219,188,.06);
+  --color-teal-20: rgba(0,219,188,.2);
+  --color-teal-08: rgba(0,219,188,.08);
   --font-display: 'Instrument Serif', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-data: 'JetBrains Mono', monospace;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--color-void);
-  color: var(--color-body);
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-  height: 100vh;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--color-void);
+  color:var(--color-sub);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+  height:100vh;
 }
-a { text-decoration:none; color:inherit; }
-button { font-family:inherit; border:none; cursor:pointer; }
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;border:none;cursor:pointer}
 
-/* Scrollbar — near invisible */
-::-webkit-scrollbar { width:4px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--color-dim); border-radius:99px; }
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--color-ghost);border-radius:99px}
 
-/* ---- ANIMATIONS ---- */
-@keyframes rise {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
-}
-@keyframes glow-pulse {
-  0%,100% { opacity:.6; }
-  50% { opacity:1; }
-}
-@keyframes float-hex {
-  0%,100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(3deg); }
-}
-.rise { animation: rise .6s cubic-bezier(.16,1,.3,1) both; }
-.rise-d1 { animation-delay: .07s; }
-.rise-d2 { animation-delay: .14s; }
-.rise-d3 { animation-delay: .21s; }
-.rise-d4 { animation-delay: .28s; }
-
-/* ---- GLASS PANEL ---- */
-.glass {
-  background: var(--color-glass);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid var(--color-glass-border);
-  border-radius: 20px;
-}
-.glass:hover { border-color: var(--color-glass-hover); }
-
-/* ---- GLOW LINE ---- */
-.glow-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-teal), transparent);
-  opacity: .15;
-}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.anim{animation:rise .7s cubic-bezier(.16,1,.3,1) both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
