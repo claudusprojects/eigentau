@@ -161,40 +161,24 @@ app.get('/api/strategy', (_req, res) => {
   });
 });
 
-// ── TAO PRICE (from TensorGate) ──
-let cachedTaoPrice = { price: 0, ts: 0 };
+// ── TAO PRICE (CoinGecko) ──
+let cachedTaoPrice: { price: number; ts: number } = { price: 0, ts: 0 };
 app.get('/api/tao-price', async (_req, res) => {
-  // Cache for 60s
   if (Date.now() - cachedTaoPrice.ts < 60000 && cachedTaoPrice.price > 0) {
     return res.json({ price: cachedTaoPrice.price });
   }
-  try {
-    const r = await fetch('https://hub-production-dcbd.up.railway.app/api/v1/agent/network-stats', {
-      signal: AbortSignal.timeout(5000),
-    });
-    if (r.ok) {
-      const d = await r.json();
-      const priceMatch = JSON.stringify(d).match(/\$?([\d,]+\.?\d*)/);
-      if (priceMatch) {
-        cachedTaoPrice = { price: parseFloat(priceMatch[1].replace(',', '')), ts: Date.now() };
-        return res.json({ price: cachedTaoPrice.price });
-      }
-    }
-  } catch {}
-  // Fallback: try CoinGecko
   try {
     const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bittensor&vs_currencies=usd', {
       signal: AbortSignal.timeout(5000),
     });
     if (r.ok) {
-      const d = await r.json();
+      const d = await r.json() as any;
       if (d.bittensor?.usd) {
         cachedTaoPrice = { price: d.bittensor.usd, ts: Date.now() };
-        return res.json({ price: cachedTaoPrice.price });
       }
     }
   } catch {}
-  res.json({ price: cachedTaoPrice.price || 0 });
+  res.json({ price: cachedTaoPrice.price });
 });
 
 app.listen(PORT, () => {
