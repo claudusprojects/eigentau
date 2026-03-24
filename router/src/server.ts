@@ -3,7 +3,9 @@ import cors from 'cors';
 import { decompose } from './decompose.js';
 import { executeAll } from './execute.js';
 import { synthesize } from './synthesize.js';
-import { saveRoute, getRecentRoutes, getRouteCount, getWeights, updateWeight, getInsights, getStats } from './db.js';
+import { saveRoute, getRecentRoutes, getRouteCount, getWeights, updateWeight, getInsights, getStats, createAgent, getAgent, listAgents, deleteAgent, getMessages, getAgentTasks, getAgentCount } from './db.js';
+import { chat } from './agent.js';
+import { randomUUID } from 'crypto';
 import { ROUTING_TABLE, FACULTIES } from './subnets.js';
 
 const app = express();
@@ -179,6 +181,107 @@ app.get('/api/tao-price', async (_req, res) => {
     }
   } catch {}
   res.json({ price: cachedTaoPrice.price });
+});
+
+// ══════════════════════════════════════
+// AGENT PLATFORM
+// ══════════════════════════════════════
+
+// ── CREATE AGENT ──
+app.post('/api/agents', (req, res) => {
+  const { name, description, systemPrompt, goal, autonomous } = req.body;
+  if (!name || !description || !systemPrompt) {
+    return res.status(400).json({ error: 'Missing name, description, or systemPrompt' });
+  }
+  const id = randomUUID().slice(0, 8);
+  createAgent({ id, name, description, systemPrompt, goal, autonomous: !!autonomous });
+  res.json({ id, name, status: 'active' });
+});
+
+// ── LIST AGENTS ──
+app.get('/api/agents', (_req, res) => {
+  const agents = listAgents().map((a: any) => ({
+    id: a.id,
+    name: a.name,
+    description: a.description,
+    autonomous: !!a.autonomous,
+    goal: a.goal,
+    status: a.status,
+    totalTasks: a.total_tasks,
+    avgQuality: Math.round(a.avg_quality),
+    createdAt: a.created_at,
+  }));
+  res.json({ agents, total: getAgentCount() });
+});
+
+// ── GET AGENT ──
+app.get('/api/agents/:id', (req, res) => {
+  const agent = getAgent(req.params.id);
+  if (!agent) return res.status(404).json({ error: 'Agent not found' });
+  res.json({
+    id: agent.id,
+    name: agent.name,
+    description: agent.description,
+    systemPrompt: agent.system_prompt,
+    autonomous: !!agent.autonomous,
+    goal: agent.goal,
+    status: agent.status,
+    totalTasks: agent.total_tasks,
+    avgQuality: Math.round(agent.avg_quality),
+    createdAt: agent.created_at,
+  });
+});
+
+// ── DELETE AGENT ──
+app.delete('/api/agents/:id', (req, res) => {
+  const agent = getAgent(req.params.id);
+  if (!agent) return res.status(404).json({ error: 'Agent not found' });
+  deleteAgent(req.params.id);
+  res.json({ deleted: true });
+});
+
+// ── CHAT WITH AGENT ──
+app.post('/api/agents/:id/chat', async (req, res) => {
+  const agent = getAgent(req.params.id);
+  if (!agent) return res.status(404).json({ error: 'Agent not found' });
+  const { message } = req.body;
+  if (!message) return res.status(400).json({ error: 'Missing message' });
+
+  try {
+    const result = await chat(agent, message);
+    res.json(result);
+  } catch (err: any) {
+    console.error('Agent chat error:', err);
+    res.status(500).json({ error: err.message || 'Chat failed' });
+  }
+});
+
+// ── AGENT MESSAGES ──
+app.get('/api/agents/:id/messages', (req, res) => {
+  const agent = getAgent(req.params.id);
+  if (!agent) return res.status(404).json({ error: 'Agent not found' });
+  const msgs = getMessages(req.params.id, 100).map((m: any) => ({
+    role: m.role,
+    content: m.content,
+    createdAt: m.created_at,
+  }));
+  res.json({ messages: msgs });
+});
+
+// ── AGENT TASKS ──
+app.get('/api/agents/:id/tasks', (req, res) => {
+  const agent = getAgent(req.params.id);
+  if (!agent) return res.status(404).json({ error: 'Agent not found' });
+  const tasks = getAgentTasks(req.params.id, 50).map((t: any) => ({
+    id: t.id,
+    query: t.query,
+    status: t.status,
+    quality: t.quality,
+    latencyMs: t.latency_ms,
+    createdAt: t.created_at,
+    completedAt: t.completed_at,
+  }));
+  res.json({ tasks });
 });
 
 app.listen(PORT, () => {

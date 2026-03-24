@@ -10,6 +10,7 @@
     { href: '/subnets', label: 'Subnets' },
     { href: '/learning', label: 'Learning' },
     { href: '/strategy', label: 'Strategy' },
+    { href: '/agents', label: 'Agents' },
   ];
 </script>
 

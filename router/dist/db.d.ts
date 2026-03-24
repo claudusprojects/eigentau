@@ -21,4 +21,22 @@ export declare function getStats(): {
     avgQuality: number;
     weights: unknown[];
 };
+export declare function createAgent(data: {
+    id: string;
+    name: string;
+    description: string;
+    systemPrompt: string;
+    goal?: string;
+    autonomous?: boolean;
+}): void;
+export declare function getAgent(id: string): any;
+export declare function listAgents(): unknown[];
+export declare function updateAgentStats(id: string, quality: number): void;
+export declare function deleteAgent(id: string): void;
+export declare function addMessage(agentId: string, role: string, content: string, routeId?: number): void;
+export declare function getMessages(agentId: string, limit?: number): unknown[];
+export declare function addTask(agentId: string, query: string): number | bigint;
+export declare function completeTask(taskId: number | bigint, result: string, quality: number, latencyMs: number): void;
+export declare function getAgentTasks(agentId: string, limit?: number): unknown[];
+export declare function getAgentCount(): number;
 export default db;
