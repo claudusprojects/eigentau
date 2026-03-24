@@ -15,38 +15,49 @@ Inspired by Google DeepMind's 2026 AGI cognitive framework, which defines genera
 - **Token**: $TAU on Base
 - **Tagline**: "The fundamental direction of intelligence"
 
-## Current State (March 2026)
+## Current State (2026-03-24)
 
-### Completed (Phase 1-2)
-- **Website LIVE** at **eigentau.ai** (Hostinger)
-- **App LIVE** at **app.eigentau.ai** (Railway, auto-deploy from GitHub)
-- **GitHub**: `github.com/claudusprojects/eigentau`
+### What's Live
+- **Website**: eigentau.ai (Hostinger) — immersive scroll-snap panels, 3D icosahedron hero, per-section geometric canvas animations, hexagonal brain logo
+- **App**: app.eigentau.ai (Railway) — SvelteKit 2 dashboard with 6 pages, all mock data, ready for backend
+- **Docs**: eigentau.ai/docs — editorial documentation page explaining the project in plain language
+- **GitHub**: github.com/claudusprojects/eigentau (public)
 - **Domain**: eigentau.ai (purchased on Hostinger 2026-03-24)
-- **DNS**: A record for root, CNAME `app` -> Railway, TXT for Railway verification
-- **Design finalized**: Dark theme (#040406), teal accent (#00DBBC), Instrument Serif + DM Sans + JetBrains Mono
 
 ### What's Built
 
-**Website** (`website/index.html`)
-- Immersive full-viewport scroll-snap sections
-- 3D animated hero: rotating wireframe icosahedron with orbital rings, particle trails, floating math symbols (lambda, sigma, nabla, tau, etc.), mouse-interactive tilt
-- Per-section geometric animations: rotating octahedron (What), warping dot matrix + eigenvector waves (How), Lissajous spirograph curves (Learn), rotating wireframe torus (Token)
-- Radar/spider chart SVG for cognitive faculties
+**Website** (`website/index.html` ~770 lines)
+- Full-viewport scroll-snap panels (not flowing sections)
+- Hero: 3D rotating wireframe icosahedron with orbital rings, particle trails along edges, floating math symbols (lambda, sigma, nabla, tau, pi, etc.), mouse-interactive tilt, depth-based rendering
+- Per-section canvas animations: rotating octahedron (What), warping dot matrix + eigenvector waves (How), Lissajous spirograph curves (Learn), rotating wireframe torus (Token)
+- Radar/spider chart SVG for 10 cognitive faculties
 - Pipeline steps with giant ghost numbers (01-04)
-- Thesis quote block, stats strip, two-column explainer, "Built With" strip
-- Mix-blend-mode difference nav (always readable)
-- Scroll reveals, counter animations, bar fill animations
+- Thesis quote block, stats strip with counter animations, two-column explainer, "Built With" strip
+- Mix-blend-mode difference nav (always readable against any bg)
+- Typography: Instrument Serif (italic display) + DM Sans (body) + JetBrains Mono (data)
+- Colors: #040406 bg, #F0F0F2 text, #8A8A9E secondary, #55556A muted, #00DBBC accent
+- Logo: hexagonal honeycomb brain (7 hexagons with gradient opacity, center glow node)
+- IMPORTANT JS gotcha: section canvas animations must use uniquely-named helpers (proj2/rY2/rX2) to avoid scope collision with hero canvas IIFE
 
-**App** (`app/` — SvelteKit 2 + Svelte 5 runes + Tailwind 4 + node adapter)
-- 6 pages with sidebar nav: Overview, Router, Cognitive Map, Learning, Subnets, Strategy
-- Overview: stats grid (129 subnets, 48K queries, 74.2% accuracy), recent routes table, cognitive profile bars
-- Router: query input, task decomposition view with subnet/faculty tags, synthesis panel (mock data)
-- Cognitive Map: 10 faculties in 2-col grid with scores, progress bars, subnet counts, AGI coverage %
-- Learning: routing weights with deltas (+/-), recent learnings with type badges
-- Subnets: data table (subnet ID, name, faculty, emission, miners, health, route weight)
-- Strategy: network regime display, learned parameters table with reasoning
-- All mock data — ready for backend integration
-- Dockerfile for Railway deployment (node adapter, `npm install` not `npm ci`)
+**Docs** (`website/docs.html`)
+- Clean editorial layout, max-width 800px
+- 7 sections: What is Eigentau, Why it matters, How the router works, Cognitive map, Learning engine, $TAU token, Roadmap
+- Written in plain language, no code blocks — callout boxes, faculty table, roadmap with status
+- Same design system as website
+
+**App** (`app/` — SvelteKit 2 + Svelte 5 runes + Tailwind 4 + adapter-node)
+- 6 pages: Overview, Router, Cognitive Map, Learning, Subnets, Strategy
+- Sidebar nav with hexagonal brain logo
+- All pages use mock/placeholder data — ready for backend API integration
+- Typography: Instrument Serif (italic headings) + DM Sans (body) + JetBrains Mono (mono)
+- Same color palette as website
+- Dockerfile for Railway (node:20-alpine, npm install, node build)
+
+**Logo & Favicons**
+- Hexagonal honeycomb brain: 7 hexagons with gradient opacity (brighter center, faded edges) + center glow node
+- Source files: `website/logo.svg` (clean), `website/logo-favicon.svg` (with dark bg rect)
+- All sizes: favicon.svg, favicon.ico (16+32+48), PNG 16/32/48/180/192/512
+- Applied everywhere: website nav + footer, docs nav, app sidebar, all favicon tags
 
 ### TODO (Next Phases)
 
@@ -80,10 +91,6 @@ Inspired by Google DeepMind's 2026 AGI cognitive framework, which defines genera
 - `eigen_route` — send complex task, get orchestrated multi-subnet result
 - `eigen_cognitive_map` — get current subnet-to-faculty mapping
 - `eigen_stats` — routing performance, learning state
-
-**Phase 9: Docs Page**
-- `docs.html` — architecture, cognitive mapping, routing details, token info
-- Currently referenced in nav but not yet built
 
 ## Architecture
 
@@ -120,9 +127,6 @@ Ported from TensorQ's self-learning architecture, adapted for routing:
 
 ## Design System
 
-### Aesthetic
-Dark, immersive, mathematical. 3D geometric visualizations. Scroll-driven full-viewport panels. Each section has its own animated canvas art. Inspired by chutes.ai layout + Bittensor ecosystem colors.
-
 ### Colors
 - **Background**: `#040406` (primary), `#0C0C12` (cards), `#0F0F18` (elevated)
 - **Text**: `#F0F0F2` (headings), `#8A8A9E` (body), `#55556A` (muted)
@@ -130,47 +134,63 @@ Dark, immersive, mathematical. 3D geometric visualizations. Scroll-driven full-v
 - **Borders**: `#181822`, `#24243A`
 
 ### Typography
-- **Display**: Instrument Serif (italic) — distinctive, editorial, mathematical feel
+- **Display**: Instrument Serif (italic) — distinctive, editorial
 - **Body**: DM Sans — clean, readable
 - **Mono**: JetBrains Mono — data, numbers, code
 
+### Logo
+- Hexagonal honeycomb brain: 7 hexagons with gradient opacity + center glow node
+- Source: `website/logo.svg` (clean SVG), `website/logo-favicon.svg` (with dark bg for favicons)
+- Nav/footer use compact inline SVG version (7 hex + center dot, viewBox 0 0 88 88)
+- CSS for logo alignment: `.n-logo{display:flex;align-items:center;gap:8px}` + `.n-logo svg{flex-shrink:0}`
+
 ### Visual Motifs
 - 3D wireframe icosahedron (hero) with eigenvector arrows + orbital rings
-- Per-section canvas animations: octahedron, dot matrix warp, Lissajous curves, wireframe torus
-- Floating mathematical symbols (lambda, sigma, nabla, tau, pi, etc.)
+- Per-section canvas: octahedron, dot matrix warp, Lissajous curves, wireframe torus
+- Floating mathematical symbols
 - Radar/spider chart for cognitive profile
 - Scroll-snap full-viewport panels
-- Mix-blend-mode difference nav
 
 ## Project Structure
 
 ```
 claudecooks/eigentau/
-  CLAUDE.md              # This file — source of truth
-  .gitignore             # node_modules, .svelte-kit, build, .env, *.zip
+  CLAUDE.md                    # This file — source of truth
+  .gitignore                   # node_modules, .svelte-kit, build, .env, *.zip
   website/
-    index.html           # Homepage (single-file, inlined CSS/JS, ~770 lines)
-    favicon.svg          # Eigenvector arrow icon
-    .htaccess            # HTTPS redirect + clean URLs
-  app/                   # SvelteKit 2 dashboard
+    index.html                 # Homepage (~770 lines, single-file inlined CSS/JS)
+    docs.html                  # Documentation page
+    faviconexample.html        # Logo picker page (can be removed)
+    logo.svg                   # Clean logo SVG
+    logo-favicon.svg           # Logo with dark bg rect for favicons
+    favicon.svg                # Same as logo.svg
+    favicon.ico                # Multi-size ICO (16+32+48)
+    favicon-16x16.png
+    favicon-32x32.png
+    favicon-48x48.png
+    apple-touch-icon.png       # 180px for iOS
+    android-chrome-192x192.png
+    android-chrome-512x512.png
+    .htaccess                  # HTTPS redirect + clean URLs (/docs, /faviconexample)
+  app/                         # SvelteKit 2 dashboard
     src/
-      app.css            # Tailwind 4 + theme vars + fonts
-      app.html           # HTML shell
+      app.css                  # Tailwind 4 + theme vars + fonts
+      app.html                 # HTML shell with all favicon tags
       routes/
-        +layout.svelte   # Sidebar nav + top bar
-        +page.svelte     # Overview dashboard
-        router/+page.svelte
-        cognitive/+page.svelte
-        learning/+page.svelte
-        subnets/+page.svelte
-        strategy/+page.svelte
-    static/favicon.svg
-    Dockerfile           # node:20-alpine, npm install, node build
-    svelte.config.js     # adapter-node
-    vite.config.ts       # tailwindcss plugin
+        +layout.svelte         # Sidebar nav + top bar
+        +page.svelte           # Overview dashboard
+        router/+page.svelte    # Query router with decomposition view
+        cognitive/+page.svelte # 10 faculties grid
+        learning/+page.svelte  # Routing weights + learnings
+        subnets/+page.svelte   # Subnet data table
+        strategy/+page.svelte  # Learned parameters
+    static/                    # favicon.svg, .ico, PNGs
+    Dockerfile                 # node:20-alpine, npm install, node build
+    svelte.config.js           # adapter-node
+    vite.config.ts             # tailwindcss plugin
     package.json
-  router/                # Router agent (Phase 4 — NOT YET BUILT)
-  mcp/                   # MCP server (Phase 8 — NOT YET BUILT)
+  router/                      # Router agent (Phase 4 — NOT YET BUILT)
+  mcp/                         # MCP server (Phase 8 — NOT YET BUILT)
 ```
 
 ## Deployment
@@ -181,21 +201,28 @@ claudecooks/eigentau/
 - **Deploy command**:
   ```bash
   cd /root/claudecooks/eigentau/website
-  rm -f deploy.zip && zip deploy.zip index.html favicon.svg .htaccess
+  rm -f deploy.zip && zip deploy.zip index.html docs.html favicon.svg favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png android-chrome-192x192.png android-chrome-512x512.png logo.svg logo-favicon.svg .htaccess
   cd /tmp/hostinger-mcp && API_TOKEN="$HOSTINGER_API_KEY" node setup-eigentau.js
   ```
+- **Hostinger API key**: stored in `/root/claudecooks/Clawnomous/.env` as `HOSTINGER_API_KEY`
 
 ### App (app.eigentau.ai)
-- **Host**: Railway (auto-deploy from GitHub main branch)
+- **Host**: Railway (auto-deploy does NOT reliably trigger — use manual deploy)
 - **Railway domain**: `eigentau-app-production.up.railway.app`
 - **Custom domain**: `app.eigentau.ai` (CNAME -> `ehvaxz9f.up.railway.app`)
 - **Railway IDs**:
   - Project: `50198e35-175e-427c-9668-dd15b12475fd`
   - Service: `64cf821f-f8ea-452f-a2bc-cd117053d644`
   - Environment: `3e63372a-5b67-421a-b58c-fbbf73c2f6d1`
-- **Root directory**: `app` (set via `serviceInstanceUpdate`)
+- **Root directory**: `app` (set via `serviceInstanceUpdate` mutation, NOT env var)
 - **Start command**: `node build`
-- **Env vars**: `PORT=3000`
+- **Manual deploy command**:
+  ```bash
+  export RAILWAY_TOKEN="720dd4c0-b76b-45d1-827b-44be40405b74"
+  curl -s -H "Authorization: Bearer $RAILWAY_TOKEN" -H "Content-Type: application/json" \
+    -X POST https://backboard.railway.app/graphql/v2 \
+    -d '{"query":"mutation { serviceInstanceDeploy(serviceId: \"64cf821f-f8ea-452f-a2bc-cd117053d644\", environmentId: \"3e63372a-5b67-421a-b58c-fbbf73c2f6d1\") }"}'
+  ```
 
 ### DNS (eigentau.ai on Hostinger)
 | Type | Name | Value |
@@ -207,7 +234,7 @@ claudecooks/eigentau/
 
 ### GitHub
 - **Repo**: `github.com/claudusprojects/eigentau` (public)
-- **Remote**: `https://github.com/claudusprojects/eigentau.git (uses PAT auth)`
+- **Remote uses PAT auth** (ghp token embedded in remote URL)
 
 ## Reusable Components
 
@@ -223,13 +250,42 @@ claudecooks/eigentau/
 - DeepMind AGI Cognitive Framework (March 2026): 10 faculties of general intelligence
 - Mixture of Experts (MoE): Gating network routes tokens to specialized experts
 - Bittensor dTAO: 129+ subnets, each specialized, $2.3M/day emissions, $318/TAO
-- TensorQ: Proven self-learning trading agent on Bittensor
+- TensorQ: Proven self-learning trading agent on Bittensor (at /root/claudecooks/TensorQ/)
 - TensorGate: Working subnet query/routing tools (MCP server, 23 tools)
 
 ## Critical Gotchas
-- **Railway root directory**: Must use `serviceInstanceUpdate` mutation to set `rootDirectory: "app"` — env var `RAILWAY_ROOT_DIRECTORY` does NOT work
-- **Railway Dockerfile**: When rootDirectory is set, Dockerfile path is relative to that directory (just `Dockerfile`, not `app/Dockerfile`)
-- **Railway npm ci**: Fails if package-lock.json format doesn't match node version — use `npm install` instead in Dockerfile
+- **Railway root directory**: Must use `serviceInstanceUpdate` mutation — env var `RAILWAY_ROOT_DIRECTORY` does NOT work
+- **Railway auto-deploy**: Does NOT reliably trigger on push — always manually trigger via GraphQL `serviceInstanceDeploy`
+- **Railway Dockerfile**: When rootDirectory is set, Dockerfile path is relative to that dir. Use `npm install` not `npm ci` (lockfile format issues)
 - **Hostinger DNS**: Use PUT method to update zone (not POST), must include ALL existing records + new ones with `overwrite: true`
-- **Website JS scope**: Section canvas animations must use uniquely-named helper functions (proj2/rY2/rX2) to avoid collision with hero canvas IIFE (proj/rY/rX)
-- **Design iterations**: TensorQ uses similar dark+teal+serif pattern — Eigentau must use different layout (scroll-snap panels, centered hero, bento/asymmetric) and different display font (Instrument Serif, not EB Garamond)
+- **Website JS scope**: Section canvas animations use proj2/rY2/rX2 (not proj/rY/rX) to avoid collision with hero IIFE
+- **Logo alignment**: Nav/footer logo needs `display:flex;align-items:center;gap:8px` on the `.n-logo` class + `flex-shrink:0` on the svg
+- **Design iterations**: Website went through multiple redesigns. Current version uses scroll-snap panels + 3D icosahedron hero. Avoid: curved crossbar tau logos (look like pickaxes), flat template layouts (look like every other Claude-made site), EB Garamond (too similar to TensorQ)
+- **Hostinger deploy zip**: Must include ALL files needed (html, svg, ico, png, .htaccess) — anything not in the zip gets deleted
+- **App fonts**: Must match website exactly (Instrument Serif + DM Sans + JetBrains Mono) for cohesive feel
+
+## Session Handoff Notes (2026-03-24)
+
+### Where We Left Off
+- All Phase 1-2 work complete: website, app, docs, logo, favicons, DNS, deployments
+- Last commit: `1978da2` — "Fix logo alignment: flex center on nav + footer + docs"
+- Website is live and looking good with the 3D icosahedron hero and per-section animations
+- App is deployed but still has mock data and could use more visual polish
+- Docs page is clean and well-written
+- Logo (hexagonal brain) is finalized and deployed everywhere
+
+### Immediate Next Steps
+1. **Clean up**: Remove `faviconexample.html` and `eigen-logo-*.png` (DALL-E test images) from website dir
+2. **App polish**: The app works but could still be improved visually — the user said it needed to be "much better and easier to read". Current state is improved but not finalized
+3. **Phase 3: Cognitive Map Research**: Research all 129 Bittensor subnets, classify by faculty, replace mock data
+4. **Phase 4: Router Agent**: Build the actual routing engine in `router/` directory
+
+### Design Decisions Made This Session
+- Dark theme with #00DBBC teal accent (Bittensor ecosystem native)
+- Instrument Serif italic for display headings (NOT EB Garamond — too similar to TensorQ)
+- DM Sans for body text
+- Hexagonal honeycomb brain as logo (chosen by user from options)
+- Immersive scroll-snap panels (NOT flowing sections — too template-y)
+- 3D animated icosahedron as hero visual (NOT random dots/lines)
+- Per-section geometric canvas animations (octahedron, dot matrix, Lissajous, torus)
+- The user is very particular about design quality — generic/template-looking designs are rejected
