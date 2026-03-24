@@ -35,7 +35,8 @@ canvas#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:difference}
 .nav-in{max-width:1300px;margin:0 auto;padding:24px 40px;display:flex;align-items:center;justify-content:space-between}
-.n-logo{font-family:var(--serif);font-size:20px;color:white;font-style:italic}
+.n-logo{font-family:var(--serif);font-size:20px;color:white;font-style:italic;display:flex;align-items:center;gap:8px}
+.n-logo svg{flex-shrink:0;vertical-align:middle}
 .n-links{display:flex;align-items:center;gap:32px}
 .n-links a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s}
 .n-links a:hover{color:white}
@@ -122,7 +123,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:difference}
 /* FOOTER */
 footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:1}
 .ft{max-width:1300px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
-.ft-logo{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--t3)}
+.ft-logo{font-family:var(--serif);font-size:16px;font-style:italic;color:var(--t3);display:flex;align-items:center;gap:7px}
+.ft-logo svg{flex-shrink:0}
 .ft-links{display:flex;gap:24px}
 .ft-links a{font-size:12px;color:var(--t3);transition:color .2s}
 .ft-links a:hover{color:var(--t1)}
