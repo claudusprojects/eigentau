@@ -217,7 +217,7 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 
 <!-- WHAT -->
 <section class="panel what" id="what">
-<canvas class="sec-canvas" id="cv-what" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.35"></canvas>
+<canvas class="sec-canvas" id="cv-what" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.7"></canvas>
 <div class="panel-inner">
 <div class="what-grid">
 <div class="what-left">
@@ -295,7 +295,7 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 
 <!-- HOW -->
 <section class="panel how" id="how">
-<canvas class="sec-canvas" id="cv-how" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.3"></canvas>
+<canvas class="sec-canvas" id="cv-how" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.65"></canvas>
 <div class="panel-inner">
 <h2 class="rv">How Eigentau thinks</h2>
 <div class="pipeline">
@@ -344,7 +344,7 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 
 <!-- LEARN -->
 <section class="panel learn-panel" id="learn">
-<canvas class="sec-canvas" id="cv-learn" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.3"></canvas>
+<canvas class="sec-canvas" id="cv-learn" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.65"></canvas>
 <div class="panel-inner">
 <div class="learn-grid">
 <div class="learn-left">
@@ -367,7 +367,7 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 
 <!-- TOKEN -->
 <section class="panel token-panel" id="token">
-<canvas class="sec-canvas" id="cv-token" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.25"></canvas>
+<canvas class="sec-canvas" id="cv-token" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.6"></canvas>
 <div class="panel-inner">
 <div class="tok-center">
 <h2 class="rv"><span>$TAU</span></h2>
@@ -602,19 +602,22 @@ let t=0;
 function draw(){
 t+=.004;
 c.width=c.offsetWidth;c.height=c.offsetHeight;
-const w=c.width,h=c.height,sc=Math.min(w,h)*.12;
+const w=c.width,h=c.height,sc=Math.min(w,h)*.18;
 const ox=w*.15,oy=h*.5;
 const pts=verts.map(v=>{let r=rY2([...v],t*.6);r=rX2(r,t*.4+.5);return proj2(r,sc,ox,oy)});
-x.lineWidth=.6;
+x.lineWidth=1;
 for(const[a,b]of edges){
 x.beginPath();x.moveTo(pts[a][0],pts[a][1]);x.lineTo(pts[b][0],pts[b][1]);
-x.strokeStyle='rgba(0,219,188,.2)';x.stroke();
+x.strokeStyle='rgba(0,219,188,.45)';x.stroke();
 }
 for(let i=0;i<pts.length;i++){
 const pulse=1+sin(t*3+i)*.3;
-const sz=2*pulse;
+const sz=3*pulse;
+const g=x.createRadialGradient(pts[i][0],pts[i][1],0,pts[i][0],pts[i][1],sz*3);
+g.addColorStop(0,'rgba(0,219,188,.3)');g.addColorStop(1,'rgba(0,219,188,0)');
+x.beginPath();x.arc(pts[i][0],pts[i][1],sz*3,0,PI*2);x.fillStyle=g;x.fill();
 x.beginPath();x.arc(pts[i][0],pts[i][1],sz,0,PI*2);
-x.fillStyle=`rgba(0,219,188,${(.3+sin(t*2+i)*.15).toFixed(2)})`;x.fill();
+x.fillStyle=`rgba(0,219,188,${(.5+sin(t*2+i)*.2).toFixed(2)})`;x.fill();
 }
 requestAnimationFrame(draw);
 }
@@ -635,12 +638,12 @@ for(let i=1;i<=cols;i++){
 for(let j=1;j<=rows;j++){
 const bx=i*gx,by=j*gy;
 // eigenvalue-like warp: stretch along one axis, compress along another
-const dx=sin(t+i*.3+j*.2)*12;
-const dy=cos(t*.7+j*.4+i*.15)*8;
+const dx=sin(t+i*.3+j*.2)*18;
+const dy=cos(t*.7+j*.4+i*.15)*12;
 const px=bx+dx,py=by+dy;
 const dist=Math.sqrt((px-w*.8)**2+(py-h*.5)**2);
-const bright=Math.max(.05,Math.min(.2,.25-dist/(w*.6)));
-x.beginPath();x.arc(px,py,1.2,0,PI*2);
+const bright=Math.max(.08,Math.min(.4,.5-dist/(w*.5)));
+x.beginPath();x.arc(px,py,1.8,0,PI*2);
 x.fillStyle=`rgba(0,219,188,${bright.toFixed(3)})`;x.fill();
 }
 }
@@ -652,8 +655,8 @@ for(let i=0;i<w;i+=4){
 const y=startY+sin(i*.008+t*2+k)*30*sin(t+k);
 if(i===0)x.moveTo(i,y);else x.lineTo(i,y);
 }
-x.strokeStyle=`rgba(0,219,188,${(.04+k*.01).toFixed(2)})`;
-x.lineWidth=.5;x.stroke();
+x.strokeStyle=`rgba(0,219,188,${(.1+k*.03).toFixed(2)})`;
+x.lineWidth=.8;x.stroke();
 }
 requestAnimationFrame(draw);
 }
@@ -669,29 +672,29 @@ function draw(){
 t+=.003;
 c.width=c.offsetWidth;c.height=c.offsetHeight;
 const w=c.width,h=c.height;
-const cx=w*.85,cy=h*.5,sc=Math.min(w,h)*.15;
+const cx=w*.85,cy=h*.5,sc=Math.min(w,h)*.2;
 // Lissajous curves
 for(let k=0;k<3;k++){
 x.beginPath();
 const a=3+k,b=2+k,d=t+k*PI/3;
 for(let i=0;i<300;i++){
 const angle=i/300*PI*2;
-const px=cx+sin(a*angle+d)*sc*(1-k*.2);
-const py=cy+sin(b*angle)*sc*(1-k*.2);
+const px=cx+sin(a*angle+d)*sc*(1-k*.15);
+const py=cy+sin(b*angle)*sc*(1-k*.15);
 if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
 }
 x.closePath();
-x.strokeStyle=`rgba(0,219,188,${(.12-.03*k).toFixed(2)})`;
-x.lineWidth=.6;x.stroke();
+x.strokeStyle=`rgba(0,219,188,${(.25-.05*k).toFixed(2)})`;
+x.lineWidth=1;x.stroke();
 }
 // rotating point on the curve
 const angle=t*8;
 const px=cx+sin(3*angle+t)*sc;
 const py=cy+sin(2*angle)*sc;
-const g=x.createRadialGradient(px,py,0,px,py,8);
-g.addColorStop(0,'rgba(0,219,188,.4)');g.addColorStop(1,'rgba(0,219,188,0)');
-x.beginPath();x.arc(px,py,8,0,PI*2);x.fillStyle=g;x.fill();
-x.beginPath();x.arc(px,py,2,0,PI*2);x.fillStyle='rgba(0,219,188,.6)';x.fill();
+const g=x.createRadialGradient(px,py,0,px,py,14);
+g.addColorStop(0,'rgba(0,219,188,.6)');g.addColorStop(1,'rgba(0,219,188,0)');
+x.beginPath();x.arc(px,py,14,0,PI*2);x.fillStyle=g;x.fill();
+x.beginPath();x.arc(px,py,3,0,PI*2);x.fillStyle='rgba(0,255,224,.8)';x.fill();
 requestAnimationFrame(draw);
 }
 draw();
@@ -722,7 +725,7 @@ pts.push(p);
 }
 }
 // draw rings
-x.lineWidth=.4;
+x.lineWidth=.8;
 for(let i=0;i<segsU;i++){
 x.beginPath();
 for(let j=0;j<=segsV;j++){
@@ -730,7 +733,7 @@ const idx=i*segsV+(j%segsV);
 const p=pts[idx];
 if(j===0)x.moveTo(p[0],p[1]);else x.lineTo(p[0],p[1]);
 }
-x.strokeStyle='rgba(0,219,188,.08)';x.stroke();
+x.strokeStyle='rgba(0,219,188,.18)';x.stroke();
 }
 for(let j=0;j<segsV;j++){
 x.beginPath();
@@ -739,7 +742,7 @@ const idx=(i%segsU)*segsV+j;
 const p=pts[idx];
 if(i===0)x.moveTo(p[0],p[1]);else x.lineTo(p[0],p[1]);
 }
-x.strokeStyle='rgba(0,219,188,.06)';x.stroke();
+x.strokeStyle='rgba(0,219,188,.12)';x.stroke();
 }
 requestAnimationFrame(draw);
 }
