@@ -1,88 +1,95 @@
 <script lang="ts">
-  import { subnets, FACULTIES, FACULTY_COLORS, getFacultyStats, type Faculty } from '$lib/subnets';
+  import { subnets, FACULTY_COLORS, getFacultyStats, type Faculty } from '$lib/subnets';
 
   const facultyStats = getFacultyStats();
   const avgScore = Math.round(facultyStats.reduce((s, f) => s + f.score, 0) / facultyStats.length);
-
-  const stats = [
-    { label: 'Subnets Mapped', value: subnets.length, sub: 'across Bittensor' },
-    { label: 'Cognitive Faculties', value: '10 / 10', sub: '100% coverage' },
-    { label: 'AGI Score', value: avgScore + '%', sub: 'weighted average' },
-    { label: 'Strongest Faculty', value: 'Reasoning', sub: '28 subnets' },
-  ];
+  const topFaculty = facultyStats.sort((a, b) => b.primary - a.primary)[0];
 
   const recentRoutes = [
-    { task: 'Research top Bittensor subnets by emission growth', subnets: ['SN1 Apex', 'SN13 Data Universe', 'SN22 Desearch'], quality: 92, time: '3.1s' },
-    { task: 'Predict TAO price movement next 7 days', subnets: ['SN8 Vanta', 'SN50 Synth', 'SN6 Numinous'], quality: 78, time: '1.8s' },
-    { task: 'Summarize latest subnet registrations', subnets: ['SN42 Gopher', 'SN1 Apex', 'SN33 ReadyAI'], quality: 88, time: '4.2s' },
-    { task: 'Analyze validator consensus patterns', subnets: ['SN1 Apex', 'SN15 De-Val'], quality: 85, time: '2.7s' },
+    { task: 'Research top Bittensor subnets by emission growth', targets: ['SN1 Apex', 'SN13 Data Universe', 'SN22 Desearch'], quality: 92, time: '3.1s' },
+    { task: 'Predict TAO price movement next 7 days', targets: ['SN8 Vanta', 'SN50 Synth', 'SN6 Numinous'], quality: 78, time: '1.8s' },
+    { task: 'Summarize latest subnet registrations', targets: ['SN42 Gopher', 'SN1 Apex', 'SN33 ReadyAI'], quality: 88, time: '4.2s' },
+    { task: 'Analyze validator consensus patterns', targets: ['SN1 Apex', 'SN15 De-Val'], quality: 85, time: '2.7s' },
   ];
 </script>
 
-<div class="space-y-10">
-  <!-- Hero heading -->
-  <div>
-    <h1 class="section-heading text-4xl mb-3">Overview</h1>
-    <p class="text-text-secondary text-base max-w-lg">Monitor the AGI orchestration engine — routing performance, cognitive coverage, and subnet health.</p>
+<div class="space-y-12 page-enter">
+  <!-- Page header -->
+  <div class="relative">
+    <h1 class="font-serif italic text-[42px] text-text leading-none tracking-[-0.03em] mb-4 page-enter">Overview</h1>
+    <p class="text-[17px] text-text-secondary max-w-xl page-enter page-enter-d1">Monitor the AGI orchestration engine — cognitive coverage, routing performance, and network health across Bittensor.</p>
+    <!-- Decorative line -->
+    <div class="absolute -left-10 top-0 w-[3px] h-full bg-gradient-to-b from-accent/40 via-accent/10 to-transparent rounded-full"></div>
   </div>
 
-  <!-- Stats grid -->
-  <div class="grid grid-cols-4 gap-4">
-    {#each stats as stat}
-      <div class="card p-6">
-        <div class="text-xs font-mono text-text-muted uppercase tracking-widest mb-3">{stat.label}</div>
-        <div class="text-2xl font-mono font-medium text-text mb-1">{stat.value}</div>
-        <div class="text-sm text-accent">{stat.sub}</div>
+  <!-- Stats -->
+  <div class="grid grid-cols-4 gap-5 page-enter page-enter-d1">
+    {#each [
+      { label: 'Subnets Mapped', value: subnets.length, accent: false },
+      { label: 'Cognitive Faculties', value: '10/10', accent: false },
+      { label: 'AGI Score', value: avgScore + '%', accent: true },
+      { label: 'Top Faculty', value: 'Reasoning', accent: false },
+    ] as stat}
+      <div class="relative bg-bg-surface border border-border rounded-2xl p-7 group hover:border-border-strong transition-all duration-300 overflow-hidden">
+        {#if stat.accent}
+          <div class="absolute inset-0 bg-gradient-to-br from-accent/[.04] to-transparent pointer-events-none"></div>
+        {/if}
+        <div class="relative">
+          <div class="text-[11px] font-mono text-text-dim uppercase tracking-[.12em] mb-4">{stat.label}</div>
+          <div class="text-[28px] font-mono font-medium text-text leading-none {stat.accent ? 'text-accent' : ''}">{stat.value}</div>
+        </div>
       </div>
     {/each}
   </div>
 
-  <div class="grid grid-cols-5 gap-6">
-    <!-- Cognitive Profile (left, wider) -->
-    <div class="col-span-2 card p-6">
-      <h2 class="text-lg font-semibold text-text mb-6">Cognitive Profile</h2>
-      <div class="space-y-4">
-        {#each facultyStats as f}
+  <!-- Two-column: Cognitive + Routes -->
+  <div class="grid grid-cols-5 gap-6 page-enter page-enter-d2">
+    <!-- Cognitive Profile -->
+    <div class="col-span-2 bg-bg-surface border border-border rounded-2xl p-7">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="font-serif italic text-[22px] text-text">Cognitive Profile</h2>
+        <span class="font-mono text-[13px] text-accent">{avgScore}%</span>
+      </div>
+      <div class="space-y-5">
+        {#each getFacultyStats() as f}
           {@const color = FACULTY_COLORS[f.faculty]}
-          <div>
+          <div class="group">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-sm text-text">{f.faculty}</span>
-              <span class="text-sm font-mono text-text-muted">{f.primary} subnets</span>
+              <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background:{color}"></span>
+                <span class="text-[14px] text-text-secondary group-hover:text-text transition-colors">{f.faculty}</span>
+              </div>
+              <span class="font-mono text-[13px] text-text-dim">{f.primary}</span>
             </div>
-            <div class="h-2 bg-border rounded-full overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-700" style="width:{f.score}%;background:{color}"></div>
+            <div class="h-[5px] bg-border rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-700 ease-out" style="width:{f.score}%;background:{color}"></div>
             </div>
           </div>
         {/each}
       </div>
-      <div class="mt-6 pt-4 border-t border-border flex justify-between items-center">
-        <span class="text-sm text-text-muted">Composite AGI Score</span>
-        <span class="text-xl font-mono font-medium text-accent">{avgScore}%</span>
-      </div>
     </div>
 
-    <!-- Recent Routes (right) -->
-    <div class="col-span-3 card overflow-hidden">
-      <div class="px-6 py-5 border-b border-border flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-text">Recent Routes</h2>
-        <span class="tag border-border-strong text-text-muted">mock data</span>
+    <!-- Recent Routes -->
+    <div class="col-span-3 bg-bg-surface border border-border rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-7 py-5 border-b border-border">
+        <h2 class="font-serif italic text-[22px] text-text">Recent Routes</h2>
+        <span class="font-mono text-[11px] text-text-dim px-3 py-1 rounded-full border border-border bg-bg-alt">mock data</span>
       </div>
-      {#each recentRoutes as route}
-        <div class="px-6 py-5 border-b border-border last:border-b-0 hover:bg-bg-card-hover transition-colors">
+      {#each recentRoutes as route, i}
+        <div class="px-7 py-5 border-b border-border/60 last:border-b-0 hover:bg-bg-surface-hover transition-colors">
           <div class="flex items-start justify-between mb-3">
-            <p class="text-[15px] text-text font-medium leading-snug max-w-[70%]">{route.task}</p>
+            <p class="text-[15px] text-text leading-snug max-w-[65%]">{route.task}</p>
             <div class="flex items-center gap-3 shrink-0">
-              <span class="font-mono text-sm text-text-muted">{route.time}</span>
-              <span class="font-mono text-sm px-2.5 py-1 rounded-lg {route.quality >= 90 ? 'text-accent bg-accent/10' : 'text-text-muted bg-bg-alt'}">
+              <span class="font-mono text-[13px] text-text-dim">{route.time}</span>
+              <span class="font-mono text-[13px] font-medium px-3 py-1 rounded-full
+                {route.quality >= 90 ? 'text-accent bg-accent-glow' : 'text-text-dim bg-bg-elevated'}">
                 {route.quality}%
               </span>
             </div>
           </div>
           <div class="flex gap-2 flex-wrap">
-            {#each route.subnets as sn}
-              <span class="text-xs font-mono px-3 py-1 rounded-lg bg-bg-elevated border border-border text-text-secondary">
-                {sn}
-              </span>
+            {#each route.targets as t}
+              <span class="font-mono text-[12px] px-3 py-1 rounded-lg bg-bg-elevated text-text-secondary border border-border/50">{t}</span>
             {/each}
           </div>
         </div>

@@ -9,41 +9,45 @@
   ];
 </script>
 
-<div class="space-y-10">
-  <div>
-    <h1 class="section-heading text-4xl mb-3">Strategy</h1>
-    <p class="text-text-secondary text-base max-w-lg">Learned parameters and routing strategy configuration.</p>
+<div class="space-y-12 page-enter">
+  <div class="relative">
+    <h1 class="font-serif italic text-[42px] text-text leading-none tracking-[-0.03em] mb-4">Strategy</h1>
+    <p class="text-[17px] text-text-secondary max-w-xl">Learned parameters and routing strategy configuration. Auto-tuned by the learning engine.</p>
+    <div class="absolute -left-10 top-0 w-[3px] h-full bg-gradient-to-b from-accent/40 via-accent/10 to-transparent rounded-full"></div>
   </div>
 
   <!-- Regime -->
-  <div class="card p-8 flex items-center justify-between">
-    <div>
-      <div class="text-sm text-text-muted mb-2">Network Regime</div>
-      <div class="text-3xl font-mono font-medium text-text">NEUTRAL</div>
-      <p class="text-sm text-text-muted mt-2">No anomalies detected. Standard routing weights active.</p>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-3 h-3 rounded-full bg-accent animate-pulse"></span>
-      <span class="text-sm text-text-muted">Auto-detected</span>
+  <div class="relative bg-bg-surface border border-border rounded-2xl p-8 overflow-hidden page-enter page-enter-d1">
+    <div class="absolute inset-0 bg-gradient-to-r from-accent/[.03] to-transparent pointer-events-none"></div>
+    <div class="relative flex items-center justify-between">
+      <div>
+        <div class="text-[13px] text-text-dim font-mono uppercase tracking-[.1em] mb-3">Network Regime</div>
+        <div class="font-mono text-[36px] font-medium text-text leading-none mb-2">NEUTRAL</div>
+        <p class="text-[14px] text-text-secondary">No anomalies detected. Standard routing weights active.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-accent" style="animation:dotPulse 2.5s infinite"></span>
+        <span class="text-[14px] text-text-secondary">Auto-detected</span>
+      </div>
     </div>
   </div>
 
   <!-- Learned Parameters -->
-  <div class="card overflow-hidden">
-    <div class="px-6 py-5 border-b border-border flex items-center justify-between">
-      <h2 class="text-lg font-semibold text-text">Learned Parameters</h2>
-      <span class="tag border-border-strong text-text-muted">mock data</span>
+  <div class="bg-bg-surface border border-border rounded-2xl overflow-hidden page-enter page-enter-d2">
+    <div class="flex items-center justify-between px-7 py-5 border-b border-border">
+      <h2 class="font-serif italic text-[22px] text-text">Learned Parameters</h2>
+      <span class="font-mono text-[11px] text-text-dim px-3 py-1 rounded-full border border-border">mock data</span>
     </div>
-    {#each params as p}
-      <div class="px-6 py-6 border-b border-border/50 last:border-b-0 hover:bg-bg-card-hover transition-colors">
-        <div class="flex items-center justify-between mb-3">
-          <span class="font-mono text-[15px] text-accent">{p.key}</span>
-          <div class="flex items-center gap-5">
-            <span class="font-mono text-lg text-text font-medium">{p.value}</span>
-            <span class="text-sm text-text-muted">{p.updated}</span>
+    {#each params as p, i}
+      <div class="px-7 py-7 border-b border-border/40 last:border-b-0 hover:bg-bg-surface-hover transition-colors group">
+        <div class="flex items-baseline justify-between mb-3">
+          <span class="font-mono text-[16px] text-accent group-hover:text-[#00F0CC] transition-colors">{p.key}</span>
+          <div class="flex items-baseline gap-6">
+            <span class="font-mono text-[22px] text-text font-medium leading-none">{p.value}</span>
+            <span class="font-mono text-[12px] text-text-dim">{p.updated}</span>
           </div>
         </div>
-        <p class="text-sm text-text-secondary leading-relaxed">{p.reason}</p>
+        <p class="text-[14px] text-text-secondary leading-relaxed">{p.reason}</p>
       </div>
     {/each}
   </div>
