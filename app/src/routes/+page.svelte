@@ -31,7 +31,7 @@
 <div class="space-y-8">
   <!-- Header -->
   <div>
-    <h1 class="font-serif text-3xl font-semibold italic text-text mb-2">Overview</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Overview</h1>
     <p class="text-sm text-text-muted">Eigentau routing engine status and performance metrics.</p>
   </div>
 

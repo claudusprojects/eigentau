@@ -1,21 +1,20 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
 
 @theme {
-  --color-bg: #0A0A0A;
-  --color-bg-alt: #0E0E0E;
-  --color-bg-card: #111111;
-  --color-bg-card-hover: #161616;
-  --color-border: #1A1A1A;
-  --color-border-strong: #252525;
-  --color-text: #FFFFFF;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted: #606060;
+  --color-bg: #050508;
+  --color-bg-alt: #0B0B10;
+  --color-bg-card: #101018;
+  --color-bg-card-hover: #16161F;
+  --color-border: #1E1E2A;
+  --color-border-strong: #2A2A3A;
+  --color-text: #EEEEF0;
+  --color-text-secondary: #B0B0BC;
+  --color-text-muted: #707080;
   --color-accent: #00DBBC;
-  --color-accent-dim: rgba(0, 219, 188, 0.15);
+  --color-accent-dim: rgba(0, 219, 188, 0.12);
   --color-danger: #EF4444;
-  --font-serif: 'EB Garamond', 'Times New Roman', serif;
-  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-sans: 'Outfit', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -27,6 +26,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text-secondary);
   line-height: 1.7;
+  font-size: 15px;
   -webkit-font-smoothing: antialiased;
 }
 

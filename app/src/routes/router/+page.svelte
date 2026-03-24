@@ -24,7 +24,7 @@
 
 <div class="space-y-8">
   <div>
-    <h1 class="font-serif text-3xl font-semibold italic text-text mb-2">Router</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Router</h1>
     <p class="text-sm text-text-muted">Send a complex task to be decomposed, routed across subnets, and synthesized.</p>
   </div>
 

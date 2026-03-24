@@ -24,7 +24,7 @@
         <circle cx="14" cy="14" r="4" stroke="#fff" stroke-width="1.5"/>
         <circle cx="14" cy="2" r="2" fill="#00DBBC"/>
       </svg>
-      <span class="font-serif text-lg font-semibold text-text">Eigentau</span>
+      <span class="text-lg font-bold text-text tracking-tight">Eigentau</span>
     </a>
 
     <nav class="flex-1 py-4 px-3 space-y-1">

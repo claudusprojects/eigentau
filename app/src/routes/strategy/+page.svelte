@@ -13,7 +13,7 @@
 
 <div class="space-y-8">
   <div>
-    <h1 class="font-serif text-3xl font-semibold italic text-text mb-2">Strategy</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-text mb-2">Strategy</h1>
     <p class="text-sm text-text-muted">Learned parameters and routing strategy configuration.</p>
   </div>
 
