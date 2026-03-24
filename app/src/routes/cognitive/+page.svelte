@@ -1,74 +1,70 @@
 <script lang="ts">
-  import { FACULTY_COLORS, FACULTY_DESCRIPTIONS, getFacultyStats, getSubnetsByFaculty, subnets, type Faculty } from '$lib/subnets';
+  import { FACULTY_COLORS, FACULTY_DESCRIPTIONS, getFacultyStats, getSubnetsByFaculty, type Faculty } from '$lib/subnets';
 
   const stats = getFacultyStats();
-  const totalScore = Math.round(stats.reduce((s, f) => s + f.score, 0) / stats.length);
-  let selected: Faculty | null = $state(null);
-  const selectedSubs = $derived(selected ? getSubnetsByFaculty(selected) : []);
+  const total = Math.round(stats.reduce((s,f)=>s+f.score,0)/stats.length);
+  let sel: Faculty|null = $state(null);
+  const subs = $derived(sel ? getSubnetsByFaculty(sel) : []);
 </script>
 
 <div>
-  <div class="flex items-start justify-between mb-14 anim">
-    <div>
-      <h1 class="font-[var(--font-display)] italic text-[56px] text-text leading-[1] tracking-[-0.04em] mb-4">Cognitive Map</h1>
-      <p class="text-[17px] text-sub max-w-lg leading-relaxed">DeepMind's 10 AGI faculties mapped to real Bittensor subnets. Select a faculty to explore.</p>
-    </div>
-    <div class="text-right pt-3">
-      <div class="font-[var(--font-data)] text-[48px] font-medium text-teal leading-none">{totalScore}%</div>
-      <div class="font-[var(--font-data)] text-[10px] text-faint uppercase tracking-[.15em] mt-2">Coverage</div>
-    </div>
+  <div class="mb-20 up">
+    <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-4">Cognitive Map</p>
+    <h1 class="font-[var(--font-d)] italic text-[64px] text-text leading-[.95] tracking-[-0.04em] mb-6">
+      Ten faculties of<br>general intelligence
+    </h1>
+    <p class="text-[18px] text-body max-w-xl leading-relaxed">
+      Every Bittensor subnet classified into DeepMind's cognitive framework.
+      Overall coverage: <span class="text-teal font-[var(--font-m)] font-medium">{total}%</span>
+    </p>
   </div>
 
-  <!-- Faculty grid — 5x2 compact tiles -->
-  <div class="grid grid-cols-5 gap-3 mb-10 anim d1">
+  <!-- Faculty tiles — 2 columns, big and spacious -->
+  <div class="grid grid-cols-2 gap-5 mb-10 up up1">
     {#each stats as f}
-      {@const color = FACULTY_COLORS[f.faculty]}
-      {@const active = selected === f.faculty}
-      <button
-        onclick={() => selected = active ? null : f.faculty}
-        class="text-left bg-panel border rounded-2xl p-5 transition-all duration-200 group
-          {active ? 'border-teal/30 ring-1 ring-teal/10' : 'border-line hover:border-line-lite'}"
-      >
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-2.5 h-2.5 rounded-[3px]" style="background:{color}"></div>
-          <span class="text-[13px] font-medium text-text truncate">{f.faculty}</span>
+      {@const c = FACULTY_COLORS[f.faculty]}
+      {@const on = sel === f.faculty}
+      <button onclick={()=>sel=on?null:f.faculty}
+        class="text-left bg-card border rounded-2xl p-8 transition-all
+          {on?'border-teal/30':'border-line hover:border-[#2a2a40]'}">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-4 h-4 rounded" style="background:{c}"></div>
+            <h3 class="text-[20px] text-text font-medium">{f.faculty}</h3>
+          </div>
+          <span class="font-[var(--font-m)] text-[28px] text-text font-medium leading-none">{f.score}<span class="text-[14px] text-dim">%</span></span>
         </div>
-        <div class="font-[var(--font-data)] text-[28px] font-medium text-text leading-none mb-3">{f.score}<span class="text-[12px] text-faint">%</span></div>
-        <div class="h-[4px] rounded-full overflow-hidden bg-line">
-          <div class="h-full rounded-full" style="width:{f.score}%;background:{color}"></div>
+        <p class="text-[15px] text-body leading-relaxed mb-5">{FACULTY_DESCRIPTIONS[f.faculty]}</p>
+        <div class="h-2 rounded-full bg-bg overflow-hidden mb-3">
+          <div class="h-full rounded-full" style="width:{f.score}%;background:{c}"></div>
         </div>
-        <div class="font-[var(--font-data)] text-[11px] text-faint mt-3">{f.primary} primary · {f.total} total</div>
+        <div class="text-[14px] text-dim">{f.primary} primary · {f.secondary} secondary · {f.total} total</div>
       </button>
     {/each}
   </div>
 
   <!-- Expanded subnet list -->
-  {#if selected}
-    {@const color = FACULTY_COLORS[selected]}
-    {@const desc = FACULTY_DESCRIPTIONS[selected]}
-    <div class="bg-panel border border-line rounded-2xl overflow-hidden anim">
-      <div class="px-8 py-6 border-b border-line flex items-start justify-between">
-        <div>
-          <div class="flex items-center gap-3 mb-2">
-            <div class="w-3 h-3 rounded-[4px]" style="background:{color}"></div>
-            <h2 class="text-[22px] font-medium text-text">{selected}</h2>
-          </div>
-          <p class="text-[15px] text-sub">{desc}</p>
+  {#if sel}
+    {@const c = FACULTY_COLORS[sel]}
+    <div class="bg-card border border-line rounded-2xl overflow-hidden up">
+      <div class="px-8 py-6 border-b border-line flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-4 h-4 rounded" style="background:{c}"></div>
+          <h2 class="text-[22px] text-text font-medium">{sel}</h2>
+          <span class="font-[var(--font-m)] text-[14px] text-dim ml-2">{subs.length} subnets</span>
         </div>
-        <button onclick={() => selected = null} class="text-faint hover:text-sub text-[20px] px-2 transition-colors">×</button>
+        <button onclick={()=>sel=null} class="text-dim hover:text-body text-[24px] leading-none px-2 transition-colors">&times;</button>
       </div>
-      <div class="divide-y divide-line">
-        {#each selectedSubs as sn}
-          <div class="px-8 py-4 flex items-center gap-6 hover:bg-raised transition-colors">
-            <span class="font-[var(--font-data)] text-[14px] text-faint w-[52px] shrink-0">SN{sn.netuid}</span>
-            <span class="text-[16px] text-text font-medium w-[160px] shrink-0">{sn.name}</span>
-            <span class="text-[14px] text-sub flex-1">{sn.desc}</span>
-            {#if sn.primary !== selected}
-              <span class="font-[var(--font-data)] text-[10px] text-faint px-2 py-0.5 rounded-full border border-line shrink-0">secondary</span>
-            {/if}
-          </div>
-        {/each}
-      </div>
+      {#each subs as sn}
+        <div class="px-8 py-5 border-b border-line/50 hover:bg-card-hover transition-colors flex items-center gap-8">
+          <span class="font-[var(--font-m)] text-[15px] text-dim w-14 shrink-0">SN{sn.netuid}</span>
+          <span class="text-[17px] text-text font-medium w-40 shrink-0">{sn.name}</span>
+          <span class="text-[15px] text-body flex-1">{sn.desc}</span>
+          {#if sn.primary !== sel}
+            <span class="font-[var(--font-m)] text-[11px] text-dim px-3 py-1 rounded-full border border-line shrink-0">secondary</span>
+          {/if}
+        </div>
+      {/each}
     </div>
   {/if}
 </div>

@@ -10,36 +10,43 @@
 </script>
 
 <div>
-  <div class="mb-14 anim">
-    <h1 class="font-[var(--font-display)] italic text-[56px] text-text leading-[1] tracking-[-0.04em] mb-4">Strategy</h1>
-    <p class="text-[17px] text-sub max-w-xl leading-relaxed">Auto-tuned routing parameters. The learning engine adjusts these based on cumulative outcome quality.</p>
+  <div class="mb-20 up">
+    <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-4">Strategy</p>
+    <h1 class="font-[var(--font-d)] italic text-[64px] text-text leading-[.95] tracking-[-0.04em] mb-6">
+      Auto-tuned routing<br>parameters
+    </h1>
+    <p class="text-[18px] text-body max-w-xl leading-relaxed">The learning engine continuously adjusts these parameters based on cumulative outcome quality.</p>
   </div>
 
-  <!-- Regime card -->
-  <div class="bg-panel border border-line rounded-2xl p-8 mb-10 flex items-center justify-between anim d1">
-    <div>
-      <div class="font-[var(--font-data)] text-[10px] text-ghost uppercase tracking-[.15em] mb-2">Network Regime</div>
-      <div class="font-[var(--font-data)] text-[40px] font-medium text-text leading-none mb-2">NEUTRAL</div>
-      <p class="text-[15px] text-sub">No anomalies detected. Standard routing weights active.</p>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-3 h-3 rounded-full bg-teal" style="animation:pulse-dot 3s infinite"></span>
-      <span class="text-[14px] text-sub">Auto-detected</span>
-    </div>
-  </div>
-
-  <!-- Parameters — two-column grid for variety -->
-  <h2 class="font-[var(--font-display)] italic text-[24px] text-text mb-6 anim d2">Learned Parameters</h2>
-  <div class="grid grid-cols-2 gap-3 anim d2">
-    {#each params as p}
-      <div class="bg-panel border border-line rounded-2xl p-6 hover:border-line-lite transition-all group">
-        <div class="flex items-baseline justify-between mb-3">
-          <span class="font-[var(--font-data)] text-[14px] text-teal group-hover:text-[#2AECD0] transition-colors">{p.key}</span>
-          <span class="font-[var(--font-data)] text-[22px] text-text font-medium leading-none">{p.value}</span>
-        </div>
-        <p class="text-[14px] text-sub leading-relaxed">{p.reason}</p>
+  <!-- Regime -->
+  <div class="bg-card border border-line rounded-2xl p-10 mb-16 up up1">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="font-[var(--font-m)] text-[12px] text-dim uppercase tracking-[.15em] mb-3">Network Regime</p>
+        <h2 class="font-[var(--font-m)] text-[48px] text-text font-medium leading-none mb-3">NEUTRAL</h2>
+        <p class="text-[17px] text-body">No anomalies detected. Standard routing weights active.</p>
       </div>
-    {/each}
+      <div class="flex items-center gap-3">
+        <span class="w-4 h-4 rounded-full bg-teal" style="animation:dot 3s infinite"></span>
+        <span class="text-[16px] text-body">Auto-detected</span>
+      </div>
+    </div>
   </div>
-  <p class="text-center font-[var(--font-data)] text-[11px] text-ghost mt-6 anim d3">Mock data — strategy engine not yet live</p>
+
+  <!-- Parameters -->
+  <div class="up up2">
+    <h2 class="font-[var(--font-d)] italic text-[36px] text-text mb-10">Learned parameters</h2>
+    <div class="space-y-4">
+      {#each params as p}
+        <div class="bg-card border border-line rounded-2xl px-8 py-7 hover:border-[#2a2a40] transition-all group">
+          <div class="flex items-baseline justify-between mb-3">
+            <span class="font-[var(--font-m)] text-[18px] text-teal group-hover:text-[#2AECD0] transition-colors">{p.key}</span>
+            <span class="font-[var(--font-m)] text-[28px] text-text font-medium leading-none">{p.value}</span>
+          </div>
+          <p class="text-[16px] text-body leading-relaxed">{p.reason}</p>
+        </div>
+      {/each}
+    </div>
+    <p class="text-center font-[var(--font-m)] text-[12px] text-faint mt-8">Mock data — strategy engine not yet live</p>
+  </div>
 </div>
