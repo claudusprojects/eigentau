@@ -18,22 +18,22 @@
   );
 </script>
 
-<div class="space-y-6">
+<div class="space-y-10">
   <div class="flex items-end justify-between">
     <div>
-      <h1 class="font-serif text-2xl italic text-text mb-2">Subnets</h1>
-      <p class="text-sm text-text-muted">{subnets.length} Bittensor subnets classified by cognitive faculty.</p>
+      <h1 class="section-heading text-4xl mb-3">Subnets</h1>
+      <p class="text-text-secondary text-base">{subnets.length} Bittensor subnets classified by cognitive faculty.</p>
     </div>
     <div class="flex items-center gap-3">
       <input
         type="text"
-        placeholder="Search subnets..."
+        placeholder="Search..."
         bind:value={search}
-        class="bg-bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-text font-mono placeholder:text-text-muted focus:outline-none focus:border-accent w-48"
+        class="bg-bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-text placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors w-52"
       />
       <select
         bind:value={filterFaculty}
-        class="bg-bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-text font-mono focus:outline-none focus:border-accent"
+        class="bg-bg-card border border-border rounded-xl px-4 py-2.5 text-sm text-text focus:outline-none focus:border-accent cursor-pointer"
       >
         <option value="all">All Faculties</option>
         {#each faculties as f}
@@ -43,47 +43,51 @@
     </div>
   </div>
 
-  <div class="bg-bg-card border border-border rounded-xl overflow-hidden">
+  <div class="card overflow-hidden">
     <table class="w-full">
       <thead>
-        <tr class="border-b border-border">
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-6 py-3 w-16">ID</th>
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Name</th>
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Faculty</th>
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Secondary</th>
-          <th class="text-left text-[10px] font-mono font-medium text-text-muted uppercase tracking-wider px-4 py-3">Description</th>
+        <tr class="border-b border-border bg-bg-alt">
+          <th class="text-left text-xs font-mono font-medium text-text-muted uppercase tracking-wider px-6 py-4 w-20">ID</th>
+          <th class="text-left text-xs font-mono font-medium text-text-muted uppercase tracking-wider px-5 py-4 w-44">Name</th>
+          <th class="text-left text-xs font-mono font-medium text-text-muted uppercase tracking-wider px-5 py-4 w-44">Faculty</th>
+          <th class="text-left text-xs font-mono font-medium text-text-muted uppercase tracking-wider px-5 py-4 w-36">Secondary</th>
+          <th class="text-left text-xs font-mono font-medium text-text-muted uppercase tracking-wider px-5 py-4">Description</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-border">
+      <tbody>
         {#each filtered as sn}
           {@const color = FACULTY_COLORS[sn.primary as Faculty]}
-          <tr class="hover:bg-bg-card-hover transition-colors">
-            <td class="px-6 py-3">
-              <span class="text-xs font-mono text-text-muted">SN{sn.netuid}</span>
+          <tr class="border-b border-border/50 hover:bg-bg-card-hover transition-colors">
+            <td class="px-6 py-3.5">
+              <span class="font-mono text-sm text-text-muted">SN{sn.netuid}</span>
             </td>
-            <td class="px-4 py-3">
-              <span class="text-sm text-text font-medium">{sn.name}</span>
+            <td class="px-5 py-3.5">
+              <span class="text-[15px] text-text font-medium">{sn.name}</span>
             </td>
-            <td class="px-4 py-3">
-              <span class="text-[11px] font-mono px-2 py-0.5 rounded" style="background: {color}22; color: {color}">{sn.primary}</span>
+            <td class="px-5 py-3.5">
+              <span class="inline-flex items-center gap-2 text-sm font-mono px-3 py-1 rounded-lg" style="background: {color}15; color: {color}">
+                <span class="w-2 h-2 rounded-full" style="background: {color}"></span>
+                {sn.primary}
+              </span>
             </td>
-            <td class="px-4 py-3">
+            <td class="px-5 py-3.5">
               {#if sn.secondary}
                 {@const sc = FACULTY_COLORS[sn.secondary as Faculty]}
-                <span class="text-[11px] font-mono px-2 py-0.5 rounded" style="background: {sc}15; color: {sc}">{sn.secondary}</span>
+                <span class="text-sm font-mono text-text-muted">{sn.secondary}</span>
               {:else}
-                <span class="text-[11px] text-text-muted">—</span>
+                <span class="text-sm text-text-muted opacity-30">—</span>
               {/if}
             </td>
-            <td class="px-4 py-3">
-              <span class="text-xs text-text-muted">{sn.desc}</span>
+            <td class="px-5 py-3.5">
+              <span class="text-sm text-text-secondary">{sn.desc}</span>
             </td>
           </tr>
         {/each}
       </tbody>
     </table>
-    <div class="px-6 py-3 border-t border-border flex items-center justify-between">
-      <span class="text-[11px] font-mono text-text-muted">{filtered.length} of {subnets.length} subnets</span>
+    <div class="px-6 py-4 border-t border-border bg-bg-alt flex items-center justify-between">
+      <span class="text-sm text-text-muted">{filtered.length} of {subnets.length} subnets</span>
+      <span class="text-xs font-mono text-text-muted">Data: SubnetRadar, TaoStats, SubnetAlpha</span>
     </div>
   </div>
 </div>

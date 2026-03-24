@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FACULTIES, FACULTY_COLORS, FACULTY_DESCRIPTIONS, getFacultyStats, getSubnetsByFaculty, type Faculty } from '$lib/subnets';
+  import { FACULTY_COLORS, FACULTY_DESCRIPTIONS, getFacultyStats, getSubnetsByFaculty, type Faculty } from '$lib/subnets';
 
   const stats = getFacultyStats();
   const totalScore = Math.round(stats.reduce((s, f) => s + f.score, 0) / stats.length);
@@ -7,53 +7,63 @@
   let expanded: Faculty | null = $state(null);
 </script>
 
-<div class="space-y-8">
+<div class="space-y-10">
   <div class="flex items-end justify-between">
     <div>
-      <h1 class="font-serif text-2xl italic text-text mb-2">Cognitive Map</h1>
-      <p class="text-sm text-text-muted">Bittensor's subnets mapped to DeepMind's 10 AGI cognitive faculties.</p>
+      <h1 class="section-heading text-4xl mb-3">Cognitive Map</h1>
+      <p class="text-text-secondary text-base max-w-lg">Bittensor's subnets mapped to DeepMind's 10 AGI cognitive faculties.</p>
     </div>
     <div class="text-right">
-      <div class="text-3xl font-mono font-medium text-accent">{totalScore}%</div>
-      <div class="text-xs text-text-muted font-mono">AGI Coverage</div>
+      <div class="text-4xl font-mono font-medium text-accent">{totalScore}%</div>
+      <div class="text-sm text-text-muted">AGI Coverage</div>
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-3">
+  <div class="grid grid-cols-2 gap-4">
     {#each stats as f}
       {@const color = FACULTY_COLORS[f.faculty]}
       {@const desc = FACULTY_DESCRIPTIONS[f.faculty]}
+      {@const isOpen = expanded === f.faculty}
       <button
-        class="bg-bg-card border border-border rounded-xl p-6 hover:border-border-strong transition-colors text-left w-full"
-        onclick={() => expanded = expanded === f.faculty ? null : f.faculty}
+        class="card p-6 text-left w-full cursor-pointer {isOpen ? 'border-accent/30' : ''}"
+        onclick={() => expanded = isOpen ? null : f.faculty}
       >
-        <div class="flex items-start justify-between mb-4">
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-5">
           <div>
-            <h3 class="text-base font-semibold text-text mb-1">{f.faculty}</h3>
-            <p class="text-xs text-text-muted">{desc}</p>
+            <div class="flex items-center gap-3 mb-2">
+              <span class="w-3 h-3 rounded-full shrink-0" style="background: {color}"></span>
+              <h3 class="text-lg font-semibold text-text">{f.faculty}</h3>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed">{desc}</p>
           </div>
-          <span class="text-2xl font-mono font-medium text-text tabular-nums">{f.score}<span class="text-sm text-text-muted">%</span></span>
-        </div>
-        <div class="h-2 bg-border rounded-full overflow-hidden mb-4">
-          <div class="h-full rounded-full transition-all" style="width: {f.score}%; background: {color}"></div>
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] font-mono text-text-muted">{f.primary} primary · {f.secondary} secondary</span>
-          <span class="text-[11px] font-mono text-text-muted">{f.total} subnets</span>
+          <span class="text-3xl font-mono font-medium text-text tabular-nums ml-4">{f.score}<span class="text-base text-text-muted">%</span></span>
         </div>
 
-        {#if expanded === f.faculty}
-          <div class="mt-4 pt-4 border-t border-border space-y-1.5">
+        <!-- Bar -->
+        <div class="h-2.5 bg-border rounded-full overflow-hidden mb-4">
+          <div class="h-full rounded-full transition-all duration-500" style="width: {f.score}%; background: {color}"></div>
+        </div>
+
+        <!-- Meta -->
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-text-muted">{f.primary} primary · {f.secondary} secondary</span>
+          <span class="font-mono text-text-muted">{f.total} total</span>
+        </div>
+
+        <!-- Expanded subnet list -->
+        {#if isOpen}
+          <div class="mt-5 pt-5 border-t border-border space-y-2.5">
             {#each getSubnetsByFaculty(f.faculty) as sn}
-              <div class="flex items-center justify-between text-[11px]">
-                <div class="flex items-center gap-2">
-                  <span class="font-mono text-text-muted w-8">SN{sn.netuid}</span>
-                  <span class="text-text-secondary">{sn.name}</span>
+              <div class="flex items-center justify-between py-1">
+                <div class="flex items-center gap-3">
+                  <span class="font-mono text-sm text-text-muted w-10">SN{sn.netuid}</span>
+                  <span class="text-sm text-text font-medium">{sn.name}</span>
                   {#if sn.primary !== f.faculty}
-                    <span class="text-[9px] px-1 py-0.5 rounded bg-bg-alt text-text-muted">secondary</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-bg-elevated border border-border text-text-muted">secondary</span>
                   {/if}
                 </div>
-                <span class="text-text-muted font-mono truncate ml-2 max-w-[200px]">{sn.desc}</span>
+                <span class="text-sm text-text-muted truncate ml-4 max-w-[240px] text-right">{sn.desc}</span>
               </div>
             {/each}
           </div>
