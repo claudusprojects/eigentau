@@ -1,76 +1,71 @@
 <script lang="ts">
   const weights = [
-    { signal: 'Inference', weight: 0.359, prev: 0.318, color: '#00DBBC' },
-    { signal: 'Prediction', weight: 0.233, prev: 0.215, color: '#8B5CF6' },
-    { signal: 'Scraping', weight: 0.209, prev: 0.221, color: '#3B82F6' },
-    { signal: 'Storage', weight: 0.144, prev: 0.137, color: '#F59E0B' },
-    { signal: 'Annotation', weight: 0.049, prev: 0.052, color: '#EC4899' },
-    { signal: 'Training', weight: 0.006, prev: 0.004, color: '#10B981' },
+    { signal: 'Inference', w: 0.359, prev: 0.318 },
+    { signal: 'Prediction', w: 0.233, prev: 0.215 },
+    { signal: 'Scraping', w: 0.209, prev: 0.221 },
+    { signal: 'Storage', w: 0.144, prev: 0.137 },
+    { signal: 'Annotation', w: 0.049, prev: 0.052 },
+    { signal: 'Training', w: 0.006, prev: 0.004 },
   ];
   const insights = [
-    { cycle: 847, text: 'Multi-subnet queries with SN1+SN13 produce 23% higher quality than SN1 alone for research tasks.', type: 'positive' },
-    { cycle: 845, text: 'SN8 prediction accuracy drops below 60% during high-volatility periods. Route to SN1 reasoning instead.', type: 'caution' },
-    { cycle: 842, text: 'Adding SN15 metacognition step improves quality by 8% but adds 1.2s latency. Worth it for complex queries.', type: 'positive' },
-    { cycle: 839, text: 'Real-time subnets (SN64) have 3x higher failure rate during peak hours. Implement fallback routing.', type: 'caution' },
-    { cycle: 836, text: 'Optimal decomposition depth is 3-5 subtasks. Beyond 5, synthesis quality degrades from context dilution.', type: 'insight' },
+    { c: 847, text: 'Multi-subnet queries with SN1+SN13 produce 23% higher quality than SN1 alone for research tasks.', type: 'positive' },
+    { c: 845, text: 'SN8 prediction accuracy drops below 60% during high-volatility periods. Route to SN1 reasoning instead.', type: 'caution' },
+    { c: 842, text: 'Adding SN15 metacognition step improves quality by 8% but adds 1.2s latency. Worth it for complex queries.', type: 'positive' },
+    { c: 839, text: 'Real-time subnets (SN64) have 3x higher failure rate during peak hours. Implement fallback routing.', type: 'caution' },
+    { c: 836, text: 'Optimal decomposition depth is 3-5 subtasks. Beyond 5, synthesis quality degrades from context dilution.', type: 'insight' },
   ];
 </script>
 
-<div class="mb-20">
-  <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-5">Learning Engine</p>
-  <h1 class="font-[var(--font-d)] italic text-[clamp(40px,5vw,68px)] text-text leading-[.95] tracking-[-0.03em] mb-6">Every query makes<br>the router smarter</h1>
-  <p class="text-[18px] text-p max-w-2xl leading-relaxed">Self-evolving routing weights and insights from query outcomes.</p>
+<div style="margin-bottom:80px">
+  <h1 style="font-family:var(--serif);font-size:clamp(48px,6vw,80px);font-weight:400;font-style:italic;color:var(--t1);line-height:.95;letter-spacing:-.04em;margin-bottom:24px">
+    The router gets smarter<br>with every <span style="color:var(--ac);text-shadow:0 0 60px var(--acg)">query</span>
+  </h1>
+  <p style="font-size:16px;line-height:1.8;max-width:520px;color:var(--t2)">
+    Signal-to-performance correlations computed after every cycle. Weights shift toward subnets that deliver. No human tuning — pure data-driven evolution.
+  </p>
 </div>
 
-<!-- Weights — full width -->
-<div class="mb-20">
-  <div class="flex items-baseline justify-between mb-10">
-    <h2 class="font-[var(--font-d)] italic text-[32px] text-text">Routing weights</h2>
-    <span class="font-[var(--font-m)] text-[13px] text-sec">Cycle 847 · EMA 0.80</span>
-  </div>
-  <div class="space-y-8">
-    {#each weights as w}
-      {@const d = w.weight - w.prev}
-      {@const pct = Math.round(w.weight * 100)}
-      <div>
-        <div class="flex items-center justify-between mb-3">
-          <span class="text-[18px] text-text">{w.signal}</span>
-          <div class="flex items-center gap-6">
-            <span class="font-[var(--font-m)] text-[16px] text-p">{w.weight.toFixed(3)}</span>
-            <span class="font-[var(--font-m)] text-[14px] {d >= 0 ? 'text-teal' : 'text-[#FF4D6A]'}">{d >= 0 ? '+' : ''}{d.toFixed(3)}</span>
+<!-- Routing weights — same visual style as website LEARN panel -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+  <div>
+    <h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:32px">Routing weights</h2>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:32px;font-family:var(--mono)">
+      <div style="font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px">Routing Weights — Cycle 847</div>
+      {#each weights as wt}
+        {@const d = wt.w - wt.prev}
+        {@const pct = Math.round(wt.w / 0.359 * 82)}
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(24,24,34,.8)">
+          <span style="font-size:12px;color:var(--t2);width:90px;flex-shrink:0">{wt.signal}</span>
+          <div style="flex:1;height:6px;background:rgba(24,24,34,1);border-radius:3px;overflow:hidden">
+            <div style="height:100%;border-radius:3px;background:linear-gradient(90deg,var(--ac),rgba(0,219,188,.4));width:{pct}%;transition:width 1.2s cubic-bezier(.16,1,.3,1)"></div>
           </div>
+          <span style="font-size:11px;color:var(--t1);width:44px;text-align:right">{wt.w.toFixed(3)}</span>
+          <span style="font-size:10px;width:50px;text-align:right;color:{d >= 0 ? 'var(--ac)' : '#EF4444'}">{d >= 0 ? '+' : ''}{d.toFixed(3)}</span>
         </div>
-        <div class="h-3 rounded-full bg-card overflow-hidden">
-          <div class="h-full rounded-full transition-all duration-1000 ease-out" style="width:{pct}%;background:{w.color}"></div>
-        </div>
+      {/each}
+      <div style="display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr)">
+        <span style="font-size:10px;color:var(--t3)">EMA blend: 80/20</span>
+        <span style="font-size:10px;color:var(--ac)">Accuracy: 74.2%</span>
       </div>
-    {/each}
+    </div>
   </div>
-  <div class="mt-10 bg-card border border-line rounded-2xl px-8 py-7 flex items-center justify-between">
-    <span class="text-[18px] text-p">Overall routing accuracy</span>
-    <span class="font-[var(--font-m)] text-[40px] text-teal font-medium leading-none">74.2%</span>
-  </div>
-</div>
 
-<!-- Insights -->
-<div>
-  <div class="flex items-baseline justify-between mb-8">
-    <h2 class="font-[var(--font-d)] italic text-[32px] text-text">Insights</h2>
-    <span class="font-[var(--font-m)] text-[13px] text-sec">296 total</span>
-  </div>
-  <div class="space-y-4">
-    {#each insights as l}
-      <div class="bg-card border border-line rounded-2xl px-8 py-7 hover:border-[#2a2a3e] transition-all">
-        <div class="flex items-center gap-4 mb-3">
-          <span class="font-[var(--font-m)] text-[14px] text-sec">Cycle {l.cycle}</span>
-          <span class="font-[var(--font-m)] text-[12px] px-3 py-1 rounded-full border
-            {l.type === 'positive' ? 'text-teal border-teal/20 bg-teal/5' :
-             l.type === 'caution' ? 'text-[#FFB020] border-[#FFB020]/20 bg-[#FFB020]/5' :
-             'text-p border-line bg-card'}">{l.type}</span>
+  <!-- Insights -->
+  <div>
+    <h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:32px">Insights</h2>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      {#each insights as l}
+        <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:24px 28px;transition:border-color .3s"
+          onmouseenter={(e) => e.currentTarget.style.borderColor = 'var(--bdr2)'}
+          onmouseleave={(e) => e.currentTarget.style.borderColor = 'var(--bdr)'}>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <span style="font-family:var(--mono);font-size:12px;color:var(--t3)">Cycle {l.c}</span>
+            <span style="font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:99px;border:1px solid {l.type==='positive'?'rgba(0,219,188,.2)':l.type==='caution'?'rgba(239,68,68,.2)':'var(--bdr)'};color:{l.type==='positive'?'var(--ac)':l.type==='caution'?'#EF4444':'var(--t3)'};background:{l.type==='positive'?'var(--acd)':l.type==='caution'?'rgba(239,68,68,.08)':'none'}">{l.type}</span>
+          </div>
+          <p style="font-size:14px;color:var(--t2);line-height:1.7">{l.text}</p>
         </div>
-        <p class="text-[16px] text-p leading-[1.8]">{l.text}</p>
-      </div>
-    {/each}
-    <p class="text-center font-[var(--font-m)] text-[12px] text-mut pt-4">Mock data — learning engine not yet live</p>
+      {/each}
+      <p style="text-align:center;font-family:var(--mono);font-size:11px;color:var(--t3);padding-top:8px">Mock data — learning engine not yet live</p>
+    </div>
   </div>
 </div>

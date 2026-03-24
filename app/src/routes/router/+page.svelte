@@ -2,66 +2,73 @@
   let query = $state('');
   let routing = $state(false);
   const steps = [
-    { task: 'Fetch latest subnet metrics from chain', sn: 'SN42 Gopher', faculty: 'Perception', color: '#3B82F6' },
-    { task: 'Analyze emission trends and predict outlook', sn: 'SN8 Vanta', faculty: 'Problem Solving', color: '#F97316' },
-    { task: 'Synthesize findings into coherent report', sn: 'SN1 Apex', faculty: 'Reasoning', color: '#00DBBC' },
-    { task: 'Evaluate and score analysis quality', sn: 'SN15 De-Val', faculty: 'Metacognition', color: '#EC4899' },
+    { n: '01', task: 'Fetch latest subnet metrics from chain', sn: 'SN42 Gopher', faculty: 'Perception' },
+    { n: '02', task: 'Analyze emission trends and predict outlook', sn: 'SN8 Vanta', faculty: 'Problem Solving' },
+    { n: '03', task: 'Synthesize findings into coherent report', sn: 'SN1 Apex', faculty: 'Reasoning' },
+    { n: '04', task: 'Evaluate and score analysis quality', sn: 'SN15 De-Val', faculty: 'Metacognition' },
   ];
   const synthesis = 'Based on analysis of 129 active subnets, emission distribution shows increasing concentration toward inference-focused subnets (SN1, SN64). Top 10 subnets capture 47% of daily emissions. Registration rates are up 12% week-over-week, primarily in AI agent and compute subnets.';
-  function go() { if (!query.trim()) return; routing = true; setTimeout(() => routing = false, 1500); }
+  function go() { if(!query.trim())return; routing=true; setTimeout(()=>routing=false,1500); }
 </script>
 
-<div class="mb-20">
-  <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-5">Router</p>
-  <h1 class="font-[var(--font-d)] italic text-[clamp(40px,5vw,68px)] text-text leading-[.95] tracking-[-0.03em] mb-6">Decompose, route, synthesize</h1>
-  <p class="text-[18px] text-p max-w-2xl leading-relaxed">Send any complex task. The router breaks it down, routes to the right subnets, and synthesizes the result.</p>
+<div style="margin-bottom:80px">
+  <h1 style="font-family:var(--serif);font-size:clamp(48px,6vw,80px);font-weight:400;font-style:italic;color:var(--t1);line-height:.95;letter-spacing:-.04em;margin-bottom:24px">
+    Decompose, route,<br><span style="color:var(--ac);text-shadow:0 0 60px var(--acg)">synthesize</span>
+  </h1>
+  <p style="font-size:16px;line-height:1.8;max-width:520px;color:var(--t2)">Send any complex task. The router breaks it into sub-tasks, fans them across the right subnets, and combines the results.</p>
 </div>
 
-<div class="bg-card border border-line rounded-2xl p-8 mb-16">
-  <form onsubmit={(e) => { e.preventDefault(); go(); }}>
-    <label class="text-[17px] text-text block mb-4">What do you want to know?</label>
-    <div class="flex gap-4">
+<!-- Input — website card style -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:32px;margin-bottom:64px">
+  <form onsubmit={(e)=>{e.preventDefault();go()}}>
+    <div style="font-size:15px;color:var(--t1);margin-bottom:16px;font-weight:600">What do you want to know?</div>
+    <div style="display:flex;gap:12px">
       <input type="text" bind:value={query}
         placeholder="e.g. Research the top 5 Bittensor subnets by emission growth..."
-        class="flex-1 bg-bg border border-line rounded-xl px-6 py-4 text-[17px] text-text placeholder:text-mut focus:outline-none focus:border-teal/30 transition-colors" />
-      <button type="submit"
-        class="bg-teal hover:bg-[#00c9ab] text-bg text-[16px] font-semibold whitespace-nowrap px-10 py-4 rounded-xl transition-all hover:shadow-[0_0_30px_rgba(0,219,188,.2)] disabled:opacity-20"
-        disabled={routing || !query.trim()}>
-        {routing ? 'Routing...' : 'Route'}
+        style="flex:1;background:var(--bg);border:1px solid var(--bdr);border-radius:12px;padding:14px 20px;font-size:15px;font-family:var(--sans);color:var(--t1);outline:none;transition:border-color .2s"
+        onfocus={(e) => e.currentTarget.style.borderColor = 'var(--bdr2)'}
+        onblur={(e) => e.currentTarget.style.borderColor = 'var(--bdr)'} />
+      <button type="submit" disabled={routing||!query.trim()}
+        style="background:var(--ac);color:#000;padding:14px 32px;border-radius:99px;font-size:14px;font-weight:600;white-space:nowrap;transition:box-shadow .2s;opacity:{routing||!query.trim()?'.3':'1'}"
+        onmouseenter={(e) => e.currentTarget.style.boxShadow = '0 0 40px var(--acg)'}
+        onmouseleave={(e) => e.currentTarget.style.boxShadow = 'none'}>
+        {routing ? 'Routing...' : 'Route Task'}
       </button>
     </div>
   </form>
 </div>
 
-<div class="flex items-baseline justify-between mb-8">
-  <h2 class="font-[var(--font-d)] italic text-[32px] text-text">Task decomposition</h2>
-  <div class="flex items-center gap-4">
-    <span class="font-[var(--font-m)] text-[14px] text-sec">3.8s</span>
-    <span class="font-[var(--font-m)] text-[14px] text-teal font-medium">91% quality</span>
-  </div>
-</div>
-
-<div class="grid grid-cols-4 gap-5 mb-16">
+<!-- Pipeline — same as website "How Eigentau thinks" section -->
+<h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:40px">How it was routed</h2>
+<div style="display:flex;align-items:stretch;gap:2px;margin-bottom:64px">
   {#each steps as s, i}
-    <div class="bg-card border border-line rounded-2xl p-7 hover:border-[#2a2a3e] transition-all relative">
-      <div class="font-[var(--font-m)] text-[52px] font-medium leading-none mb-5" style="color:{s.color}15">0{i+1}</div>
-      <p class="text-[16px] text-text leading-snug mb-5">{s.task}</p>
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-2.5 h-2.5 rounded" style="background:{s.color}"></div>
-        <span class="font-[var(--font-m)] text-[13px]" style="color:{s.color}">{s.faculty}</span>
-      </div>
-      <span class="font-[var(--font-m)] text-[13px] text-sec">{s.sn}</span>
-      {#if i < steps.length - 1}
-        <div class="absolute -right-3 top-1/2 -translate-y-1/2 text-mut z-10">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-        </div>
-      {/if}
+    <div style="flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:32px 24px;transition:border-color .3s,box-shadow .3s"
+      onmouseenter={(e) => { e.currentTarget.style.borderColor = 'var(--ac)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(0,219,188,.06)'; }}
+      onmouseleave={(e) => { e.currentTarget.style.borderColor = 'var(--bdr)'; e.currentTarget.style.boxShadow = 'none'; }}>
+      <div style="font-family:var(--mono);font-size:48px;font-weight:600;color:rgba(0,219,188,.12);line-height:1;margin-bottom:16px">{s.n}</div>
+      <div style="font-size:16px;font-weight:700;color:var(--t1);margin-bottom:8px;letter-spacing:-.01em">{s.faculty}</div>
+      <div style="font-size:13px;line-height:1.7;color:var(--t2);margin-bottom:12px">{s.task}</div>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--ac);padding:6px 14px;border:1px solid rgba(0,219,188,.2);border-radius:99px;background:var(--acd)">{s.sn}</span>
     </div>
+    {#if i < steps.length - 1}
+      <div style="display:flex;align-items:center;flex-shrink:0;padding:0 4px;color:var(--bdr2)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    {/if}
   {/each}
 </div>
 
-<div class="bg-card border border-line rounded-2xl p-10">
-  <h3 class="font-[var(--font-d)] italic text-[28px] text-text mb-5">Synthesis</h3>
-  <p class="text-[17px] text-p leading-[1.85] mb-6">{synthesis}</p>
-  <p class="font-[var(--font-m)] text-[12px] text-mut">Router not yet live — mock data</p>
+<!-- Synthesis -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:40px">
+  <h3 style="font-family:var(--serif);font-size:28px;font-style:italic;color:var(--t1);margin-bottom:16px">Synthesis</h3>
+  <p style="font-size:15px;line-height:1.9;color:var(--t2);margin-bottom:20px">{synthesis}</p>
+  <div style="display:flex;gap:12px;align-items:center;padding-top:16px;border-top:1px solid var(--bdr)">
+    <span style="font-family:var(--mono);font-size:12px;color:var(--ac)">91% quality</span>
+    <span style="color:var(--bdr2)">·</span>
+    <span style="font-family:var(--mono);font-size:12px;color:var(--t3)">3.8s latency</span>
+    <span style="color:var(--bdr2)">·</span>
+    <span style="font-family:var(--mono);font-size:12px;color:var(--t3)">4 subnets</span>
+    <span style="color:var(--bdr2)">·</span>
+    <span style="font-family:var(--mono);font-size:11px;color:var(--t3)">mock data</span>
+  </div>
 </div>

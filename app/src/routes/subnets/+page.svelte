@@ -2,62 +2,61 @@
   import { subnets, FACULTY_COLORS, type Faculty } from '$lib/subnets';
   let search = $state('');
   let filter = $state('all');
-  const faculties = [...new Set(subnets.map(s => s.primary))].sort();
-  const list = $derived(
-    subnets
-      .filter(s => filter === 'all' || s.primary === filter)
-      .filter(s => search === '' || s.name.toLowerCase().includes(search.toLowerCase()) || s.desc.toLowerCase().includes(search.toLowerCase()) || `sn${s.netuid}`.includes(search.toLowerCase()))
-  );
+  const faculties = [...new Set(subnets.map(s=>s.primary))].sort();
+  const list = $derived(subnets.filter(s=>filter==='all'||s.primary===filter).filter(s=>search===''||s.name.toLowerCase().includes(search.toLowerCase())||s.desc.toLowerCase().includes(search.toLowerCase())||`sn${s.netuid}`.includes(search.toLowerCase())));
 </script>
 
-<div class="mb-20">
-  <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-5">Subnet Directory</p>
-  <h1 class="font-[var(--font-d)] italic text-[clamp(40px,5vw,68px)] text-text leading-[.95] tracking-[-0.03em] mb-6">{subnets.length} subnets, classified</h1>
-  <p class="text-[18px] text-p max-w-2xl leading-relaxed">Every active Bittensor subnet mapped to its cognitive faculty.</p>
+<div style="margin-bottom:64px">
+  <h1 style="font-family:var(--serif);font-size:clamp(48px,6vw,80px);font-weight:400;font-style:italic;color:var(--t1);line-height:.95;letter-spacing:-.04em;margin-bottom:24px">
+    Subnet <span style="color:var(--ac);text-shadow:0 0 60px var(--acg)">directory</span>
+  </h1>
+  <p style="font-size:16px;line-height:1.8;max-width:520px;color:var(--t2)">
+    {subnets.length} active Bittensor subnets, each classified by cognitive faculty. Search, filter, explore.
+  </p>
 </div>
 
-<div class="flex gap-4 mb-10">
-  <div class="relative flex-1">
-    <svg class="absolute left-5 top-1/2 -translate-y-1/2 text-sec" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" placeholder="Search subnets by name, description, or ID..." bind:value={search}
-      class="w-full bg-card border border-line rounded-xl pl-14 pr-6 py-4 text-[17px] text-text placeholder:text-mut focus:outline-none focus:border-teal/30 transition-colors" />
-  </div>
+<!-- Search + filter -->
+<div style="display:flex;gap:12px;margin-bottom:32px">
+  <input type="text" placeholder="Search subnets by name or description..." bind:value={search}
+    style="flex:1;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:14px 20px;font-size:15px;font-family:var(--sans);color:var(--t1);outline:none"
+    onfocus={(e) => e.currentTarget.style.borderColor = 'var(--bdr2)'}
+    onblur={(e) => e.currentTarget.style.borderColor = 'var(--bdr)'} />
   <select bind:value={filter}
-    class="bg-card border border-line rounded-xl px-6 py-4 text-[16px] text-p focus:outline-none cursor-pointer min-w-[220px]">
+    style="background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:14px 20px;font-size:14px;font-family:var(--sans);color:var(--t2);outline:none;cursor:pointer;min-width:200px">
     <option value="all">All Faculties</option>
     {#each faculties as f}<option value={f}>{f}</option>{/each}
   </select>
 </div>
 
-<div class="bg-card border border-line rounded-2xl overflow-hidden">
-  <table class="w-full">
+<!-- Table -->
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;overflow:hidden">
+  <table style="width:100%;border-collapse:collapse">
     <thead>
-      <tr class="border-b border-line">
-        <th class="text-left font-[var(--font-m)] text-[12px] font-normal text-sec uppercase tracking-[.1em] px-8 py-4 w-20">ID</th>
-        <th class="text-left font-[var(--font-m)] text-[12px] font-normal text-sec uppercase tracking-[.1em] px-5 py-4 w-44">Name</th>
-        <th class="text-left font-[var(--font-m)] text-[12px] font-normal text-sec uppercase tracking-[.1em] px-5 py-4 w-48">Faculty</th>
-        <th class="text-left font-[var(--font-m)] text-[12px] font-normal text-sec uppercase tracking-[.1em] px-5 py-4">Description</th>
+      <tr style="border-bottom:1px solid var(--bdr)">
+        <th style="text-align:left;font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:14px 24px;font-weight:500;width:70px">ID</th>
+        <th style="text-align:left;font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:14px 16px;font-weight:500;width:160px">Name</th>
+        <th style="text-align:left;font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:14px 16px;font-weight:500;width:180px">Faculty</th>
+        <th style="text-align:left;font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;padding:14px 16px;font-weight:500">Description</th>
       </tr>
     </thead>
     <tbody>
       {#each list as sn}
         {@const c = FACULTY_COLORS[sn.primary as Faculty]}
-        <tr class="border-b border-line/40 hover:bg-card-h transition-colors">
-          <td class="px-8 py-4 font-[var(--font-m)] text-[14px] text-sec">SN{sn.netuid}</td>
-          <td class="px-5 py-4 text-[16px] text-text font-medium">{sn.name}</td>
-          <td class="px-5 py-4">
-            <span class="inline-flex items-center gap-2 font-[var(--font-m)] text-[12px] px-3 py-1.5 rounded-lg" style="color:{c};background:{c}0D;border:1px solid {c}20">
-              <span class="w-2 h-2 rounded" style="background:{c}"></span>
-              {sn.primary}
-            </span>
+        <tr style="border-bottom:1px solid rgba(24,24,34,.5);transition:background .2s"
+          onmouseenter={(e) => e.currentTarget.style.background = 'rgba(12,12,18,.5)'}
+          onmouseleave={(e) => e.currentTarget.style.background = 'none'}>
+          <td style="padding:14px 24px;font-family:var(--mono);font-size:13px;color:var(--t3)">SN{sn.netuid}</td>
+          <td style="padding:14px 16px;font-size:15px;color:var(--t1);font-weight:500">{sn.name}</td>
+          <td style="padding:14px 16px">
+            <span style="font-family:var(--mono);font-size:11px;color:var(--ac);padding:5px 12px;border:1px solid rgba(0,219,188,.2);border-radius:99px;background:var(--acd);display:inline-block">{sn.primary}</span>
           </td>
-          <td class="px-5 py-4 text-[15px] text-p">{sn.desc}</td>
+          <td style="padding:14px 16px;font-size:13px;color:var(--t2)">{sn.desc}</td>
         </tr>
       {/each}
     </tbody>
   </table>
-  <div class="px-8 py-4 border-t border-line flex justify-between">
-    <span class="font-[var(--font-m)] text-[13px] text-sec">{list.length} of {subnets.length}</span>
-    <span class="font-[var(--font-m)] text-[11px] text-mut">SubnetRadar · TaoStats · SubnetAlpha</span>
+  <div style="padding:14px 24px;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--t3)">
+    <span>{list.length} of {subnets.length} subnets</span>
+    <span>Sources: SubnetRadar · TaoStats · SubnetAlpha</span>
   </div>
 </div>

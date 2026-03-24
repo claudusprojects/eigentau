@@ -5,40 +5,53 @@
     { key: 'max_subnets_per_query', value: '5', reason: 'Diminishing returns beyond 5 subnets per route.' },
     { key: 'ema_blend_factor', value: '0.80', reason: '80% current / 20% new prevents catastrophic forgetting.' },
     { key: 'fallback_timeout_ms', value: '10000', reason: '10s timeout before falling back to direct inference.' },
-    { key: 'min_quality_threshold', value: '60', reason: 'Below 60% triggers re-route with different subnet combo.' },
+    { key: 'min_quality_threshold', value: '60', reason: 'Below 60% triggers re-route with different subnet combination.' },
   ];
 </script>
 
-<div class="mb-20">
-  <p class="font-[var(--font-m)] text-[13px] text-teal uppercase tracking-[.2em] mb-5">Strategy</p>
-  <h1 class="font-[var(--font-d)] italic text-[clamp(40px,5vw,68px)] text-text leading-[.95] tracking-[-0.03em] mb-6">Auto-tuned routing parameters</h1>
-  <p class="text-[18px] text-p max-w-2xl leading-relaxed">The learning engine continuously adjusts these based on cumulative outcome quality.</p>
+<div style="margin-bottom:80px">
+  <h1 style="font-family:var(--serif);font-size:clamp(48px,6vw,80px);font-weight:400;font-style:italic;color:var(--t1);line-height:.95;letter-spacing:-.04em;margin-bottom:24px">
+    Auto-tuned<br><span style="color:var(--ac);text-shadow:0 0 60px var(--acg)">strategy</span>
+  </h1>
+  <p style="font-size:16px;line-height:1.8;max-width:520px;color:var(--t2)">
+    The learning engine continuously adjusts routing parameters based on cumulative outcome quality. No manual tuning needed.
+  </p>
 </div>
 
-<div class="bg-card border border-line rounded-2xl p-10 mb-16">
-  <div class="flex items-center justify-between">
+<!-- Regime — accent card -->
+<div style="background:linear-gradient(180deg,transparent,rgba(0,219,188,.015),transparent);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:60px 0;margin-bottom:64px">
+  <div style="display:flex;align-items:center;justify-content:space-between">
     <div>
-      <p class="font-[var(--font-m)] text-[12px] text-sec uppercase tracking-[.15em] mb-3">Network Regime</p>
-      <h2 class="font-[var(--font-m)] text-[48px] text-text font-medium leading-none mb-3">NEUTRAL</h2>
-      <p class="text-[17px] text-p">No anomalies detected. Standard routing weights active.</p>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">Network Regime</div>
+      <div style="font-family:var(--mono);font-size:48px;font-weight:600;color:var(--t1);letter-spacing:-.03em">NEUTRAL</div>
+      <p style="font-size:14px;color:var(--t2);margin-top:8px">No anomalies detected. Standard routing weights active.</p>
     </div>
-    <div class="flex items-center gap-3">
-      <span class="w-4 h-4 rounded-full bg-teal animate-pulse"></span>
-      <span class="text-[16px] text-p">Auto-detected</span>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="width:8px;height:8px;background:var(--ac);border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 8px var(--acg)"></span>
+      <span style="font-family:var(--mono);font-size:12px;color:var(--ac)">Auto-detected</span>
     </div>
   </div>
 </div>
 
-<h2 class="font-[var(--font-d)] italic text-[32px] text-text mb-8">Learned parameters</h2>
-<div class="grid grid-cols-2 gap-5">
+<!-- Parameters — website card style -->
+<h2 style="font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-style:italic;color:var(--t1);line-height:1.1;letter-spacing:-.03em;margin-bottom:40px">Learned parameters</h2>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
   {#each params as p}
-    <div class="bg-card border border-line rounded-2xl p-8 hover:border-[#2a2a3e] transition-all group">
-      <div class="flex items-baseline justify-between mb-4">
-        <span class="font-[var(--font-m)] text-[16px] text-teal group-hover:text-[#2AECD0] transition-colors">{p.key}</span>
-        <span class="font-[var(--font-m)] text-[28px] text-text font-medium leading-none">{p.value}</span>
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:28px 24px;transition:border-color .3s,box-shadow .3s"
+      onmouseenter={(e) => { e.currentTarget.style.borderColor = 'var(--ac)'; e.currentTarget.style.boxShadow = '0 0 40px rgba(0,219,188,.06)'; }}
+      onmouseleave={(e) => { e.currentTarget.style.borderColor = 'var(--bdr)'; e.currentTarget.style.boxShadow = 'none'; }}>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+        <span style="font-family:var(--mono);font-size:14px;color:var(--ac)">{p.key}</span>
+        <span style="font-family:var(--mono);font-size:24px;font-weight:600;color:var(--t1)">{p.value}</span>
       </div>
-      <p class="text-[15px] text-p leading-relaxed">{p.reason}</p>
+      <p style="font-size:13px;line-height:1.7;color:var(--t2)">{p.reason}</p>
     </div>
   {/each}
 </div>
-<p class="text-center font-[var(--font-m)] text-[12px] text-mut mt-8">Mock data — strategy engine not yet live</p>
+
+<p style="text-align:center;font-family:var(--mono);font-size:11px;color:var(--t3)">Mock data — strategy engine not yet live</p>
+
+<style>
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+</style>
