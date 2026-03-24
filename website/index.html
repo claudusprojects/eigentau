@@ -183,8 +183,41 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 </div>
 </section>
 
+<!-- THESIS -->
+<section style="position:relative;z-index:1;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:80px 0">
+<div style="max-width:800px;margin:0 auto;padding:0 40px;text-align:center">
+<p class="rv" style="font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-style:italic;color:var(--t1);line-height:1.6;letter-spacing:-.01em">
+"AGI won't come from one model. It will emerge from the orchestration of many specialized intelligences — each excellent at one thing, coordinated by a system that learns which combinations work best."
+</p>
+<p class="rv rv-d1" style="margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.06em">THE EIGENTAU THESIS</p>
+</div>
+</section>
+
+<!-- NUMBERS -->
+<section style="position:relative;z-index:1;padding:80px 0">
+<div style="max-width:1300px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center">
+<div class="rv">
+<div style="font-family:var(--mono);font-size:48px;font-weight:600;color:var(--ac);letter-spacing:-.03em" data-count="129">0</div>
+<div style="font-size:13px;color:var(--t3);margin-top:4px">Bittensor subnets mapped to cognitive faculties</div>
+</div>
+<div class="rv rv-d1">
+<div style="font-family:var(--mono);font-size:48px;font-weight:600;color:var(--t1);letter-spacing:-.03em" data-count="10">0</div>
+<div style="font-size:13px;color:var(--t3);margin-top:4px">DeepMind AGI faculties covered by the routing engine</div>
+</div>
+<div class="rv rv-d2">
+<div style="font-family:var(--mono);font-size:48px;font-weight:600;color:var(--t1);letter-spacing:-.03em">74.2%</div>
+<div style="font-size:13px;color:var(--t3);margin-top:4px">Routing accuracy after 847 self-learning cycles</div>
+</div>
+<div class="rv rv-d3">
+<div style="font-family:var(--mono);font-size:48px;font-weight:600;color:var(--t1);letter-spacing:-.03em">80/20</div>
+<div style="font-size:13px;color:var(--t3);margin-top:4px">EMA weight blend — stable improvement without catastrophic forgetting</div>
+</div>
+</div>
+</section>
+
 <!-- WHAT -->
 <section class="panel what" id="what">
+<canvas class="sec-canvas" id="cv-what" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.35"></canvas>
 <div class="panel-inner">
 <div class="what-grid">
 <div class="what-left">
@@ -242,8 +275,27 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 </div>
 </section>
 
+<!-- SUBNET EXPLAINER -->
+<section style="position:relative;z-index:1;border-top:1px solid var(--bdr);padding:80px 0">
+<div style="max-width:1300px;margin:0 auto;padding:0 40px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+<div class="rv">
+<p style="font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px">Why Subnets Matter</p>
+<h3 style="font-family:var(--serif);font-size:28px;font-style:italic;color:var(--t1);line-height:1.2;margin-bottom:16px">Bittensor's 129+ subnets are the world's largest decentralized AI workforce</h3>
+<p style="font-size:14px;color:var(--t2);line-height:1.8">Each subnet specializes — inference, training, data scraping, prediction, storage, annotation. 12,000+ miners compete to deliver the best results. $2.3M in TAO distributed daily. But until now, each subnet operated in isolation. No cross-subnet coordination. No intelligent routing.</p>
+</div>
+<div class="rv rv-d1">
+<p style="font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px">The Missing Layer</p>
+<h3 style="font-family:var(--serif);font-size:28px;font-style:italic;color:var(--t1);line-height:1.2;margin-bottom:16px">Eigentau is the gating network that turns isolated experts into general intelligence</h3>
+<p style="font-size:14px;color:var(--t2);line-height:1.8">Like a Mixture of Experts model, Eigentau learns which subnet combinations produce the best results for each task type. The router decomposes complex queries, fans out to multiple subnets in parallel, synthesizes results, and improves its routing weights after every interaction.</p>
+</div>
+</div>
+</div>
+</section>
+
 <!-- HOW -->
 <section class="panel how" id="how">
+<canvas class="sec-canvas" id="cv-how" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.3"></canvas>
 <div class="panel-inner">
 <h2 class="rv">How Eigentau thinks</h2>
 <div class="pipeline">
@@ -274,8 +326,25 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 </div>
 </section>
 
+<!-- POWERED BY -->
+<section style="position:relative;z-index:1;border-top:1px solid var(--bdr);padding:60px 0">
+<div style="max-width:1300px;margin:0 auto;padding:0 40px;text-align:center">
+<p style="font-family:var(--mono);font-size:11px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px" class="rv">Built With</p>
+<div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap" class="rv rv-d1">
+<span style="font-size:14px;color:var(--t2)">Bittensor</span>
+<span style="color:var(--bdr2)">·</span>
+<span style="font-size:14px;color:var(--t2)">Anthropic Claude</span>
+<span style="color:var(--bdr2)">·</span>
+<span style="font-size:14px;color:var(--t2)">DeepMind AGI Framework</span>
+<span style="color:var(--bdr2)">·</span>
+<span style="font-size:14px;color:var(--t2)">Base L2</span>
+</div>
+</div>
+</section>
+
 <!-- LEARN -->
 <section class="panel learn-panel" id="learn">
+<canvas class="sec-canvas" id="cv-learn" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.3"></canvas>
 <div class="panel-inner">
 <div class="learn-grid">
 <div class="learn-left">
@@ -298,6 +367,7 @@ footer{border-top:1px solid var(--bdr);padding:32px 0;position:relative;z-index:
 
 <!-- TOKEN -->
 <section class="panel token-panel" id="token">
+<canvas class="sec-canvas" id="cv-token" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.25"></canvas>
 <div class="panel-inner">
 <div class="tok-center">
 <h2 class="rv"><span>$TAU</span></h2>
@@ -514,6 +584,167 @@ resize();draw();
 window.addEventListener('resize',resize);
 window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 window.addEventListener('mouseleave',()=>{mx=-1;my=-1});
+})();
+
+// ── SECTION GEOMETRIC ANIMATIONS ──
+(function(){
+const PI=Math.PI,cos=Math.cos,sin=Math.sin;
+function proj(v,s,ox,oy){const p=3.5,z=v[2]+p,f=p/z*s;return[v[0]*f+ox,v[1]*f+oy,f]}
+function rY(v,a){const c=cos(a),s=sin(a);return[v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c]}
+function rX(v,a){const c=cos(a),s=sin(a);return[v[0],v[1]*c-v[2]*s,v[1]*s+v[2]*c]}
+
+// ── WHAT: Slowly rotating octahedron with pulsing vertices
+(function(){
+const c=document.getElementById('cv-what');if(!c)return;
+const x=c.getContext('2d');
+const verts=[[0,1,0],[0,-1,0],[1,0,0],[-1,0,0],[0,0,1],[0,0,-1]];
+const edges=[[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,4],[4,3],[3,5],[5,2]];
+let t=0;
+function draw(){
+t+=.004;
+c.width=c.offsetWidth;c.height=c.offsetHeight;
+const w=c.width,h=c.height,sc=Math.min(w,h)*.12;
+const ox=w*.15,oy=h*.5;
+const pts=verts.map(v=>{let r=rY([...v],t*.6);r=rX(r,t*.4+.5);return proj(r,sc,ox,oy)});
+x.lineWidth=.6;
+for(const[a,b]of edges){
+x.beginPath();x.moveTo(pts[a][0],pts[a][1]);x.lineTo(pts[b][0],pts[b][1]);
+x.strokeStyle='rgba(0,219,188,.2)';x.stroke();
+}
+for(let i=0;i<pts.length;i++){
+const pulse=1+sin(t*3+i)*.3;
+const sz=2*pulse;
+x.beginPath();x.arc(pts[i][0],pts[i][1],sz,0,PI*2);
+x.fillStyle=`rgba(0,219,188,${(.3+sin(t*2+i)*.15).toFixed(2)})`;x.fill();
+}
+requestAnimationFrame(draw);
+}
+draw();
+})();
+
+// ── HOW: Flowing grid of dots that warp like a matrix transformation
+(function(){
+const c=document.getElementById('cv-how');if(!c)return;
+const x=c.getContext('2d');
+let t=0;
+function draw(){
+t+=.006;
+c.width=c.offsetWidth;c.height=c.offsetHeight;
+const w=c.width,h=c.height;
+const cols=20,rows=12,gx=w/(cols+1),gy=h/(rows+1);
+for(let i=1;i<=cols;i++){
+for(let j=1;j<=rows;j++){
+const bx=i*gx,by=j*gy;
+// eigenvalue-like warp: stretch along one axis, compress along another
+const dx=sin(t+i*.3+j*.2)*12;
+const dy=cos(t*.7+j*.4+i*.15)*8;
+const px=bx+dx,py=by+dy;
+const dist=Math.sqrt((px-w*.8)**2+(py-h*.5)**2);
+const bright=Math.max(.05,Math.min(.2,.25-dist/(w*.6)));
+x.beginPath();x.arc(px,py,1.2,0,PI*2);
+x.fillStyle=`rgba(0,219,188,${bright.toFixed(3)})`;x.fill();
+}
+}
+// draw a few flowing eigenvector lines
+for(let k=0;k<3;k++){
+x.beginPath();
+const startY=h*(.25+k*.25);
+for(let i=0;i<w;i+=4){
+const y=startY+sin(i*.008+t*2+k)*30*sin(t+k);
+if(i===0)x.moveTo(i,y);else x.lineTo(i,y);
+}
+x.strokeStyle=`rgba(0,219,188,${(.04+k*.01).toFixed(2)})`;
+x.lineWidth=.5;x.stroke();
+}
+requestAnimationFrame(draw);
+}
+draw();
+})();
+
+// ── LEARN: Spirograph / Lissajous curve drawing itself
+(function(){
+const c=document.getElementById('cv-learn');if(!c)return;
+const x=c.getContext('2d');
+let t=0;
+function draw(){
+t+=.003;
+c.width=c.offsetWidth;c.height=c.offsetHeight;
+const w=c.width,h=c.height;
+const cx=w*.85,cy=h*.5,sc=Math.min(w,h)*.15;
+// Lissajous curves
+for(let k=0;k<3;k++){
+x.beginPath();
+const a=3+k,b=2+k,d=t+k*PI/3;
+for(let i=0;i<300;i++){
+const angle=i/300*PI*2;
+const px=cx+sin(a*angle+d)*sc*(1-k*.2);
+const py=cy+sin(b*angle)*sc*(1-k*.2);
+if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
+}
+x.closePath();
+x.strokeStyle=`rgba(0,219,188,${(.12-.03*k).toFixed(2)})`;
+x.lineWidth=.6;x.stroke();
+}
+// rotating point on the curve
+const angle=t*8;
+const px=cx+sin(3*angle+t)*sc;
+const py=cy+sin(2*angle)*sc;
+const g=x.createRadialGradient(px,py,0,px,py,8);
+g.addColorStop(0,'rgba(0,219,188,.4)');g.addColorStop(1,'rgba(0,219,188,0)');
+x.beginPath();x.arc(px,py,8,0,PI*2);x.fillStyle=g;x.fill();
+x.beginPath();x.arc(px,py,2,0,PI*2);x.fillStyle='rgba(0,219,188,.6)';x.fill();
+requestAnimationFrame(draw);
+}
+draw();
+})();
+
+// ── TOKEN: Rotating torus wireframe
+(function(){
+const c=document.getElementById('cv-token');if(!c)return;
+const x=c.getContext('2d');
+let t=0;
+function draw(){
+t+=.005;
+c.width=c.offsetWidth;c.height=c.offsetHeight;
+const w=c.width,h=c.height;
+const cx=w*.5,cy=h*.5,R=Math.min(w,h)*.12,r=R*.35;
+const segsU=24,segsV=12;
+const pts=[];
+for(let i=0;i<segsU;i++){
+for(let j=0;j<segsV;j++){
+const u=i/segsU*PI*2,v=j/segsV*PI*2;
+let px=(R+r*cos(v))*cos(u);
+let py=(R+r*cos(v))*sin(u);
+let pz=r*sin(v);
+// rotate
+let r1=rY([px,py,pz],t*.7);r1=rX(r1,t*.5+.8);
+const p=proj(r1,1,cx,cy);
+pts.push(p);
+}
+}
+// draw rings
+x.lineWidth=.4;
+for(let i=0;i<segsU;i++){
+x.beginPath();
+for(let j=0;j<=segsV;j++){
+const idx=i*segsV+(j%segsV);
+const p=pts[idx];
+if(j===0)x.moveTo(p[0],p[1]);else x.lineTo(p[0],p[1]);
+}
+x.strokeStyle='rgba(0,219,188,.08)';x.stroke();
+}
+for(let j=0;j<segsV;j++){
+x.beginPath();
+for(let i=0;i<=segsU;i++){
+const idx=(i%segsU)*segsV+j;
+const p=pts[idx];
+if(i===0)x.moveTo(p[0],p[1]);else x.lineTo(p[0],p[1]);
+}
+x.strokeStyle='rgba(0,219,188,.06)';x.stroke();
+}
+requestAnimationFrame(draw);
+}
+draw();
 })();
 
 // ── SCROLL REVEALS ──
